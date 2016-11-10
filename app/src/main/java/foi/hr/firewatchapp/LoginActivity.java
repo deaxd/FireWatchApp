@@ -6,9 +6,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class LoginActivity extends AppCompatActivity {
 
-    private Button btnLogin;
+    @BindView(R.id.btn_login)
+    Button btnLogin;
     private Button btnRegister;
 
     @Override
@@ -16,7 +20,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        btnLogin = (Button) findViewById(R.id.btn_login);
+        ButterKnife.bind(this);
+
         btnRegister = (Button) findViewById(R.id.btn_register);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
