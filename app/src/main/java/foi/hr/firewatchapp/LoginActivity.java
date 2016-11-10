@@ -13,7 +13,9 @@ public class LoginActivity extends AppCompatActivity {
 
     @BindView(R.id.btn_login)
     Button btnLogin;
-    private Button btnRegister;
+
+    @BindView(R.id.btn_register)
+    Button btnRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,12 +24,16 @@ public class LoginActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        btnRegister = (Button) findViewById(R.id.btn_register);
-
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getBaseContext(), MainActivity.class));
+            }
+        });
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getBaseContext(), RegistrationActivity.class));
             }
         });
 

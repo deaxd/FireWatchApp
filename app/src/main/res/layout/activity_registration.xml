@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/activity_registration"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        tools:context="foi.hr.firewatchapp.RegistrationActivity">
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_title"
+            android:text="Registriraj se!"
+            android:textSize="28dp"/>
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/et_reg_username"
+            android:layout_below="@id/tv_title"
+            android:hint="Korisnicko ime"/>
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/et_reg_password"
+            android:layout_below="@+id/et_reg_username"
+            android:hint="Lozinka"
+            android:inputType="textPassword"/>
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/et_reg_repassword"
+            android:layout_below="@id/et_reg_password"
+            android:hint="Ponovite lozinku"
+            android:inputType="textPassword"/>
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/et_reg_name"
+            android:layout_below="@+id/et_reg_repassword"
+            android:hint="Ime"/>
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/et_reg_surname"
+            android:layout_below="@+id/et_reg_name"
+            android:hint="Prezime"/>
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/et_reg_address"
+            android:layout_below="@id/et_reg_surname"
+            android:hint="Adresa"/>
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/et_reg_telephone"
+            android:layout_below="@+id/et_reg_address"
+            android:hint="Telefon"/>
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/et_reg_email"
+            android:layout_below="@+id/et_reg_telephone"
+            android:hint="Email"/>
+    <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_reg_register"
+            android:layout_alignParentBottom="true"
+            android:text="Registriraj se"/>
+
+</RelativeLayout>
