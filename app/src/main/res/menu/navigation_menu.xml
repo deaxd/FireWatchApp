@@ -2,18 +2,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:id="@+id/nav_intervention"
+        android:icon="@drawable/ic_reports"
         android:title="Intervencije"/>
 
     <item android:id="@+id/nav_members"
+        android:icon="@drawable/ic_members"
         android:title="Članovi"/>
 
     <item android:id="@+id/nav_drive"
+        android:icon="@drawable/ic_vehicles"
         android:title="Vozila"/>
 
     <item android:id="@+id/nav_equip"
+        android:icon="@drawable/ic_equipment"
         android:title="Oprema"/>
 
     <item android:id="@+id/nav_stat"
+        android:icon="@drawable/ic_statistics"
         android:title="Statistika"/>
 
 </menu>

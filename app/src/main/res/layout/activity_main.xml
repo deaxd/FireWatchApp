@@ -10,14 +10,22 @@
 
 
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
 
+        <include layout="@layout/navigation_action"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="MainActivity text"/>
+            android:text="Dobro došli u aplikaciju FireWatchApp!"
+            android:layout_gravity="center_horizontal"
+            android:paddingTop="25dp" />
 
     </LinearLayout>
 
@@ -25,7 +33,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:menu="@menu/navigation_menu"
-        android:layout_gravity="start">
+        android:layout_gravity="start"
+        app:headerLayout="@layout/navigation_header">
 
     </android.support.design.widget.NavigationView>
 
