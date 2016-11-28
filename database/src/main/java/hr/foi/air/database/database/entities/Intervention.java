@@ -135,6 +135,10 @@ public class Intervention extends BaseModel {
         this.fireman = fireman;
     }
 
+    public static List<Intervention> getAll(){
+        return SQLite.select().from(Intervention.class).queryList();
+    }
+
     @OneToMany(methods = {OneToMany.Method.ALL}, variableName = "equipmentsOnIntervention")
     public List<Equipment> getEquipmentsOnIntervention(){
                 equipmentsOnIntervention = SQLite.select().from(Equipment.class).join(EquipmentOnIntervention.class, Join.JoinType.INNER)

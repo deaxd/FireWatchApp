@@ -3,4 +3,6 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="detalji_intervencije_x">Detalji intervencije X</string>
+    <string name="popis_intervencija">Popis_intervencija</string>
 </resources>
