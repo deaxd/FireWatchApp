@@ -3,11 +3,92 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.hfad.report.InterventionSubmitFragment">
-
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:text="Dodavanje novog izvještaja" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Vrsta intervencije" />
+
+        <EditText
+            android:layout_width="346dp"
+            android:layout_height="28dp"
+            android:inputType="textPersonName"
+            android:text=""
+            android:ems="10"
+            android:id="@+id/vrsta_intervencije" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Adresa" />
+
+        <EditText
+            android:layout_width="346dp"
+            android:layout_height="28dp"
+            android:inputType="textPersonName"
+            android:text=""
+            android:ems="10"
+            android:id="@+id/adresa_intervencije" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Vrijeme" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:ems="10"
+            android:id="@+id/datum" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="time"
+            android:ems="10"
+            android:id="@+id/vrijeme" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Trajanje" />
+
+        <EditText
+            android:layout_width="346dp"
+            android:layout_height="28dp"
+            android:inputType="textPersonName"
+            android:text=""
+            android:ems="10"
+            android:id="@+id/trajanje_intervencije" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Opis intervencije" />
+
+        <EditText
+            android:layout_width="346dp"
+            android:layout_height="28dp"
+            android:inputType="textPersonName"
+            android:text=""
+            android:ems="10"
+            android:id="@+id/opis_intervencije" />
+
+
+    </LinearLayout>
+
+
+
 
 </FrameLayout>
