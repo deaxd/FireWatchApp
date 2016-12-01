@@ -21,13 +21,13 @@ if(isset($_POST['username']) && isset($_POST['password'])){
         if($user['password'] == $password){
             $response['valid'] = true;
             $response['text'] = "Success";
-            $response['items']['oib'] = $user['oib'];
-            $response['items']['name'] = $user['name'];
-            $response['items']['surname'] = $user['surname'];
-            $response['items']['organizationId'] = $user['organizationId'];
-            $response['items']['username'] = $user['username'];
-            $response['items']['password'] = $user['password'];
-            $response['items']['lieutenant'] = $user['lieutenant'];
+            $response['oib'] = $user['oib'];
+            $response['name'] = $user['name'];
+            $response['surname'] = $user['surname'];
+            $response['organizationId'] = $user['organizationId'];
+            $response['username'] = $user['username'];
+            $response['password'] = $user['password'];
+            $response['lieutenant'] = $user['lieutenant'];
 
         }
     }

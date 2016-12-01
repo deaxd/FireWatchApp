@@ -1,8 +1,10 @@
 package hr.foi.air.webservice;
 
+import android.content.Intent;
+
 import com.squareup.okhttp.OkHttpClient;
 
-import hr.foi.air.webservice.Responses.WebServiceResponse;
+import hr.foi.air.webservice.Responses.LoginResponse;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.GsonConverterFactory;
@@ -14,30 +16,29 @@ import retrofit.Retrofit;
 
 public class WebServiceCaller {
     Retrofit retrofit;
-
     private final String baseUrl = "http://firewatch.esy.es/";
-
     public WebServiceCaller() {
 
         OkHttpClient client = new OkHttpClient();
 
         this.retrofit = new Retrofit.Builder().baseUrl(baseUrl)
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(client).build();
-    }
+    .addConverterFactory(GsonConverterFactory.create())
+            .client(client).build();
+}
 
-    public void login(String username, String password){
+    public void login(String username, String password) {
 
         WebService service = retrofit.create(WebService.class);
-        Call<WebServiceResponse> call = service.login(username, password);
+        Call<LoginResponse> call = service.login(username, password);
+
         if(call != null){
-            call.enqueue(new Callback<WebServiceResponse>() {
+            call.enqueue(new Callback<LoginResponse>() {
                 @Override
-                public void onResponse(retrofit.Response<WebServiceResponse> response, Retrofit retrofit) {
+                public void onResponse(retrofit.Response<LoginResponse> response, Retrofit retrofit) {
                     try {
                         if (response.isSuccess()) {
                             System.out.println("Login ok");
-                        } else {
+
                             System.out.println("Wrong operation");
                         }
 
@@ -51,8 +52,6 @@ public class WebServiceCaller {
 
                 }
             });
-
         }
     }
-
 }

@@ -37,9 +37,8 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 WebServiceCaller webServiceCaller = new WebServiceCaller();
                 webServiceCaller.login(username.getText().toString(), password.getText().toString());
-                System.out.println(username.getText().toString());
-                System.out.println(password.getText().toString());
                 startActivity(new Intent(getBaseContext(), MainActivity.class));
+
             }
         });
         btnRegister.setOnClickListener(new View.OnClickListener() {

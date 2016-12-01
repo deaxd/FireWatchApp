@@ -1,6 +1,6 @@
 package hr.foi.air.webservice;
 
-import hr.foi.air.webservice.Responses.WebServiceResponse;
+import hr.foi.air.webservice.Responses.LoginResponse;
 import retrofit.Call;
 import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
@@ -14,6 +14,6 @@ public interface WebService {
 
     @FormUrlEncoded
     @POST("login.php")
-    Call<WebServiceResponse> login(@Field("username") String username, @Field("password") String password);
+    Call<LoginResponse> login(@Field("username") String username, @Field("password") String password);
 
 }
