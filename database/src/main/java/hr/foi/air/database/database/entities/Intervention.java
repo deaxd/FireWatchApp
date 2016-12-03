@@ -159,7 +159,7 @@ public class Intervention extends BaseModel {
     }
 
     @OneToMany(methods = {OneToMany.Method.ALL}, variableName = "firemansOnIntervention")
-    public List<Fireman> getFiremensOnIntervention(){
+    public List<Fireman> getFiremansOnIntervention(){
         firemansOnIntervention = SQLite.select().from(Fireman.class).join(FiremanOnIntervention.class, Join.JoinType.INNER)
         .on(Fireman_Table.oib.withTable().eq(FiremanOnIntervention_Table.fireman_oib.withTable()))
         .join(Intervention.class, Join.JoinType.INNER).on(FiremanOnIntervention_Table.intervention_interventionId.withTable()

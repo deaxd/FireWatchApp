@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 import foi.hr.firewatchapp.loaders.DBDataLoader;
 import hr.foi.air.database.database.entities.Intervention;
-
+import hr.foi.air.database.database.entities.User;
 
 
 /**
@@ -94,9 +94,13 @@ public class NavManager implements DataLoadedListener, ReadyForDataListener {
 
 
     @Override
-    public void onDataLoaded(ArrayList<Intervention> interventions) {
+    public void onInterventionLoaded(ArrayList<Intervention> interventions) {
         this.interventions=interventions;
         this.dataLoadedFlag=true;
+    }
+
+    public void onUserLoaded(User user){
+        
     }
 
     @Override

@@ -19,7 +19,7 @@ public class DBDataLoader extends DataLoader {
          try {
              interventions=(ArrayList<Intervention>) Intervention.getAll();
 
-             mDataLoadedListener.onDataLoaded(interventions);
+             mDataLoadedListener.onInterventionLoaded(interventions);
          } catch (NullPointerException e){
              e.printStackTrace();
          }

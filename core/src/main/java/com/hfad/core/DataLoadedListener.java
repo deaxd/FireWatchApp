@@ -7,7 +7,9 @@ package com.hfad.core;
 import java.util.ArrayList;
 
 import hr.foi.air.database.database.entities.Intervention;
+import hr.foi.air.database.database.entities.User;
 
 public interface DataLoadedListener {
-    void onDataLoaded(ArrayList<Intervention> interventions);
+    void onInterventionLoaded(ArrayList<Intervention> interventions);
+    void onUserLoaded(User user);
 }

@@ -15,8 +15,7 @@ import hr.foi.air.database.database.FireWatchDB;
 public class Fireman extends BaseModel{
 
     @PrimaryKey(autoincrement = false)
-    @Column
-    String oib;
+    @Column String oib;
     @Column String name;
     @Column String surname;
     @Column String username;
