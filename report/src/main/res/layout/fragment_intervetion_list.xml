@@ -1,14 +1,27 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.hfad.report.IntervetionListFragment">
+    tools:context="com.hfad.report.IntervetionListFragment"
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
+
     <TextView
+        android:paddingTop="5dp"
+        android:layout_marginLeft="5dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/popis_intervencija"
-        android:id="@+id/textView" />
+        android:layout_height="wrap_content"
+        android:text="@string/intervenion_list" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_intervention"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:linksClickable="true"
+        android:paddingTop="30dp"
+        android:layout_marginLeft="5dp"
+        />
+
 
 </FrameLayout>

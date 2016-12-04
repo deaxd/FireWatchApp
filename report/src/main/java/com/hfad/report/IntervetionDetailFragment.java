@@ -3,106 +3,65 @@ package com.hfad.report;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+import android.widget.TextView;
 
+import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link IntervetionDetailFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link IntervetionDetailFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import hr.foi.air.database.database.entities.Intervention;
+
 public class IntervetionDetailFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
+    public IntervetionDetailFragment(){
 
-    public IntervetionDetailFragment() {
-        // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment IntervetionDetailFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static IntervetionDetailFragment newInstance(String param1, String param2) {
-        IntervetionDetailFragment fragment = new IntervetionDetailFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+   @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+       return inflater.inflate(R.layout.fragment_intervetion_detail, container, false);
+   }
+
+    // TODO onViewCreated need a return type ???
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    public void onViewCreated(View view, Bundle savedInstanceState){
+        super.onViewCreated(view, savedInstanceState);
+        TextView txtType = (TextView) getView().findViewById(R.id.type_of_int);
+        TextView txtAddress = (TextView) getView().findViewById(R.id.address_int);
+        TextView txtInitialTime = (TextView) getView().findViewById(R.id.initial_time_int);
+        TextView txtDuration = (TextView) getView().findViewById(R.id.duration_int);
+        TextView txtDescription = (TextView) getView().findViewById(R.id.description_int);
+        TextView txtLongitude = (TextView) getView().findViewById(R.id.longitude_int);
+        TextView txtLatitude = (TextView) getView().findViewById(R.id.latitude_int);
+
+        // TODO check pulling a lists of firemans and vehicles on intervention
+        TextView txtFireman = (TextView) getView().findViewById(R.id.fireman_int);
+        TextView txtVehicles = (TextView) getView().findViewById(R.id.vehicles_int);
+
+        Bundle data = getArguments();
+        int interventionId = data.getInt("id", -1);
+
+        if(interventionId != -1){
+            Intervention intervention = Intervention.getInterventionById(interventionId);
+
+            txtType.setText(intervention.getKindOfIntervention());
+            txtAddress.setText(intervention.getAddress());
+            txtInitialTime.setText(intervention.getInitialTIme());
+            txtDuration.setText(intervention.getDuration());
+            txtDescription.setText(intervention.getDescription());
+            txtLongitude.setText(intervention.getLongitude());
+            txtLatitude.setText(intervention.getLatitude());
+
+            //txtFireman.setText(intervention.getFiremansOnIntervention());
+            //txtVehicles.setText(intervention.getVehiclesOnIntervention());
         }
-    }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_intervetion_detail, container, false);
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
     }
 }

@@ -110,9 +110,29 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
     @Override
     public void onBackStackChanged() {
-
+        mToggle.setDrawerIndicatorEnabled(mFragmentManager.getBackStackEntryCount()==0);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(mFragmentManager.getBackStackEntryCount()>0);
+        mToggle.syncState();
     }
 
+
+    @Override
+    public void onBackPressed(){
+        if(mFragmentManager.getBackStackEntryCount() != 0){
+            if(mDrawer.isDrawerOpen(GravityCompat.START)){
+                mDrawer.closeDrawer(GravityCompat.START);
+            }else{
+                mFragmentManager.popBackStack();
+            }
+        }else{
+            if(mDrawer.isDrawerOpen(GravityCompat.START)){
+                mDrawer.closeDrawer(GravityCompat.START);
+            }else{
+                super.onBackPressed();
+            }
+        }
+
+    }
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {

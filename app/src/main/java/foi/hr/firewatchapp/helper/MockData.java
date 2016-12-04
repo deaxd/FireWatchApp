@@ -1,6 +1,7 @@
 package foi.hr.firewatchapp.helper;
 
 import hr.foi.air.database.database.entities.Fireman;
+import hr.foi.air.database.database.entities.Intervention;
 import hr.foi.air.database.database.entities.Organization;
 
 /**
@@ -56,6 +57,12 @@ public class MockData {
             clan3.save();
 
 
+            Intervention intervention1  = new Intervention();
+            intervention1.setKindOfIntervention("Požar krovišta");
+            intervention1.setAddress("Čakovečka 3");
+            intervention1.setInitialTIme("12:14");
+            intervention1.setDuration(1);
+            intervention1.setDescription("Požar na gredi uz dimnjak");
 
         }
 }

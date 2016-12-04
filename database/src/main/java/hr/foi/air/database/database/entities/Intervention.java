@@ -139,6 +139,10 @@ public class Intervention extends BaseModel {
         return SQLite.select().from(Intervention.class).queryList();
     }
 
+    public static Intervention getInterventionById(int id){
+        return SQLite.select().from(Intervention.class).where(Intervention_Table.interventionId.eq(id)).querySingle();
+    }
+
     @OneToMany(methods = {OneToMany.Method.ALL}, variableName = "equipmentsOnIntervention")
     public List<Equipment> getEquipmentsOnIntervention(){
                 equipmentsOnIntervention = SQLite.select().from(Equipment.class).join(EquipmentOnIntervention.class, Join.JoinType.INNER)
