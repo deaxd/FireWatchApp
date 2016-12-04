@@ -86,7 +86,7 @@ public class NavManager implements DataLoadedListener, ReadyForDataListener {
         FragmentManager fragmentManager = mHandlerActivity.getFragmentManager();
         fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         fragmentManager.beginTransaction()
-                .replace(R.id.activity_main, clickedItem.getFragment())
+                .replace(R.id.fragment_content, clickedItem.getFragment())
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .commit();
     }
