@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         NavManager nm = NavManager.getInstance();
         nm.setDependencies(this, mDrawer, mNavigationView, R.id.dynamic_group);
         nm.addItem( new IntervetionListFragment());
+
         //nm.showDefaultFragment();
 
         MockData.writeAll();

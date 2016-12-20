@@ -7,6 +7,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+
+import hr.foi.air.database.database.entities.Intervention;
 
 
 /**
@@ -26,6 +30,8 @@ public class InterventionSubmitFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -57,6 +63,9 @@ public class InterventionSubmitFragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
+
+
         }
     }
 
@@ -64,7 +73,44 @@ public class InterventionSubmitFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_intervention_submit, container, false);
+       View v= inflater.inflate(R.layout.fragment_intervention_submit, container, false);
+
+        final EditText desc = (EditText) v.findViewById(R.id.opis_intervencije);
+        final String description = desc.getText().toString();
+
+        final EditText adresa = (EditText) v.findViewById(R.id.adresa_intervencije);
+        final String adress = adresa.getText().toString();
+
+        final EditText timel = (EditText) v.findViewById(R.id.vrijeme);
+        final String time = timel.getText().toString();
+
+        final EditText duratio = (EditText) v.findViewById(R.id.vrijeme);
+        final String duration = duratio.getText().toString();
+        final int fduration=Integer.parseInt(duration);
+
+        final EditText spec = (EditText) v.findViewById(R.id.vrsta_intervencije);
+        final String specs = spec.getText().toString();
+
+        final Button button = (Button) v.findViewById(R.id.predaj);
+
+        button.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intervention intervention1  = new Intervention();
+                intervention1.setKindOfIntervention(specs);
+                intervention1.setAddress(adress);
+                intervention1.setInitialTIme(time);
+                intervention1.setDuration(fduration);
+                intervention1.setDescription(description);
+                //intervention1.save();
+            }
+        });
+
+        return v;
+
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
