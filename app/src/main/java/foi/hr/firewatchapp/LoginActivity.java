@@ -7,8 +7,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.raizlabs.android.dbflow.config.FlowConfig;
+import com.raizlabs.android.dbflow.config.FlowManager;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import hr.foi.air.database.database.entities.User;
 import hr.foi.air.webservice.WebServiceCaller;
 
 public class LoginActivity extends AppCompatActivity {
@@ -27,6 +32,13 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        FlowManager.init(new FlowConfig.Builder(this).build());
+
+        long login;
+        login = SQLite.select().from(User.class).query().getCount();
+        //zbog lakšeg provjeravanje aplikacije logira se direktno
+        //if(login >0)  startActivity(new Intent(getBaseContext(), MainActivity.class));
+        startActivity(new Intent(getBaseContext(), MainActivity.class));
         ButterKnife.bind(this);
         username = (EditText) findViewById(R.id.et_username);
         password = (EditText) findViewById(R.id.et_password);
@@ -37,7 +49,9 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 WebServiceCaller webServiceCaller = new WebServiceCaller();
                 webServiceCaller.login(username.getText().toString(), password.getText().toString());
-                startActivity(new Intent(getBaseContext(), MainActivity.class));
+                long login;
+                login = SQLite.select().from(User.class).query().getCount();
+                //if(login >0)  startActivity(new Intent(getBaseContext(), MainActivity.class));
 
             }
         });

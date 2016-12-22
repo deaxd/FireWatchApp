@@ -4,6 +4,7 @@ import android.content.Intent;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Response;
 
@@ -39,7 +40,6 @@ public class WebServiceCaller {
 }
 
     public void login(String username, String password) {
-
         WebService service = retrofit.create(WebService.class);
         Call<LoginResponse> call = service.login(username, password);
 
@@ -49,9 +49,6 @@ public class WebServiceCaller {
                 public void onResponse(retrofit.Response<LoginResponse> response, Retrofit retrofit) {
                     try {
                         if (response.isSuccess()) {
-                            System.out.println("Login ok");
-                            System.out.println(response.body());
-                            LoginResponse lr = (LoginResponse)response.body();
                             handleLogin(response);
 
                         }
@@ -72,17 +69,31 @@ public class WebServiceCaller {
         }
     }
 
-    private void handleLogin(retrofit.Response<LoginResponse> response){
+    private void handleLogin(retrofit.Response<LoginResponse> response) {
         Gson gson = new GsonBuilder()
                 .setDateFormat("yyyy-MM-dd")
                 .create();
-        User[] user = gson.fromJson(response.body().getUser().getUserOib(), User[].class);
 
-        if(webServiceHandler != null){
-            webServiceHandler.onDataArrived(user, true);
+        if (response.body().getValid()){
+
+            User user = new User();
+
+            user.setUserOib(gson.fromJson(response.body().getUser().getUserOib(), String.class));
+            user.setUserName(gson.fromJson(response.body().getUser().getUserName(), String.class));
+            user.setUserSurname(gson.fromJson(response.body().getUser().getUserSurname(), String.class));
+            user.setUserUsername(gson.fromJson(response.body().getUser().getUserUsername(), String.class));
+            user.setUserPassword(gson.fromJson(response.body().getUser().getUserPassword(), String.class));
+            user.setUserOrganization(gson.fromJson(response.body().getUser().getUserOrganization(), String.class));
+            user.setUserLieutenant(gson.fromJson(response.body().getUser().getUserLieutenant(), String.class));
+            user.save();
+
+
+            if (webServiceHandler != null) {
+                webServiceHandler.onDataArrived(user, true);
+            }
+
         }
+
     }
-
-
 
 }

@@ -13,22 +13,28 @@ import hr.foi.air.database.database.FireWatchDB;
  * Created by Denis on 3.12.2016..
  */
 @Table(database = FireWatchDB.class)
-public class User extends BaseModel{
+public class User extends BaseModel {
     @PrimaryKey(autoincrement = false)
-    @Column String userOib;
-    @Column String userName;
-    @Column String userSurname;
-    @Column String userUsername;
-    @Column String userPassword;
-    @Column boolean userLieutenant;
+    @Column
+    String userOib;
+    @Column
+    String userName;
+    @Column
+    String userSurname;
+    @Column
+    String userUsername;
+    @Column
+    String userPassword;
+    @Column
+    String userLieutenant;
 
-    @Column @ForeignKey(tableClass = Organization.class)
-    Organization userOrganization;
+    @Column
+    String userOrganization;
 
     public User() {
     }
 
-    public User(String userOib, String userName, String userSurname, String userUsername, String userPassword, boolean userLieutenant, Organization userOrganization) {
+    public User(String userOib, String userName, String userSurname, String userUsername, String userPassword, String userLieutenant, String userOrganization) {
         this.userOib = userOib;
         this.userName = userName;
         this.userSurname = userSurname;
@@ -38,7 +44,7 @@ public class User extends BaseModel{
         this.userOrganization = userOrganization;
     }
 
-    public static User getUser(){
+    public static User getUser() {
         return SQLite.select().from(User.class).querySingle();
     }
 
@@ -82,19 +88,19 @@ public class User extends BaseModel{
         this.userPassword = userPassword;
     }
 
-    public boolean isUserLieutenant() {
+    public String getUserLieutenant() {
         return userLieutenant;
     }
 
-    public void setUserLieutenant(boolean userLieutenant) {
+    public void setUserLieutenant(String userLieutenant) {
         this.userLieutenant = userLieutenant;
     }
 
-    public Organization getUserOrganization() {
+    public String getUserOrganization() {
         return userOrganization;
     }
 
-    public void setUserOrganization(Organization userOrganization) {
+    public void setUserOrganization(String userOrganization) {
         this.userOrganization = userOrganization;
     }
 }

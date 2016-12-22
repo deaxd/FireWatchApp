@@ -10,5 +10,5 @@ import com.raizlabs.android.dbflow.annotation.Database;
 @Database(name = FireWatchDB.NAME, version = FireWatchDB.VERSION)
 public class FireWatchDB {
     public static final String NAME = "FireWatchDB";
-    public static final int VERSION = 1;
+    public static final int VERSION = 3;
 }
