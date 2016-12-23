@@ -9,4 +9,11 @@
     <string name="kindoveh">Vrsta vozila</string>
     <string name="organ">Organizacija</string>
     <string name="predaj">Predaj</string>
+
+    <string name="eqiupname">Naziv opreme</string>
+    <string name="quantity">Količina</string>
+    <string name="submit">Šalji</string>
+
+
+
 </resources>

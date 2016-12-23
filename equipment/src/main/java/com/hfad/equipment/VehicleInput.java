@@ -9,7 +9,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.raizlabs.android.dbflow.sql.language.SQLite;
+
 import hr.foi.air.database.database.entities.Intervention;
+import hr.foi.air.database.database.entities.Organization;
+import hr.foi.air.database.database.entities.Organization_Table;
+import hr.foi.air.database.database.entities.User;
 import hr.foi.air.database.database.entities.Vehicle;
 
 
@@ -54,12 +59,18 @@ public class VehicleInput extends Fragment {
             @Override
             public void onClick(View v)
             {
+                User user;
+                user = SQLite.select().from(User.class).querySingle();
+
+                Organization organization;
+                organization = SQLite.select().from(Organization.class).where(Organization_Table.organizationId.eq(Integer.parseInt(user.getUserOrganization()))).querySingle();
+
                 Vehicle vehicle1  = new Vehicle();
                 vehicle1.setName(vehiname);
                 vehicle1.setSeatNumber(pseatnumber);
                 vehicle1.setWaterVolume(pwatercap);
                 vehicle1.setKindOfVehicle(kind);
-                //vehicle1.setOrganization(organisation);
+                vehicle1.setOrganization(organization);
                 vehicle1.save();
             }
         });
