@@ -104,7 +104,7 @@ public class InterventionSubmitFragment extends Fragment {
                 intervention1.setInitialTIme(time);
                 intervention1.setDuration(fduration);
                 intervention1.setDescription(description);
-                //intervention1.save();
+                intervention1.save();
             }
         });
 
