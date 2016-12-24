@@ -8,7 +8,12 @@ import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Response;
 
+import java.lang.reflect.Array;
+import java.util.List;
+
+import hr.foi.air.database.database.entities.Intervention;
 import hr.foi.air.database.database.entities.User;
+import hr.foi.air.webservice.Responses.InterventionResponse;
 import hr.foi.air.webservice.Responses.LoginResponse;
 import retrofit.Call;
 import retrofit.Callback;
@@ -96,4 +101,44 @@ public class WebServiceCaller {
 
     }
 
+
+    public void getInterventions(String oib){
+        WebService service = retrofit.create(WebService.class);
+        Call<InterventionResponse> call = service.getInterventions(oib);
+
+        if(call !=null){
+            call.enqueue(new Callback<InterventionResponse>() {
+                @Override
+                public void onResponse(retrofit.Response<InterventionResponse> response, Retrofit retrofit) {
+                    try{
+                        if(response.isSuccess()){
+                            handleInterventions(response);
+                        }
+                    }
+                    catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(Throwable t) {
+                    t.printStackTrace();
+                }
+            });
+        }
+    }
+
+    public void handleInterventions(retrofit.Response<InterventionResponse> response){
+        Gson gson = new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd")
+                .create();
+        System.out.println("ru jw");
+
+        Intervention[] interventionList = gson.fromJson(response.body().getIntervention().toString(), Intervention[].class);
+        System.out.println(response.body().getIntervention());
+
+        if(webServiceHandler != null){
+            webServiceHandler.onDataArrived(interventionList, true);
+        }
+    }
 }

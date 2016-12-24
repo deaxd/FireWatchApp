@@ -54,7 +54,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         mDrawer = (DrawerLayout) findViewById(R.id.activity_main);
         mToggle = new ActionBarDrawerToggle(this, mDrawer, R.string.open, R.string.close);
 
-        FlowManager.init(new FlowConfig.Builder(this).build());
 
         mDrawer.addDrawerListener(mToggle);
         mToggle.syncState();

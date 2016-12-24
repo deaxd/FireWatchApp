@@ -29,8 +29,8 @@ public class Intervention extends BaseModel {
     @Column String initialTIme;
     @Column int duration ;
     @Column String description;
-    @Column int longitude;
-    @Column int latitude;
+    @Column float longitude;
+    @Column float latitude;
     @Column @ForeignKey(tableClass = Fireman.class)
     Fireman fireman;
 
@@ -42,7 +42,7 @@ public class Intervention extends BaseModel {
     }
 
     public Intervention(int interventionId, int alertNumber, String kindOfIntervention, String address,
-                        String initialTIme, int duration, String description, int longitude, int latitude, Fireman fireman) {
+                        String initialTIme, int duration, String description, float longitude, float latitude, Fireman fireman) {
         this.interventionId = interventionId;
         this.alertNumber = alertNumber;
         this.kindOfIntervention = kindOfIntervention;
@@ -111,19 +111,19 @@ public class Intervention extends BaseModel {
         this.description = description;
     }
 
-    public int getLongitude() {
+    public float getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(int longitude) {
+    public void setLongitude(float longitude) {
         this.longitude = longitude;
     }
 
-    public int getLatitude() {
+    public float getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(int latitude) {
+    public void setLatitude(float latitude) {
         this.latitude = latitude;
     }
 

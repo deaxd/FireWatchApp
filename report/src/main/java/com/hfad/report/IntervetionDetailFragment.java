@@ -56,8 +56,8 @@ public class IntervetionDetailFragment extends Fragment {
             txtInitialTime.setText(intervention.getInitialTIme());
             txtDuration.setText(intervention.getDuration());
             txtDescription.setText(intervention.getDescription());
-            txtLongitude.setText(intervention.getLongitude());
-            txtLatitude.setText(intervention.getLatitude());
+            //txtLongitude.setText(intervention.getLongitude());
+            //txtLatitude.setText(intervention.getLatitude());
 
             //txtFireman.setText(intervention.getFiremansOnIntervention());
             //txtVehicles.setText(intervention.getVehiclesOnIntervention());
