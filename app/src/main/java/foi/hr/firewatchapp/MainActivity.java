@@ -1,25 +1,21 @@
 package foi.hr.firewatchapp;
 
+import com.hfad.core.CurrentActivity;
+import com.raizlabs.android.dbflow.config.FlowConfig;
+import com.raizlabs.android.dbflow.config.FlowManager;
+
 import android.app.FragmentManager;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.content.res.Configuration;
-import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-
-import com.hfad.core.CurrentActivity;
-import com.hfad.core.NavItem;
-import com.hfad.report.IntervetionListFragment;
-import com.raizlabs.android.dbflow.config.FlowConfig;
-import com.raizlabs.android.dbflow.config.FlowManager;
 
 import butterknife.ButterKnife;
 import foi.hr.firewatchapp.helper.MockData;
@@ -70,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         NavManager nm = NavManager.getInstance();
         nm.setDependencies(this, mDrawer, mNavigationView, R.id.dynamic_group);
-        nm.addItem( new IntervetionListFragment());
+        //nm.addItem( new IntervetionListFragment());
 
         //nm.showDefaultFragment();
 

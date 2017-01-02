@@ -6,7 +6,6 @@ package foi.hr.firewatchapp.loaders;
 
 import com.hfad.core.DataLoadedListener;
 import com.hfad.core.DataLoader;
-import hr.foi.air.database.database.entities.Intervention;
 
 import java.util.ArrayList;
 
