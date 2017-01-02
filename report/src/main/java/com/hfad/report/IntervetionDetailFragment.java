@@ -28,8 +28,6 @@ public class IntervetionDetailFragment extends Fragment {
        return inflater.inflate(R.layout.fragment_intervetion_detail, container, false);
    }
 
-    // TODO onViewCreated need a return type ???
-
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);

@@ -6,4 +6,5 @@
     <string name="intervention_details">Detalji intervencije: </string>
     <string name="intervenion_list">Popis intervencija</string>
     <string name="predaj">Predaj</string>
+    <string name="open_int"><![CDATA[>]]></string>
 </resources>

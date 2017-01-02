@@ -22,6 +22,8 @@
         android:linksClickable="true"
         android:paddingTop="30dp"
         android:layout_marginLeft="5dp"
+        android:onClick="onClick"
+        android:clickable="true"
         />
 
 

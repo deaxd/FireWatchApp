@@ -63,7 +63,7 @@ public class MockData {
             //intervention1.setInitialTIme("12:14");
             intervention1.setDuration(1);
             intervention1.setDescription("Požar na gredi uz dimnjak");
-            //intervention1.save();
+            intervention1.save();
 
         }
 }
