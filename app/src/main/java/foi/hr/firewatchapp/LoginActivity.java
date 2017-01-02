@@ -56,8 +56,7 @@ public class LoginActivity extends AppCompatActivity {
                 webServiceCaller.login(username.getText().toString(), password.getText().toString());
                 long login;
                 login = SQLite.select().from(User.class).query().getCount();
-                //if(login >0)  startActivity(new Intent(getBaseContext(), MainActivity.class));
-
+                if(login >0)  startActivity(new Intent(getBaseContext(), MainActivity.class));
             }
         });
         btnRegister.setOnClickListener(new View.OnClickListener() {

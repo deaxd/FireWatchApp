@@ -36,4 +36,5 @@ dependencies {
     //compile project (':report')
     compile project (':webservice')
     compile project (':members')
+
 }

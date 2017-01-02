@@ -26,6 +26,8 @@ public class WebServiceCaller {
 
     private final String baseUrl = "http://firewatch.esy.es/";
 
+    private WebService webService;
+
     public WebServiceCaller(WebServiceHandler webServiceHandler) {
         this.webServiceHandler = webServiceHandler;
     }
@@ -37,11 +39,12 @@ public class WebServiceCaller {
         this.retrofit = new Retrofit.Builder().baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client).build();
+
+        webService = retrofit.create(WebService.class);
     }
 
     public void login(String username, String password) {
-        WebService service = retrofit.create(WebService.class);
-        Call<LoginResponse> call = service.login(username, password);
+        Call<LoginResponse> call = webService.login(username, password);
 
         if (call != null) {
             call.enqueue(new Callback<LoginResponse>() {
@@ -97,8 +100,7 @@ public class WebServiceCaller {
 
 
     public void getInterventions(String oib) {
-        WebService service = retrofit.create(WebService.class);
-        Call<InterventionResponse> call = service.getInterventions(oib);
+        Call<InterventionResponse> call = webService.getInterventions(oib);
 
         if (call != null) {
             call.enqueue(new Callback<InterventionResponse>() {
@@ -136,6 +138,6 @@ public class WebServiceCaller {
     }
 
     public void getMembers() {
-
+        
     }
 }
