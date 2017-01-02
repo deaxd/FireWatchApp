@@ -9,9 +9,12 @@ import hr.foi.air.database.database.entities.Intervention;
 import hr.foi.air.database.database.entities.User;
 import hr.foi.air.webservice.Responses.InterventionResponse;
 import hr.foi.air.webservice.Responses.LoginResponse;
+import hr.foi.air.webservice.Responses.MembersResponse;
+import hr.foi.air.webservice.listeners.MembersReceivedListener;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.GsonConverterFactory;
+import retrofit.Response;
 import retrofit.Retrofit;
 
 /**
@@ -127,7 +130,6 @@ public class WebServiceCaller {
         Gson gson = new GsonBuilder()
                 .setDateFormat("yyyy-MM-dd")
                 .create();
-        System.out.println("ru jw");
 
         Intervention[] interventionList = gson.fromJson(response.body().getIntervention().toString(), Intervention[].class);
         System.out.println(response.body().getIntervention());
@@ -137,7 +139,19 @@ public class WebServiceCaller {
         }
     }
 
-    public void getMembers() {
-        
+    public void getMembers(String oib, final MembersReceivedListener listener) {
+        Call<MembersResponse> call = webService.getMembers(oib);
+
+        call.enqueue(new Callback<MembersResponse>() {
+            @Override
+            public void onResponse(Response<MembersResponse> response, Retrofit retrofit) {
+                listener.onMembersFetched(response.body().getFiremenList());
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                listener.onError(t.getMessage());
+            }
+        });
     }
 }

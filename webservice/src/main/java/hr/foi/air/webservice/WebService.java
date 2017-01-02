@@ -2,6 +2,7 @@ package hr.foi.air.webservice;
 
 import hr.foi.air.webservice.Responses.InterventionResponse;
 import hr.foi.air.webservice.Responses.LoginResponse;
+import hr.foi.air.webservice.Responses.MembersResponse;
 import retrofit.Call;
 import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
@@ -21,4 +22,7 @@ public interface WebService {
     @POST("getInterventions.php")
     Call<InterventionResponse> getInterventions(@Field("oib") String oib);
 
+    @FormUrlEncoded
+    @POST("getMembers.php")
+    Call<MembersResponse> getMembers(@Field("oib") String oib);
 }
