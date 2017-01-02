@@ -1,15 +1,9 @@
 package hr.foi.air.webservice;
 
-import android.content.Intent;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.raizlabs.android.dbflow.sql.language.SQLite;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Response;
 
-import java.lang.reflect.Array;
-import java.util.List;
+import com.squareup.okhttp.OkHttpClient;
 
 import hr.foi.air.database.database.entities.Intervention;
 import hr.foi.air.database.database.entities.User;
@@ -29,6 +23,7 @@ public class WebServiceCaller {
     Retrofit retrofit;
 
     WebServiceHandler webServiceHandler;
+
     private final String baseUrl = "http://firewatch.esy.es/";
 
     public WebServiceCaller(WebServiceHandler webServiceHandler) {
@@ -40,15 +35,15 @@ public class WebServiceCaller {
         OkHttpClient client = new OkHttpClient();
 
         this.retrofit = new Retrofit.Builder().baseUrl(baseUrl)
-    .addConverterFactory(GsonConverterFactory.create())
-            .client(client).build();
-}
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client).build();
+    }
 
     public void login(String username, String password) {
         WebService service = retrofit.create(WebService.class);
         Call<LoginResponse> call = service.login(username, password);
 
-        if(call != null){
+        if (call != null) {
             call.enqueue(new Callback<LoginResponse>() {
                 @Override
                 public void onResponse(retrofit.Response<LoginResponse> response, Retrofit retrofit) {
@@ -56,8 +51,7 @@ public class WebServiceCaller {
                         if (response.isSuccess()) {
                             handleLogin(response);
 
-                        }
-                        else{
+                        } else {
                             System.out.println("Wrong operation");
                         }
 
@@ -65,6 +59,7 @@ public class WebServiceCaller {
                         e.printStackTrace();
                     }
                 }
+
                 @Override
                 public void onFailure(Throwable t) {
                     t.printStackTrace();
@@ -79,7 +74,7 @@ public class WebServiceCaller {
                 .setDateFormat("yyyy-MM-dd")
                 .create();
 
-        if (response.body().getValid()){
+        if (response.body().getValid()) {
 
             User user = new User();
 
@@ -92,7 +87,6 @@ public class WebServiceCaller {
             user.setUserLieutenant(gson.fromJson(response.body().getUser().getUserLieutenant(), String.class));
             user.save();
 
-
             if (webServiceHandler != null) {
                 webServiceHandler.onDataArrived(user, true);
             }
@@ -102,20 +96,19 @@ public class WebServiceCaller {
     }
 
 
-    public void getInterventions(String oib){
+    public void getInterventions(String oib) {
         WebService service = retrofit.create(WebService.class);
         Call<InterventionResponse> call = service.getInterventions(oib);
 
-        if(call !=null){
+        if (call != null) {
             call.enqueue(new Callback<InterventionResponse>() {
                 @Override
                 public void onResponse(retrofit.Response<InterventionResponse> response, Retrofit retrofit) {
-                    try{
-                        if(response.isSuccess()){
+                    try {
+                        if (response.isSuccess()) {
                             handleInterventions(response);
                         }
-                    }
-                    catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
@@ -128,7 +121,7 @@ public class WebServiceCaller {
         }
     }
 
-    public void handleInterventions(retrofit.Response<InterventionResponse> response){
+    public void handleInterventions(retrofit.Response<InterventionResponse> response) {
         Gson gson = new GsonBuilder()
                 .setDateFormat("yyyy-MM-dd")
                 .create();
@@ -137,8 +130,12 @@ public class WebServiceCaller {
         Intervention[] interventionList = gson.fromJson(response.body().getIntervention().toString(), Intervention[].class);
         System.out.println(response.body().getIntervention());
 
-        if(webServiceHandler != null){
+        if (webServiceHandler != null) {
             webServiceHandler.onDataArrived(interventionList, true);
         }
+    }
+
+    public void getMembers() {
+
     }
 }

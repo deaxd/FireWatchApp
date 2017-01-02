@@ -5,6 +5,7 @@ import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowManager;
 
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -18,18 +19,27 @@ import android.view.MenuItem;
 import android.view.View;
 
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import foi.hr.firewatchapp.helper.MockData;
+import foi.hr.members.MembersActivity;
 
-public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener,NavigationView.OnNavigationItemSelectedListener,FragmentManager.OnBackStackChangedListener {
+public class MainActivity extends AppCompatActivity
+        implements SharedPreferences.OnSharedPreferenceChangeListener, NavigationView.OnNavigationItemSelectedListener,
+        FragmentManager.OnBackStackChangedListener {
 
     private DrawerLayout mDrawerLayout;
-    private ActionBarDrawerToggle mToggle;
-    private Toolbar mToolbar;
-    private DrawerLayout mDrawer;
-    private NavigationView mNavigationView;
-    private FragmentManager mFragmentManager;
-    private SharedPreferences mSharedPreferences;
 
+    private ActionBarDrawerToggle mToggle;
+
+    private Toolbar mToolbar;
+
+    private DrawerLayout mDrawer;
+
+    private NavigationView mNavigationView;
+
+    private FragmentManager mFragmentManager;
+
+    private SharedPreferences mSharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,13 +53,11 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mSharedPreferences.registerOnSharedPreferenceChangeListener(this);
 
-
         mToolbar = (Toolbar) findViewById(R.id.nav_action);
         setSupportActionBar(mToolbar);
 
         mDrawer = (DrawerLayout) findViewById(R.id.activity_main);
         mToggle = new ActionBarDrawerToggle(this, mDrawer, R.string.open, R.string.close);
-
 
         mDrawer.addDrawerListener(mToggle);
         mToggle.syncState();
@@ -74,24 +82,21 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     }
 
 
-
     View.OnClickListener navigationClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if(getFragmentManager().getBackStackEntryCount() == 0) {
+            if (getFragmentManager().getBackStackEntryCount() == 0) {
                 mDrawer.openDrawer(GravityCompat.START);
-            }
-            else{
+            } else {
                 onBackPressed();
             }
         }
     };
 
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(mToggle.onOptionsItemSelected(item)){
+        if (mToggle.onOptionsItemSelected(item)) {
             return true;
         }
 
@@ -106,24 +111,24 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
     @Override
     public void onBackStackChanged() {
-        mToggle.setDrawerIndicatorEnabled(mFragmentManager.getBackStackEntryCount()==0);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(mFragmentManager.getBackStackEntryCount()>0);
+        mToggle.setDrawerIndicatorEnabled(mFragmentManager.getBackStackEntryCount() == 0);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(mFragmentManager.getBackStackEntryCount() > 0);
         mToggle.syncState();
     }
 
 
     @Override
-    public void onBackPressed(){
-        if(mFragmentManager.getBackStackEntryCount() != 0){
-            if(mDrawer.isDrawerOpen(GravityCompat.START)){
+    public void onBackPressed() {
+        if (mFragmentManager.getBackStackEntryCount() != 0) {
+            if (mDrawer.isDrawerOpen(GravityCompat.START)) {
                 mDrawer.closeDrawer(GravityCompat.START);
-            }else{
+            } else {
                 mFragmentManager.popBackStack();
             }
-        }else{
-            if(mDrawer.isDrawerOpen(GravityCompat.START)){
+        } else {
+            if (mDrawer.isDrawerOpen(GravityCompat.START)) {
                 mDrawer.closeDrawer(GravityCompat.START);
-            }else{
+            } else {
                 super.onBackPressed();
             }
         }
@@ -133,5 +138,10 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 
+    }
+
+    @OnClick(R.id.btn_seks)
+    public void seksClicked() {
+        startActivity(new Intent(this, MembersActivity.class));
     }
 }

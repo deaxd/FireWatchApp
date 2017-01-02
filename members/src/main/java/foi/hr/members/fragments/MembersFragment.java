@@ -9,7 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import foi.hr.members.R;
+import foi.hr.members.adapters.MembersAdapter;
+import hr.foi.air.database.database.entities.Fireman;
 
 public class MembersFragment extends Fragment {
 
@@ -25,7 +31,19 @@ public class MembersFragment extends Fragment {
 
         recyclerView = (RecyclerView) view.findViewById(R.id.rv_members);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        
+
+        List<Fireman> memberList = Collections.unmodifiableList(Arrays.asList(
+                new Fireman("", "Marko", "Markić", "", "", false, null),
+                new Fireman("", "Marko", "Markić", "", "", false, null),
+                new Fireman("", "Marko", "Markić", "", "", false, null),
+                new Fireman("", "Marko", "Markić", "", "", false, null),
+                new Fireman("", "Marko", "Markić", "", "", false, null),
+                new Fireman("", "Marko", "Markić", "", "", false, null),
+                new Fireman("", "Marko", "Markić", "", "", false, null),
+                new Fireman("", "Marko", "Markić", "", "", false, null),
+                new Fireman("", "Marko", "Markić", "", "", false, null)));
+
+        recyclerView.setAdapter(new MembersAdapter(memberList, getActivity()));
         return view;
     }
 

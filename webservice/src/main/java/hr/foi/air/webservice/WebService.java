@@ -20,4 +20,5 @@ public interface WebService {
     @FormUrlEncoded
     @POST("getInterventions.php")
     Call<InterventionResponse> getInterventions(@Field("oib") String oib);
+
 }
