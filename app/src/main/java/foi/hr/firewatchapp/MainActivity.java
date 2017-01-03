@@ -5,7 +5,6 @@ import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowManager;
 
 import android.app.FragmentManager;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -19,9 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import foi.hr.firewatchapp.helper.MockData;
-import foi.hr.members.MembersActivity;
 
 public class MainActivity extends AppCompatActivity
         implements SharedPreferences.OnSharedPreferenceChangeListener, NavigationView.OnNavigationItemSelectedListener,
@@ -138,10 +135,5 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 
-    }
-
-    @OnClick(R.id.btn_seks)
-    public void seksClicked() {
-        startActivity(new Intent(this, MembersActivity.class));
     }
 }
