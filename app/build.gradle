@@ -33,7 +33,7 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     compile project (':database')
     compile project (':core')
-    //compile project (':report')
+    compile project (':report')
     compile project (':webservice')
     compile project (':members')
 

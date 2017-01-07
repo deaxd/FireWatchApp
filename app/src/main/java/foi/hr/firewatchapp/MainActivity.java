@@ -136,4 +136,5 @@ public class MainActivity extends AppCompatActivity
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 
     }
+
 }

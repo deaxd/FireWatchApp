@@ -1,12 +1,6 @@
 package hr.foi.air.webservice.Responses;
 
-import com.google.gson.JsonArray;
-
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.List;
-
-import hr.foi.air.database.database.entities.Intervention;
 
 /**
  * Created by Denis on 3.12.2016..

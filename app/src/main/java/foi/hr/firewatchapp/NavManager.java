@@ -1,5 +1,10 @@
 package foi.hr.firewatchapp;
 
+import com.hfad.core.DataLoadedListener;
+import com.hfad.core.DataLoader;
+import com.hfad.core.NavItem;
+import com.hfad.core.ReadyForDataListener;
+
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -7,11 +12,6 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
-
-import com.hfad.core.DataLoadedListener;
-import com.hfad.core.DataLoader;
-import com.hfad.core.NavItem;
-import com.hfad.core.ReadyForDataListener;
 
 import java.util.ArrayList;
 

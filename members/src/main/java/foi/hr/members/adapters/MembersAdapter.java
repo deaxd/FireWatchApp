@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import foi.hr.members.R;
+import foi.hr.members.listeners.MemberClickListener;
 import hr.foi.air.database.database.entities.Fireman;
 
 public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.ViewHolder> {
@@ -21,14 +22,17 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.ViewHold
 
     private Context context;
 
-    public MembersAdapter(List<Fireman> memberList, Context context) {
+    private MemberClickListener memberClickListener;
+
+    public MembersAdapter(List<Fireman> memberList, Context context, MemberClickListener memberClickListener) {
         this.memberList = memberList;
         this.context = context;
+        this.memberClickListener = memberClickListener;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_member, parent, false));
+        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_member, parent, false), memberClickListener);
     }
 
     @Override
@@ -42,6 +46,7 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.ViewHold
                 .load(memberList.get(position).getImageUrl())
                 .into(holder.memberPhoto);
                 */
+
     }
 
     @Override
@@ -58,11 +63,18 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.ViewHold
         TextView memberUsername;
 
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(View itemView, final MemberClickListener memberClickListener) {
             super(itemView);
             memberPhoto = (ImageView) itemView.findViewById(R.id.iv_member_photo);
             memberName = (TextView) itemView.findViewById(R.id.tv_member_name);
             memberUsername = (TextView) itemView.findViewById(R.id.tv_member_username);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    memberClickListener.onMemberClicked(memberList.get(getAdapterPosition()));
+                }
+            });
         }
     }
 }
