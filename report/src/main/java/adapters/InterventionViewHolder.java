@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hr.foi.air.database.database.entities.Intervention;
@@ -23,14 +22,11 @@ public class InterventionViewHolder extends RecyclerView.ViewHolder implements V
 
     InterventionRecyclerAdapter mAdapter;
 
-    @BindView(R.id.interventionId)
-    public TextView mIntId;
+    TextView mIntId;
 
-    @BindView(R.id.kindOfIntervention)
-    public TextView mKindOfIntervention;
+    TextView mKindOfIntervention;
 
-    @BindView(R.id.address)
-    public TextView mAddress;
+    TextView mAddress;
 
     private Intervention mIntervenion;
 
@@ -40,7 +36,18 @@ public class InterventionViewHolder extends RecyclerView.ViewHolder implements V
         super(interventionView);
         mInterventionView = interventionView;
         mAdapter = adapter;
+
+        bindViews(interventionView);
+
         ButterKnife.bind(this, interventionView);
+    }
+
+    private void bindViews(View v) {
+        //Ne razumijem tocno sto je ovo, tj. sto bi to trebalo predstavljati, Aleksandra prvom prilikom popravi
+        //mIntId = (TextView) v.findViewById(R.id.type_of_int);
+
+        mKindOfIntervention = (TextView) v.findViewById(R.id.type_of_int);
+        mAddress = (TextView) v.findViewById(R.id.address_int);
     }
 
     public void bind(Intervention intervention) {
