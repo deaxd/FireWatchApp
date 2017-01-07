@@ -2,6 +2,7 @@ package adapters;
 
 import com.hfad.core.CurrentActivity;
 import com.hfad.report.IntervetionDetailFragment;
+import com.hfad.report.R;
 
 import android.app.FragmentTransaction;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hr.foi.air.database.database.entities.Intervention;
@@ -21,13 +23,13 @@ public class InterventionViewHolder extends RecyclerView.ViewHolder implements V
 
     InterventionRecyclerAdapter mAdapter;
 
-    //@BindView(R.id.interventionId)
+    @BindView(R.id.interventionId)
     public TextView mIntId;
 
-    //@BindView(R.id.kindOfIntervention)
+    @BindView(R.id.kindOfIntervention)
     public TextView mKindOfIntervention;
 
-    //@BindView(R.id.address)
+    @BindView(R.id.address)
     public TextView mAddress;
 
     private Intervention mIntervenion;
