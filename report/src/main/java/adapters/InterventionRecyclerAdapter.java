@@ -1,13 +1,12 @@
 package adapters;
 
+import com.hfad.report.R;
+
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.hfad.report.R;
 
 import java.util.List;
 
@@ -20,18 +19,19 @@ import hr.foi.air.database.database.entities.Intervention;
 public class InterventionRecyclerAdapter extends RecyclerView.Adapter<InterventionViewHolder> {
 
     List<Intervention> listIntervention;
+
     Context context;
 
-    public InterventionRecyclerAdapter(List<Intervention> listIntervention, Context context){
+    public InterventionRecyclerAdapter(List<Intervention> listIntervention, Context context) {
         super();
         this.context = context;
         this.listIntervention = listIntervention;
     }
 
     @Override
-    public InterventionViewHolder onCreateViewHolder(ViewGroup viewGroup, int i){
+    public InterventionViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_intervetion_list, viewGroup, false);
-        return new InterventionViewHolder(v);
+        return new InterventionViewHolder(v, this);
     }
 
     @Override
