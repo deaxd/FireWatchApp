@@ -52,6 +52,8 @@ public class MembersActivity extends AppCompatActivity {
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(R.id.fragment_container, fragmentList.get(1));
         ft.commit();
+
+        fab.setVisibility(View.GONE);
     }
 
     private void addFragmentsToList() {
