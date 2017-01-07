@@ -28,13 +28,20 @@ dependencies {
     })
 
     compile project(':webservice')
+
+    //Support
     compile 'com.android.support:design:25.0.1'
     compile 'com.android.support:appcompat-v7:25.1.0'
     compile 'com.android.support:support-v4:25.1.0'
     compile 'com.android.support:recyclerview-v7:25.1.0'
-    compile 'com.jakewharton:butterknife-annotations:8.4.0'
-    compile 'com.jakewharton:butterknife:8.4.0'
+
+    //Glide
     compile 'com.github.bumptech.glide:glide:3.7.0'
+
+    //Material
     compile 'com.rengwuxian.materialedittext:library:2.1.4'
+    compile 'com.afollestad.material-dialogs:core:0.8.6.1'
+
+    //Testing
     testCompile 'junit:junit:4.12'
 }

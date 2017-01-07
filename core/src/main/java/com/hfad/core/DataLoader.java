@@ -1,6 +1,7 @@
 package com.hfad.core;
 
 import java.util.ArrayList;
+
 import hr.foi.air.database.database.entities.Intervention;
 import hr.foi.air.database.database.entities.User;
 

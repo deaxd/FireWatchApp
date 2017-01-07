@@ -15,8 +15,10 @@ import java.util.List;
 import foi.hr.members.fragments.MemberDetailsFragment;
 import foi.hr.members.fragments.MembersFragment;
 import foi.hr.members.fragments.NewMemberFragment;
+import foi.hr.members.listeners.FragmentActionListener;
+import hr.foi.air.database.database.entities.Fireman;
 
-public class MembersActivity extends AppCompatActivity {
+public class MembersActivity extends AppCompatActivity implements FragmentActionListener {
 
     private FrameLayout fragmentContainer;
 
@@ -44,6 +46,7 @@ public class MembersActivity extends AppCompatActivity {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(R.id.fragment_container, fragmentList.get(0));
+        ft.addToBackStack(null);
         ft.commit();
     }
 
@@ -51,6 +54,7 @@ public class MembersActivity extends AppCompatActivity {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(R.id.fragment_container, fragmentList.get(1));
+        ft.addToBackStack(null);
         ft.commit();
 
         fab.setVisibility(View.GONE);
@@ -59,12 +63,61 @@ public class MembersActivity extends AppCompatActivity {
     private void addFragmentsToList() {
         MembersFragment membersFragment = new MembersFragment();
         NewMemberFragment newMemberFragment = new NewMemberFragment();
-        MemberDetailsFragment memberDetailsFragment = new MemberDetailsFragment();
 
         fragmentList.add(membersFragment);
         fragmentList.add(newMemberFragment);
-        fragmentList.add(memberDetailsFragment);
     }
 
 
+    @Override
+    public void newMemberAddingFinished() {
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.fragment_container, fragmentList.get(0));
+        ft.commit();
+
+        fab.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onMemberClicked(Fireman fireman) {
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.fragment_container, MemberDetailsFragment.newInstance(fireman));
+        ft.addToBackStack(null);
+        ft.commit();
+
+        fab.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void invalidMemberLoaded() {
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.fragment_container, fragmentList.get(0));
+        ft.commit();
+
+        fab.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void memberUpdateFinished() {
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.fragment_container, fragmentList.get(0));
+        ft.commit();
+
+        fab.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onBackPressed() {
+        FragmentManager fm = getSupportFragmentManager();
+        if (fm.getBackStackEntryCount() > 1) {
+            fm.popBackStack();
+            fab.setVisibility(View.VISIBLE);
+        } else {
+            finish();
+        }
+    }
 }

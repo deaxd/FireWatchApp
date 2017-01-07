@@ -6,13 +6,15 @@ import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 
+import java.io.Serializable;
+
 import hr.foi.air.database.database.FireWatchDB;
 
 /**
  * Created by Denis on 13.11.2016..
  */
 @Table(database = FireWatchDB.class)
-public class Fireman extends BaseModel{
+public class Fireman extends BaseModel implements Serializable {
 
     @PrimaryKey(autoincrement = false)
     @Column String oib;

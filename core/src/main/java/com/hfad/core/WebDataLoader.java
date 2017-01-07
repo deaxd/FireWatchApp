@@ -1,9 +1,6 @@
 package com.hfad.core;
 
-import java.util.List;
-
 import hr.foi.air.database.database.entities.User;
-import hr.foi.air.webservice.WebServiceCaller;
 import hr.foi.air.webservice.WebServiceHandler;
 
 /**
