@@ -1,17 +1,14 @@
 package adapters;
 
-import android.app.Fragment;
+import com.hfad.core.CurrentActivity;
+import com.hfad.report.IntervetionDetailFragment;
+
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.hfad.core.CurrentActivity;
-import com.hfad.report.IntervetionDetailFragment;
-import com.hfad.report.R;
-
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hr.foi.air.database.database.entities.Intervention;
@@ -61,7 +58,7 @@ public class InterventionViewHolder extends RecyclerView.ViewHolder implements V
         idf.setArguments(args);
 
         FragmentTransaction ft = CurrentActivity.getActivity().getFragmentManager().beginTransaction();
-        ft.replace(R.id.fragment_content, idf);
+        //ft.replace(R.id.fragment_content, idf);
         ft.addToBackStack("IntervetionDetailFragment");
         ft.commit();
     }
