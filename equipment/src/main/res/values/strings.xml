@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Equipment</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="vehname">Ime Vozila</string>
+    <string name="seatnum">Broj sjedala</string>
+    <string name="capac">Zapremina vode</string>
+    <string name="kindoveh">Vrsta vozila</string>
+    <string name="organ">Organizacija</string>
+    <string name="predaj">Predaj</string>
+
+    <string name="eqiupname">Naziv opreme</string>
+    <string name="quantity">Količina</string>
+    <string name="submit">Šalji</string>
+
+
+
+</resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="nav_view" type="id" />
+    <item name="dynamic_group" type="id" />
+    <item name="nav_id" type="id" />
+</resources>

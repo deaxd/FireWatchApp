@@ -1,0 +1,30 @@
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.hfad.report.IntervetionListFragment"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:paddingTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/intervenion_list" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_intervention"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:linksClickable="true"
+        android:paddingTop="30dp"
+        android:layout_marginLeft="5dp"
+        android:onClick="onClick"
+        android:clickable="true"
+        />
+
+
+</FrameLayout>
