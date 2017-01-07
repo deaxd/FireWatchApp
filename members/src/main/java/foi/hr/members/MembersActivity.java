@@ -43,12 +43,15 @@ public class MembersActivity extends AppCompatActivity {
 
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        ft.add(R.id.fragment_container, fragmentList.get(0));
+        ft.replace(R.id.fragment_container, fragmentList.get(0));
         ft.commit();
     }
 
     private void onFabClicked() {
-        
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.fragment_container, fragmentList.get(1));
+        ft.commit();
     }
 
     private void addFragmentsToList() {
