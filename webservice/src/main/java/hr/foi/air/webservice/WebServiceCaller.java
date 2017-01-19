@@ -10,8 +10,10 @@ import hr.foi.air.database.database.entities.User;
 import hr.foi.air.webservice.Responses.InterventionResponse;
 import hr.foi.air.webservice.Responses.LoginResponse;
 import hr.foi.air.webservice.Responses.MembersResponse;
+import hr.foi.air.webservice.Responses.OrganizationResponse;
 import hr.foi.air.webservice.listeners.InterventionClickListener;
 import hr.foi.air.webservice.listeners.MembersReceivedListener;
+import hr.foi.air.webservice.listeners.OrganizationReceivedListener;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.GsonConverterFactory;
@@ -133,6 +135,20 @@ public class WebServiceCaller {
             public void onFailure(Throwable t) {
                 listener.onError(t.getMessage());
             }
+        });
+    }
+
+    public void getOrganization(String oib, final OrganizationReceivedListener listener){
+        Call<OrganizationResponse> call = webService.getOrganization(oib);
+
+        call.enqueue(new Callback<OrganizationResponse>() {
+            @Override
+            public void onResponse(Response<OrganizationResponse> response, Retrofit retrofit) {
+                listener.onOrganizationFetched(response.body().getOrganization());
+            }
+
+            @Override
+            public void onFailure(Throwable t) {listener.onError(t.getMessage());}
         });
     }
 }

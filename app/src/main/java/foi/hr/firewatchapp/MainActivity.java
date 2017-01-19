@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity
         //nm.showDefaultFragment();
 
         MockData.writeAll();
+
     }
 
 
