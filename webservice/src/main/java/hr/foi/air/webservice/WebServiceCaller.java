@@ -10,6 +10,7 @@ import hr.foi.air.database.database.entities.User;
 import hr.foi.air.webservice.Responses.InterventionResponse;
 import hr.foi.air.webservice.Responses.LoginResponse;
 import hr.foi.air.webservice.Responses.MembersResponse;
+import hr.foi.air.webservice.listeners.InterventionClickListener;
 import hr.foi.air.webservice.listeners.MembersReceivedListener;
 import retrofit.Call;
 import retrofit.Callback;
@@ -102,42 +103,22 @@ public class WebServiceCaller {
     }
 
 
-    public void getInterventions(String oib) {
+    public void getInterventions(String oib, final InterventionClickListener listener) {
         Call<InterventionResponse> call = webService.getInterventions(oib);
 
-        if (call != null) {
-            call.enqueue(new Callback<InterventionResponse>() {
-                @Override
-                public void onResponse(retrofit.Response<InterventionResponse> response, Retrofit retrofit) {
-                    try {
-                        if (response.isSuccess()) {
-                            handleInterventions(response);
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
+        call.enqueue(new Callback<InterventionResponse>() {
+            @Override
+            public void onResponse(retrofit.Response<InterventionResponse> response, Retrofit retrofit) {
+                listener.onInterventionsFetched(response.body().getInterventionList());
+            }
 
-                @Override
-                public void onFailure(Throwable t) {
+            @Override
+            public void onFailure(Throwable t) {
                     t.printStackTrace();
                 }
-            });
-        }
+        });
     }
 
-    public void handleInterventions(retrofit.Response<InterventionResponse> response) {
-        Gson gson = new GsonBuilder()
-                .setDateFormat("yyyy-MM-dd")
-                .create();
-
-        Intervention[] interventionList = gson.fromJson(response.body().getIntervention().toString(), Intervention[].class);
-        System.out.println(response.body().getIntervention());
-
-        if (webServiceHandler != null) {
-            webServiceHandler.onDataArrived(interventionList, true);
-        }
-    }
 
     public void getMembers(String oib, final MembersReceivedListener listener) {
         Call<MembersResponse> call = webService.getMembers(oib);

@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.hfad.report.R;
-import com.hfad.report.listener.InterventionClickListener;
+import hr.foi.air.webservice.listeners.InterventionClickListener;
 
 import java.util.ArrayList;
 import java.util.List;

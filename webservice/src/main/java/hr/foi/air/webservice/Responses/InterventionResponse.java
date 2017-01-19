@@ -1,6 +1,8 @@
 package hr.foi.air.webservice.Responses;
 
-import java.lang.reflect.Array;
+import com.google.gson.annotations.SerializedName;
+import java.util.List;
+import hr.foi.air.database.database.entities.Intervention;
 
 /**
  * Created by Denis on 3.12.2016..
@@ -8,30 +10,25 @@ import java.lang.reflect.Array;
 
 public class InterventionResponse {
 
-    public boolean valid;
-    public Array intervention;
+    @SerializedName("valid")
+    private boolean isValid;
 
-    public InterventionResponse() {
-    }
-
-    public InterventionResponse(boolean valid, Array intervention) {
-        this.valid = valid;
-        this.intervention = intervention;
-    }
+    @SerializedName("interventions")
+    private List<Intervention> interventionList;
 
     public boolean isValid() {
-        return valid;
+        return isValid;
     }
 
     public void setValid(boolean valid) {
-        this.valid = valid;
+        isValid = valid;
     }
 
-    public Array getIntervention() {
-        return intervention;
+    public List<Intervention> getInterventionList() {
+        return interventionList;
     }
 
-    public void setIntervention(Array intervention) {
-        this.intervention = intervention;
+    public void setInterventionList(List<Intervention> interventionList) {
+        this.interventionList = interventionList;
     }
 }

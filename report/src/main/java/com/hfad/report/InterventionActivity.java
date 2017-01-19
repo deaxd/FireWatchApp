@@ -9,7 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.hfad.report.listener.InterventionClickListener;
+import hr.foi.air.webservice.listeners.InterventionClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
