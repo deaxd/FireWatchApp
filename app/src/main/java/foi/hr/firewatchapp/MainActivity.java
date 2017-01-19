@@ -1,10 +1,13 @@
 package foi.hr.firewatchapp;
 
 import com.hfad.core.CurrentActivity;
+import com.hfad.report.InterventionActivity;
+import com.hfad.report.IntervetionListFragment;
 import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowManager;
 
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -24,7 +27,7 @@ public class MainActivity extends AppCompatActivity
         implements SharedPreferences.OnSharedPreferenceChangeListener, NavigationView.OnNavigationItemSelectedListener,
         FragmentManager.OnBackStackChangedListener {
 
-    private DrawerLayout mDrawerLayout;
+   // private DrawerLayout mDrawerLayout;
 
     private ActionBarDrawerToggle mToggle;
 
@@ -71,7 +74,7 @@ public class MainActivity extends AppCompatActivity
 
         NavManager nm = NavManager.getInstance();
         nm.setDependencies(this, mDrawer, mNavigationView, R.id.dynamic_group);
-        //nm.addItem( new IntervetionListFragment());
+        //nm.addItem( new InterventionActivity());
 
         //nm.showDefaultFragment();
 
@@ -102,7 +105,24 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        NavManager.getInstance().selectNavigationItem(item);
+        //NavManager.getInstance().selectNavigationItem(item);
+        //return true;
+
+        int id = item.getItemId();
+
+        //to prevent current item select over and over
+        if (item.isChecked()){
+            mDrawer.closeDrawer(GravityCompat.START);
+            return false;
+        }
+        if (id == R.id.int_activity) {
+            // Handle the camera action
+            startActivity(new Intent(getApplicationContext(), InterventionActivity.class));}
+                    else if(id==R.id.members_activity){
+            startActivity(new Intent(getApplicationContext(), InterventionActivity.class));
+            }
+
+        mDrawer.closeDrawer(GravityCompat.START);
         return true;
     }
 

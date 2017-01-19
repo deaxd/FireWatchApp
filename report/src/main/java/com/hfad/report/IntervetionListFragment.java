@@ -1,12 +1,11 @@
 package com.hfad.report;
 
 
-import com.hfad.core.NavItem;
-import com.hfad.core.ReadyForDataListener;
+import com.hfad.report.adapters.InterventionAdapter;
+import com.hfad.report.listener.InterventionClickListener;
 
 import android.app.Fragment;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,26 +13,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import adapters.InterventionRecyclerAdapter;
 import hr.foi.air.database.database.entities.Intervention;
+import hr.foi.air.webservice.WebServiceCaller;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class IntervetionListFragment extends Fragment implements NavItem {
+public class IntervetionListFragment extends Fragment implements InterventionClickListener {
 
-    private InterventionRecyclerAdapter adapter;
+    private RecyclerView recyclerView;
+    private InterventionClickListener interventionClickListener;
 
-    private int position;
 
-    private String name = "Intervencije";
-
-    private ReadyForDataListener readyForDataListener;
-
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        interventionClickListener = (InterventionClickListener) context;
+    }
 
     public IntervetionListFragment() {
         // Required empty public constructor
@@ -44,54 +43,28 @@ public class IntervetionListFragment extends Fragment implements NavItem {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_intervetion_list, container, false);
-    }
+        View view = inflater.inflate(R.layout.fragment_intervetion_list, container, false);
 
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        readyForDataListener.onReadyForData(this);
-    }
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_intervention);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-    @Override
-    public String getItemName() {
-        return name;
-    }
+        //WebServiceCaller wsc = new WebServiceCaller();
+        //wsc.getInterventions("intervention1", this);
+        //showProgress();
+        return view;
 
-    @Override
-    public int getPosition() {
-        return position;
     }
 
     @Override
-    public void setPosition(int position) {
-        this.position = position;
+    public void onInterventionsFetched(List<Intervention> interventionList) {
+        //hideProgress();
+        recyclerView.setAdapter(new InterventionAdapter(interventionList, getActivity(), this));
     }
 
     @Override
-    public Fragment getFragment() {
-        return this;
+    public void onInterventionClicked(Intervention intervention) {
+        interventionClickListener.onInterventionClicked(intervention);
     }
 
-    @Override
-    public Drawable getIcon(Context context) {
-        return null;
-    }
-
-    @Override
-    public void setReadyForDataListener(ReadyForDataListener readyForDataListener) {
-        this.readyForDataListener = readyForDataListener;
-    }
-
-    @Override
-    public void loadData(ArrayList<Intervention> interventions) {
-        List<Intervention> interventionItemList = new ArrayList<Intervention>();
-
-        RecyclerView mRecycler = (RecyclerView) getView().findViewById(R.id.recycler_intervention);
-
-        if (mRecycler != null) {
-            adapter = new InterventionRecyclerAdapter(interventionItemList, getActivity());
-            mRecycler.setAdapter(adapter);
-            mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
-        }
-    }
+    //TODO add showProgress, hideProgress, don't know if I need it
 }

@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group
         android:id="@+id/dynamic_group"
         android:orderInCategory="0"
         android:checkableBehavior="single">
 
-    </group>
 
+    <item android:title="Intervencije"
+        android:id="@+id/int_activity"/>
+
+        <item android:title="Članovi"
+            android:id="@+id/members_activity"/>
+
+    </group>
 
 
 </menu>

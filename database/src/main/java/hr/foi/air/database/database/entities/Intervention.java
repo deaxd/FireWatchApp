@@ -10,6 +10,7 @@ import com.raizlabs.android.dbflow.sql.language.Join;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 
+import java.io.Serializable;
 import java.util.List;
 
 import hr.foi.air.database.database.FireWatchDB;
@@ -18,7 +19,7 @@ import hr.foi.air.database.database.FireWatchDB;
  * Created by Denis on 13.11.2016..
  */
 @Table(database = FireWatchDB.class)
-public class Intervention extends BaseModel {
+public class Intervention extends BaseModel implements Serializable {
 
     @PrimaryKey(autoincrement = true)
     @Column
