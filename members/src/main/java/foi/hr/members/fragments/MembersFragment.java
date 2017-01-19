@@ -1,6 +1,7 @@
 package foi.hr.members.fragments;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import foi.hr.members.adapters.MembersAdapter;
 import foi.hr.members.listeners.FragmentActionListener;
 import foi.hr.members.listeners.MemberClickListener;
 import hr.foi.air.database.database.entities.Fireman;
+import hr.foi.air.database.database.entities.User;
 import hr.foi.air.webservice.WebServiceCaller;
 import hr.foi.air.webservice.listeners.MembersReceivedListener;
 
@@ -48,8 +50,8 @@ public class MembersFragment extends Fragment implements MembersReceivedListener
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         WebServiceCaller wsc = new WebServiceCaller();
-        //TODO swap this with a meaningful oib of a valid logged in user
-        wsc.getMembers("35468413516", this);
+        User user = SQLite.select().from(User.class).querySingle();
+        wsc.getMembers(user.getUserOib(), this);
         showProgress();
         return view;
     }
