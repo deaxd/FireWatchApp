@@ -23,13 +23,13 @@ public class InterventionViewHolder extends RecyclerView.ViewHolder implements V
 
     InterventionRecyclerAdapter mAdapter;
 
-    @BindView(R.id.interventionId)
+    //@BindView(R.id.interventionId)
     public TextView mIntId;
 
-    @BindView(R.id.kindOfIntervention)
+    //@BindView(R.id.kindOfIntervention)
     public TextView mKindOfIntervention;
 
-    @BindView(R.id.address)
+    //@BindView(R.id.address)
     public TextView mAddress;
 
     private Intervention mIntervenion;

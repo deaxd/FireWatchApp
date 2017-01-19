@@ -30,8 +30,8 @@ public class Intervention extends BaseModel implements Serializable {
     @Column String initialTIme;
     @Column int duration ;
     @Column String description;
-    @Column float longitude;
-    @Column float latitude;
+    @Column double longitude;
+    @Column double latitude;
     @Column @ForeignKey(tableClass = Fireman.class)
     Fireman fireman;
 
@@ -112,19 +112,19 @@ public class Intervention extends BaseModel implements Serializable {
         this.description = description;
     }
 
-    public float getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(float longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
-    public float getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(float latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 

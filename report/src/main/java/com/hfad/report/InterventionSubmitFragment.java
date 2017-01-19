@@ -1,14 +1,22 @@
 package com.hfad.report;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
 
 import hr.foi.air.database.database.entities.Intervention;
 
@@ -30,7 +38,14 @@ public class InterventionSubmitFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    protected LocationManager locationManager;
+    boolean isGPSenabled;
+    boolean isNETWORKenabled;
+    Location location;
+    double latitude;
+    double longitude;
 
+    Context mcontext= getContext();
 
 
     private OnFragmentInteractionListener mListener;
@@ -65,7 +80,6 @@ public class InterventionSubmitFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
 
 
-
         }
     }
 
@@ -73,7 +87,7 @@ public class InterventionSubmitFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-       View v= inflater.inflate(R.layout.fragment_intervention_submit, container, false);
+        View v = inflater.inflate(R.layout.fragment_intervention_submit, container, false);
 
         final EditText desc = (EditText) v.findViewById(R.id.opis_intervencije);
         final String description = desc.getText().toString();
@@ -86,10 +100,13 @@ public class InterventionSubmitFragment extends Fragment {
 
         final EditText duratio = (EditText) v.findViewById(R.id.vrijeme);
         final String duration = duratio.getText().toString();
-        final int fduration=Integer.parseInt(duration);
+        final int fduration = Integer.parseInt(duration);
 
         final EditText spec = (EditText) v.findViewById(R.id.vrsta_intervencije);
         final String specs = spec.getText().toString();
+
+        geoLoc();
+
 
         final Button button = (Button) v.findViewById(R.id.predaj);
 
@@ -103,6 +120,8 @@ public class InterventionSubmitFragment extends Fragment {
                 intervention1.setAddress(adress);
                 intervention1.setInitialTIme(time);
                 intervention1.setDuration(fduration);
+                intervention1.setLatitude(latitude);
+                intervention1.setLatitude(longitude);
                 intervention1.setDescription(description);
                 intervention1.save();
             }
@@ -119,6 +138,48 @@ public class InterventionSubmitFragment extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
+
+    public void geoLoc(){
+        isGPSenabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        isNETWORKenabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+        if (isGPSenabled || isNETWORKenabled) {
+            if (ActivityCompat.checkSelfPermission(mcontext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(mcontext, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                Toast.makeText(mcontext,"Prvo uključite GPS ili mrežni promet",Toast.LENGTH_LONG).show();
+
+            }
+            if(isGPSenabled){
+                location = locationManager
+                        .getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                latitude = location.getLatitude();
+                longitude = location.getLongitude();
+            }
+            else if (isNETWORKenabled){
+                location = locationManager
+                        .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                latitude = location.getLatitude();
+                longitude = location.getLongitude();
+            }
+        }
+        else {
+            latitude=0;
+            longitude=0;
+        }
+    }
+
+
+
+
+
+
+
 
     @Override
     public void onAttach(Context context) {
