@@ -12,6 +12,7 @@ import hr.foi.air.webservice.Responses.LoginResponse;
 import hr.foi.air.webservice.Responses.MembersResponse;
 import hr.foi.air.webservice.Responses.OrganizationResponse;
 import hr.foi.air.webservice.listeners.InterventionClickListener;
+import hr.foi.air.webservice.listeners.LoginListener;
 import hr.foi.air.webservice.listeners.MembersReceivedListener;
 import hr.foi.air.webservice.listeners.OrganizationReceivedListener;
 import retrofit.Call;
@@ -49,33 +50,19 @@ public class WebServiceCaller {
         webService = retrofit.create(WebService.class);
     }
 
-    public void login(String username, String password) {
+    public void login(String username, String password, final LoginListener listener) {
         Call<LoginResponse> call = webService.login(username, password);
+        call.enqueue(new Callback<LoginResponse>() {
+            @Override
+            public void onResponse(retrofit.Response<LoginResponse> response, Retrofit retrofit) {
+                listener.onLogin(response.body().getUser());
+            }
 
-        if (call != null) {
-            call.enqueue(new Callback<LoginResponse>() {
-                @Override
-                public void onResponse(retrofit.Response<LoginResponse> response, Retrofit retrofit) {
-                    try {
-                        if (response.isSuccess()) {
-                            handleLogin(response);
-
-                        } else {
-                            System.out.println("Wrong operation");
-                        }
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                @Override
-                public void onFailure(Throwable t) {
-                    t.printStackTrace();
-
-                }
-            });
-        }
+            @Override
+            public void onFailure(Throwable t) {
+                listener.onError(t.getMessage());
+            }
+        });
     }
 
     private void handleLogin(retrofit.Response<LoginResponse> response) {
@@ -83,7 +70,7 @@ public class WebServiceCaller {
                 .setDateFormat("yyyy-MM-dd")
                 .create();
 
-        if (response.body().getValid()) {
+        //if (response.body().getValid()) {
 
             User user = new User();
 
@@ -100,7 +87,7 @@ public class WebServiceCaller {
                 webServiceHandler.onDataArrived(user, true);
             }
 
-        }
+      //  }
 
     }
 
@@ -116,7 +103,7 @@ public class WebServiceCaller {
 
             @Override
             public void onFailure(Throwable t) {
-                    t.printStackTrace();
+                listener.onError(t.getMessage());
                 }
         });
     }

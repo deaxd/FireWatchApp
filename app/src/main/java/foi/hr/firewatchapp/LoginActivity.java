@@ -53,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 WebServiceCaller webServiceCaller = new WebServiceCaller();
-                webServiceCaller.login(username.getText().toString(), password.getText().toString());
+                //webServiceCaller.login(username.getText().toString(), password.getText().toString());
                 long login;
                 login = SQLite.select().from(User.class).query().getCount();
                 if(login >0)  startActivity(new Intent(getBaseContext(), MainActivity.class));

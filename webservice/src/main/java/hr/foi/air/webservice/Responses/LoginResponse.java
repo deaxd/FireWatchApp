@@ -1,5 +1,7 @@
 package hr.foi.air.webservice.Responses;
 
+import com.google.gson.annotations.SerializedName;
+
 import hr.foi.air.database.database.entities.User;
 
 /**
@@ -7,24 +9,18 @@ import hr.foi.air.database.database.entities.User;
  */
 
 public class LoginResponse {
-    public Boolean valid;
-    public String text;
-    public User user;
+    @SerializedName("valid")
+    private boolean isValid;
 
-    public Boolean getValid() {
-        return valid;
+    @SerializedName("user")
+    private User user;
+
+    public boolean isValid() {
+        return isValid;
     }
 
-    public void setValid(Boolean valid) {
-        this.valid = valid;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
+    public void setValid(boolean valid) {
+        isValid = valid;
     }
 
     public User getUser() {
