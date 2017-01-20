@@ -2,7 +2,11 @@ package com.hfad.report;
 
 
 import com.hfad.report.adapters.InterventionAdapter;
-import com.hfad.report.listener.InterventionClickListener;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
+
+import hr.foi.air.database.database.entities.User;
+import hr.foi.air.webservice.WebServiceCaller;
+import hr.foi.air.webservice.listeners.InterventionClickListener;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -16,7 +20,6 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import hr.foi.air.database.database.entities.Intervention;
-import hr.foi.air.webservice.WebServiceCaller;
 
 
 /**
@@ -48,8 +51,10 @@ public class IntervetionListFragment extends Fragment implements InterventionCli
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_intervention);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        //WebServiceCaller wsc = new WebServiceCaller();
-        //wsc.getInterventions("intervention1", this);
+        WebServiceCaller wsc = new WebServiceCaller();
+        User user = SQLite.select().from(User.class).querySingle();
+        wsc.getInterventions(user.getUserOib(), this);
+
         //showProgress();
         return view;
 

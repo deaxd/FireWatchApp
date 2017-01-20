@@ -1,4 +1,4 @@
-package com.hfad.report.listener;
+package hr.foi.air.webservice.listeners;
 
 import java.util.List;
 
@@ -13,4 +13,6 @@ public interface InterventionClickListener {
     void onInterventionsFetched(List<Intervention> interventionList);
 
     void onInterventionClicked(Intervention position);
+    void onError(String error);
+
 }

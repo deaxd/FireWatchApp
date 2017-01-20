@@ -10,7 +10,11 @@ import hr.foi.air.database.database.entities.User;
 import hr.foi.air.webservice.Responses.InterventionResponse;
 import hr.foi.air.webservice.Responses.LoginResponse;
 import hr.foi.air.webservice.Responses.MembersResponse;
+import hr.foi.air.webservice.Responses.OrganizationResponse;
+import hr.foi.air.webservice.listeners.InterventionClickListener;
+import hr.foi.air.webservice.listeners.LoginListener;
 import hr.foi.air.webservice.listeners.MembersReceivedListener;
+import hr.foi.air.webservice.listeners.OrganizationReceivedListener;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.GsonConverterFactory;
@@ -46,33 +50,19 @@ public class WebServiceCaller {
         webService = retrofit.create(WebService.class);
     }
 
-    public void login(String username, String password) {
+    public void login(String username, String password, final LoginListener listener) {
         Call<LoginResponse> call = webService.login(username, password);
+        call.enqueue(new Callback<LoginResponse>() {
+            @Override
+            public void onResponse(retrofit.Response<LoginResponse> response, Retrofit retrofit) {
+                listener.onLogin(response.body().getUser());
+            }
 
-        if (call != null) {
-            call.enqueue(new Callback<LoginResponse>() {
-                @Override
-                public void onResponse(retrofit.Response<LoginResponse> response, Retrofit retrofit) {
-                    try {
-                        if (response.isSuccess()) {
-                            handleLogin(response);
-
-                        } else {
-                            System.out.println("Wrong operation");
-                        }
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                @Override
-                public void onFailure(Throwable t) {
-                    t.printStackTrace();
-
-                }
-            });
-        }
+            @Override
+            public void onFailure(Throwable t) {
+                listener.onError(t.getMessage());
+            }
+        });
     }
 
     private void handleLogin(retrofit.Response<LoginResponse> response) {
@@ -80,7 +70,7 @@ public class WebServiceCaller {
                 .setDateFormat("yyyy-MM-dd")
                 .create();
 
-        if (response.body().getValid()) {
+        //if (response.body().getValid()) {
 
             User user = new User();
 
@@ -97,47 +87,27 @@ public class WebServiceCaller {
                 webServiceHandler.onDataArrived(user, true);
             }
 
-        }
+      //  }
 
     }
 
 
-    public void getInterventions(String oib) {
+    public void getInterventions(String oib, final InterventionClickListener listener) {
         Call<InterventionResponse> call = webService.getInterventions(oib);
 
-        if (call != null) {
-            call.enqueue(new Callback<InterventionResponse>() {
-                @Override
-                public void onResponse(retrofit.Response<InterventionResponse> response, Retrofit retrofit) {
-                    try {
-                        if (response.isSuccess()) {
-                            handleInterventions(response);
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
+        call.enqueue(new Callback<InterventionResponse>() {
+            @Override
+            public void onResponse(retrofit.Response<InterventionResponse> response, Retrofit retrofit) {
+                listener.onInterventionsFetched(response.body().getInterventionList());
+            }
 
-                @Override
-                public void onFailure(Throwable t) {
-                    t.printStackTrace();
+            @Override
+            public void onFailure(Throwable t) {
+                listener.onError(t.getMessage());
                 }
-            });
-        }
+        });
     }
 
-    public void handleInterventions(retrofit.Response<InterventionResponse> response) {
-        Gson gson = new GsonBuilder()
-                .setDateFormat("yyyy-MM-dd")
-                .create();
-
-        Intervention[] interventionList = gson.fromJson(response.body().getIntervention().toString(), Intervention[].class);
-        System.out.println(response.body().getIntervention());
-
-        if (webServiceHandler != null) {
-            webServiceHandler.onDataArrived(interventionList, true);
-        }
-    }
 
     public void getMembers(String oib, final MembersReceivedListener listener) {
         Call<MembersResponse> call = webService.getMembers(oib);
@@ -152,6 +122,20 @@ public class WebServiceCaller {
             public void onFailure(Throwable t) {
                 listener.onError(t.getMessage());
             }
+        });
+    }
+
+    public void getOrganization(String oib, final OrganizationReceivedListener listener){
+        Call<OrganizationResponse> call = webService.getOrganization(oib);
+
+        call.enqueue(new Callback<OrganizationResponse>() {
+            @Override
+            public void onResponse(Response<OrganizationResponse> response, Retrofit retrofit) {
+                listener.onOrganizationFetched(response.body().getOrganization());
+            }
+
+            @Override
+            public void onFailure(Throwable t) {listener.onError(t.getMessage());}
         });
     }
 }
