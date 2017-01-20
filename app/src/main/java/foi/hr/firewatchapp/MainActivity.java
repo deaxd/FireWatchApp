@@ -19,6 +19,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 import butterknife.ButterKnife;
 import foi.hr.firewatchapp.helper.MockData;
@@ -40,6 +41,11 @@ public class MainActivity extends AppCompatActivity
     private FragmentManager mFragmentManager;
 
     private SharedPreferences mSharedPreferences;
+
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,6 +127,10 @@ public class MainActivity extends AppCompatActivity
                     else if(id==R.id.members_activity){
             startActivity(new Intent(getApplicationContext(), InterventionActivity.class));
             }
+        else if(id==R.id.alert){
+
+            startActivity(new Intent(getApplicationContext(), AlertActivity.class));
+        }
 
         mDrawer.closeDrawer(GravityCompat.START);
         return true;

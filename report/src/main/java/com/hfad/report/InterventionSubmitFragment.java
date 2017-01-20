@@ -169,8 +169,8 @@ public class InterventionSubmitFragment extends Fragment {
             }
         }
         else {
-            latitude=0;
-            longitude=0;
+            latitude=0.0;
+            longitude=0.0;
         }
     }
 

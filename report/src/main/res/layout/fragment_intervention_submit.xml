@@ -86,6 +86,14 @@
             android:ems="10"
             android:id="@+id/opis_intervencije" />
 
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rv_members">
+
+        </android.support.v7.widget.RecyclerView>
+
+
         <Button
             android:text="Button"
             android:layout_width="match_parent"

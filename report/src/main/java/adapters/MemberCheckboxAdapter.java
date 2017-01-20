@@ -9,6 +9,8 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.hfad.report.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +37,7 @@ public class MemberCheckboxAdapter extends RecyclerView.Adapter<MemberCheckboxAd
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_member, parent, false),checkboxClickListener);
+        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_member_cb, parent, false),checkboxClickListener);
     }
 
     @Override
@@ -70,9 +72,9 @@ public class MemberCheckboxAdapter extends RecyclerView.Adapter<MemberCheckboxAd
         public ViewHolder(View itemView, final OnChexboxClickListener checkboxClickListener) {
             super(itemView);
 
-            memberName = (TextView) itemView.findViewById(R.id.tv_member_name);
-            memberUsername = (TextView) itemView.findViewById(R.id.tv_member_username);
-            checkBox =(CheckBox) itemView.findViewById(R.id.chbox);
+            memberName = (TextView) itemView.findViewById(R.id.cb_member_name);
+            memberUsername = (TextView) itemView.findViewById(R.id.cb_member_username);
+            checkBox =(CheckBox) itemView.findViewById(R.id.checkbox);
 
 
             itemView.setOnClickListener(new View.OnClickListener() {
