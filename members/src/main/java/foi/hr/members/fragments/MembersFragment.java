@@ -51,8 +51,10 @@ public class MembersFragment extends Fragment implements MembersReceivedListener
 
         WebServiceCaller wsc = new WebServiceCaller();
         User user = SQLite.select().from(User.class).querySingle();
-        wsc.getMembers(user.getUserOib(), this);
-        showProgress();
+        if (user != null) {
+            wsc.getMembers(user.getUserOib(), this);
+            showProgress();
+        }
         return view;
     }
 

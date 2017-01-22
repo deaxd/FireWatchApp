@@ -21,12 +21,13 @@ import android.view.View;
 
 import butterknife.ButterKnife;
 import foi.hr.firewatchapp.helper.MockData;
+import foi.hr.members.MembersActivity;
 
 public class MainActivity extends AppCompatActivity
         implements SharedPreferences.OnSharedPreferenceChangeListener, NavigationView.OnNavigationItemSelectedListener,
         FragmentManager.OnBackStackChangedListener {
 
-   // private DrawerLayout mDrawerLayout;
+    // private DrawerLayout mDrawerLayout;
 
     private ActionBarDrawerToggle mToggle;
 
@@ -96,11 +97,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (mToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+        return mToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -111,17 +108,16 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //to prevent current item select over and over
-        if (item.isChecked()){
+        if (item.isChecked()) {
             mDrawer.closeDrawer(GravityCompat.START);
             return false;
         }
         if (id == R.id.int_activity) {
             // Handle the camera action
-            startActivity(new Intent(getApplicationContext(), InterventionActivity.class));}
-                    else if(id==R.id.members_activity){
             startActivity(new Intent(getApplicationContext(), InterventionActivity.class));
-            }
-        else if(id==R.id.alert){
+        } else if (id == R.id.members_activity) {
+            startActivity(new Intent(getApplicationContext(), MembersActivity.class));
+        } else if (id == R.id.alert) {
 
             startActivity(new Intent(getApplicationContext(), AlertActivity.class));
         }

@@ -22,12 +22,13 @@ import hr.foi.air.webservice.listeners.InterventionClickListener;
 public class InterventionActivity extends AppCompatActivity implements InterventionClickListener {
 
     private FrameLayout fragmentContainer;
+
     private FloatingActionButton fabi;
 
     private List<Fragment> fragmentList = new ArrayList<>();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_interventions);
@@ -53,7 +54,7 @@ public class InterventionActivity extends AppCompatActivity implements Intervent
         fabi.setVisibility(View.GONE);
     }
 
-    private void onFabClicked(){
+    private void onFabClicked() {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(R.id.fragment_container, fragmentList.get(1));
@@ -66,10 +67,10 @@ public class InterventionActivity extends AppCompatActivity implements Intervent
 
     private void addFragmentToList() {
         IntervetionListFragment intervetionListFragment = new IntervetionListFragment();
-        InterventionSubmitFragment interventionSubmitFragment = new InterventionSubmitFragment ();
+        InterventionSubmitFragment interventionSubmitFragment = new InterventionSubmitFragment();
 
-    //    fragmentList.add(intervetionListFragment);
-     //   fragmentList.add(interventionSubmitFragment);
+        fragmentList.add(intervetionListFragment);
+        fragmentList.add(interventionSubmitFragment);
 
     }
 
@@ -96,12 +97,12 @@ public class InterventionActivity extends AppCompatActivity implements Intervent
 
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         FragmentManager fm = getSupportFragmentManager();
         if (fm.getBackStackEntryCount() > 1) {
             fm.popBackStack();
             fabi.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             finish();
         }
 
