@@ -4,10 +4,6 @@ package com.hfad.report;
 import com.hfad.report.adapters.InterventionAdapter;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
-import hr.foi.air.database.database.entities.User;
-import hr.foi.air.webservice.WebServiceCaller;
-import hr.foi.air.webservice.listeners.InterventionClickListener;
-
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
@@ -20,6 +16,9 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import hr.foi.air.database.database.entities.Intervention;
+import hr.foi.air.database.database.entities.User;
+import hr.foi.air.webservice.WebServiceCaller;
+import hr.foi.air.webservice.listeners.InterventionClickListener;
 
 
 /**
@@ -69,6 +68,11 @@ public class IntervetionListFragment extends Fragment implements InterventionCli
     @Override
     public void onInterventionClicked(Intervention intervention) {
         interventionClickListener.onInterventionClicked(intervention);
+    }
+
+    @Override
+    public void onError(String error) {
+
     }
 
     //TODO add showProgress, hideProgress, don't know if I need it

@@ -2,7 +2,6 @@ package foi.hr.firewatchapp;
 
 import com.hfad.core.CurrentActivity;
 import com.hfad.report.InterventionActivity;
-import com.hfad.report.IntervetionListFragment;
 import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowManager;
 
@@ -19,7 +18,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 
 import butterknife.ButterKnife;
 import foi.hr.firewatchapp.helper.MockData;
@@ -41,11 +39,6 @@ public class MainActivity extends AppCompatActivity
     private FragmentManager mFragmentManager;
 
     private SharedPreferences mSharedPreferences;
-
-
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

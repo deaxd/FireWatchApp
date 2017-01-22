@@ -1,20 +1,19 @@
 package com.hfad.report;
 
+import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.FrameLayout;
-
-import hr.foi.air.webservice.listeners.InterventionClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import hr.foi.air.database.database.entities.Intervention;
+import hr.foi.air.webservice.listeners.InterventionClickListener;
 
 /**
  * Created by DELL on 18.1.2017..
@@ -88,6 +87,11 @@ public class InterventionActivity extends AppCompatActivity implements Intervent
         ft.commit();
 
         fabi.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onError(String error) {
+
     }
 
 
