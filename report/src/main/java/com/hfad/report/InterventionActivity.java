@@ -71,7 +71,6 @@ public class InterventionActivity extends AppCompatActivity implements Intervent
 
         fragmentList.add(intervetionListFragment);
         fragmentList.add(interventionSubmitFragment);
-
     }
 
     @Override
