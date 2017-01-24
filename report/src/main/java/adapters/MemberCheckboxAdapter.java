@@ -1,15 +1,14 @@
 package adapters;
 
+import com.hfad.report.R;
+
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.hfad.report.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,13 +60,11 @@ public class MemberCheckboxAdapter extends RecyclerView.Adapter<MemberCheckboxAd
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-
         TextView memberName;
 
         TextView memberUsername;
 
         CheckBox checkBox;
-
 
         public ViewHolder(View itemView, final OnChexboxClickListener checkboxClickListener) {
             super(itemView);
