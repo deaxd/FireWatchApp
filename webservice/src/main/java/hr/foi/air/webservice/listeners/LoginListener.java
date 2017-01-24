@@ -8,5 +8,4 @@ import hr.foi.air.database.database.entities.User;
 
 public interface LoginListener {
     void onLogin(User user);
-    void onError(String error);
 }
