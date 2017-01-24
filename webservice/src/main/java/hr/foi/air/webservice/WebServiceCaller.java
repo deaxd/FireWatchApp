@@ -5,7 +5,6 @@ import com.google.gson.GsonBuilder;
 
 import com.squareup.okhttp.OkHttpClient;
 
-import hr.foi.air.database.database.entities.Intervention;
 import hr.foi.air.database.database.entities.User;
 import hr.foi.air.webservice.Responses.InterventionResponse;
 import hr.foi.air.webservice.Responses.LoginResponse;
@@ -28,16 +27,9 @@ import retrofit.Retrofit;
 public class WebServiceCaller {
 
     Retrofit retrofit;
-
-    WebServiceHandler webServiceHandler;
-
     private final String baseUrl = "http://firewatch.esy.es/";
-
     private WebService webService;
 
-    public WebServiceCaller(WebServiceHandler webServiceHandler) {
-        this.webServiceHandler = webServiceHandler;
-    }
 
     public WebServiceCaller() {
 
@@ -60,37 +52,9 @@ public class WebServiceCaller {
 
             @Override
             public void onFailure(Throwable t) {
-                listener.onError(t.getMessage());
             }
         });
     }
-
-    private void handleLogin(retrofit.Response<LoginResponse> response) {
-        Gson gson = new GsonBuilder()
-                .setDateFormat("yyyy-MM-dd")
-                .create();
-
-        //if (response.body().getValid()) {
-
-            User user = new User();
-
-            user.setUserOib(gson.fromJson(response.body().getUser().getUserOib(), String.class));
-            user.setUserName(gson.fromJson(response.body().getUser().getUserName(), String.class));
-            user.setUserSurname(gson.fromJson(response.body().getUser().getUserSurname(), String.class));
-            user.setUserUsername(gson.fromJson(response.body().getUser().getUserUsername(), String.class));
-            user.setUserPassword(gson.fromJson(response.body().getUser().getUserPassword(), String.class));
-            user.setUserOrganization(gson.fromJson(response.body().getUser().getUserOrganization(), String.class));
-            user.setUserLieutenant(gson.fromJson(response.body().getUser().getUserLieutenant(), String.class));
-            user.save();
-
-            if (webServiceHandler != null) {
-                webServiceHandler.onDataArrived(user, true);
-            }
-
-      //  }
-
-    }
-
 
     public void getInterventions(String oib, final InterventionClickListener listener) {
         Call<InterventionResponse> call = webService.getInterventions(oib);
