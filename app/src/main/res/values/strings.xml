@@ -3,4 +3,7 @@
     <string name="open">Open</string>
     <string name="close">Close</string>
     <string name="hello_text">Dobrodošli u FireWatchApp !!</string>
+    <string name="FCM_PREF">foi.hr.firewatchapp.fcm_pref</string>
+    <string name="FCM_TOKEN">foi.hr.firewatchapp.fcm_token</string>
+
 </resources>
