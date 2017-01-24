@@ -15,8 +15,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import hr.foi.air.database.database.entities.User;
 import hr.foi.air.webservice.WebServiceCaller;
+import hr.foi.air.webservice.listeners.LoginListener;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements LoginListener {
 
     private static EditText username;
 
@@ -31,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     Button btnRegister;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
@@ -39,24 +40,26 @@ public class LoginActivity extends AppCompatActivity {
 
         long login;
         login = SQLite.select().from(User.class).query().getCount();
-        //zbog lakšeg provjeravanje aplikacije logira se direktno
         if (login > 0) {
-            //startActivity(new Intent(getBaseContext(), MainActivity.class));
+            startActivity(new Intent(getBaseContext(), MainActivity.class));
         }
 
-        startActivity(new Intent(getBaseContext(), MainActivity.class));
         username = (EditText) findViewById(R.id.et_username);
         password = (EditText) findViewById(R.id.et_password);
         login_button = (Button) findViewById(R.id.btn_login);
 
+        final LoginListener listener = this;
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 WebServiceCaller webServiceCaller = new WebServiceCaller();
-                //webServiceCaller.login(username.getText().toString(), password.getText().toString());
-                long login;
-                login = SQLite.select().from(User.class).query().getCount();
+                //webServiceCaller.login(username.getText().toString(), password.getText().toString(), listener );
+                webServiceCaller.login("dsafaric", "lozinka1", listener );
+
+                long login = SQLite.select().from(User.class).query().getCount();
+                System.out.println(login);
                 if(login >0)  startActivity(new Intent(getBaseContext(), MainActivity.class));
+
             }
         });
         btnRegister.setOnClickListener(new View.OnClickListener() {
@@ -66,5 +69,21 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+
+
+    }
+
+    @Override
+    public void onLogin(User user) {
+        System.out.println(user.getUserOib() +" "+ user.getUserUsername());
+        if(user.getUserUsername() == null)
+        {}
+        //else if (user.getUserUsername().equals(username.getText().toString())) {
+        //treaba izbrisati liniju poslje
+        else if (user.getUserUsername().equals("dsafaric")) {
+
+                user.save();
+                startActivity(new Intent(getBaseContext(), MainActivity.class));
+            }
     }
 }
