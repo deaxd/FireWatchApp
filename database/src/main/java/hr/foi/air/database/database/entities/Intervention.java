@@ -11,6 +11,7 @@ import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import hr.foi.air.database.database.FireWatchDB;
@@ -27,7 +28,7 @@ public class Intervention extends BaseModel implements Serializable {
     @Column @Unique int alertNumber;
     @Column String kindOfIntervention;
     @Column String address;
-    @Column String initialTIme;
+    @Column Date initialTIme;
     @Column int duration ;
     @Column String description;
     @Column double longitude;
@@ -43,7 +44,7 @@ public class Intervention extends BaseModel implements Serializable {
     }
 
     public Intervention(int interventionId, int alertNumber, String kindOfIntervention, String address,
-                        String initialTIme, int duration, String description, float longitude, float latitude, Fireman fireman) {
+                        Date initialTIme, int duration, String description, float longitude, float latitude, Fireman fireman) {
         this.interventionId = interventionId;
         this.alertNumber = alertNumber;
         this.kindOfIntervention = kindOfIntervention;
@@ -88,11 +89,11 @@ public class Intervention extends BaseModel implements Serializable {
         this.address = address;
     }
 
-    public String getInitialTIme() {
+    public Date getInitialTIme() {
         return initialTIme;
     }
 
-    public void setInitialTIme(String initialTIme) {
+    public void setInitialTIme(Date initialTIme) {
         this.initialTIme = initialTIme;
     }
 
