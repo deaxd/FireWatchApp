@@ -131,7 +131,7 @@ public class MemberDetailsFragment extends Fragment {
         WebServiceCaller webServiceCaller = new WebServiceCaller();
         webServiceCaller.updateMember(etOib.getText().toString(), etName.getText().toString(),
                 etSurname.getText().toString(), etUsername.getText().toString(),
-                etPassword.getText().toString(), true);
+                etPassword.getText().toString(), checked);
 
         fragmentActionListener.memberUpdateFinished();
     }

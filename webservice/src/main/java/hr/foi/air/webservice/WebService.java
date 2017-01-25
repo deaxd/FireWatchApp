@@ -37,4 +37,11 @@ public interface WebService {
     Call<AddResponse> updateMember(@Field("oib") String oib, @Field("name") String name, @Field("surname") String surname,
                                    @Field("username") String username, @Field("password") String password, @Field("lieutenant") Boolean lieutenant);
 
+    @FormUrlEncoded
+    @POST("insertMember.php")
+    Call<AddResponse> insertMember(@Field("userOib") String userOib, @Field("oib") String oib, @Field("name") String name, @Field("surname") String surname,
+                                   @Field("username") String username, @Field("password") String password, @Field("lieutenant") Boolean lieutenant);
+
+
+
 }

@@ -107,14 +107,24 @@ public class WebServiceCaller {
 
         call.enqueue(new Callback<AddResponse>() {
             @Override
-            public void onResponse(Response<AddResponse> response, Retrofit retrofit) {
-
-            }
+            public void onResponse(Response<AddResponse> response, Retrofit retrofit) {}
 
             @Override
-            public void onFailure(Throwable t) {
-
-            }
+            public void onFailure(Throwable t) {}
         });
     }
+
+    public void insertMember(String userOib , String oib, String name, String surname, String username, String password, Boolean lieutenant){
+
+        Call<AddResponse> call = webService.insertMember(userOib, oib, name, surname, username, password, lieutenant);
+
+        call.enqueue(new Callback<AddResponse>() {
+            @Override
+            public void onResponse(Response<AddResponse> response, Retrofit retrofit) {}
+
+            @Override
+            public void onFailure(Throwable t) {}
+        });
+    }
+
 }

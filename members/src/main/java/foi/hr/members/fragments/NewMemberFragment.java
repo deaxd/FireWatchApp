@@ -1,6 +1,7 @@
 package foi.hr.members.fragments;
 
 
+import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import android.content.Context;
@@ -15,7 +16,10 @@ import android.widget.Switch;
 
 import foi.hr.members.R;
 import foi.hr.members.listeners.FragmentActionListener;
+import hr.foi.air.database.database.entities.User;
 import hr.foi.air.webservice.Responses.NewMemberRequest;
+import hr.foi.air.webservice.WebService;
+import hr.foi.air.webservice.WebServiceCaller;
 
 public class NewMemberFragment extends Fragment {
 
@@ -34,6 +38,8 @@ public class NewMemberFragment extends Fragment {
     private Button btnSave;
 
     private FragmentActionListener fragmentActionListener;
+
+    boolean checked = false;
 
     public NewMemberFragment() {
     }
@@ -74,6 +80,14 @@ public class NewMemberFragment extends Fragment {
         validateInput();
         swapLayouts();
 
+        User user = SQLite.select().from(User.class).querySingle();
+
+
+        WebServiceCaller webServiceCaller = new WebServiceCaller();
+        webServiceCaller.insertMember(user.getUserOib() ,etOib.getText().toString(), etName.getText().toString(),
+                etSurname.getText().toString(), etUsername.getText().toString(), etPassword.getText().toString(), checked);
+
+
     }
 
     private void validateInput() {
@@ -98,13 +112,13 @@ public class NewMemberFragment extends Fragment {
             nmr.setPassword(etPassword.getText().toString());
         }
 
-        if (swtLieu.isActivated()) {
+        if (swtLieu.isChecked()) {
             nmr.setLieutenant(true);
+            checked = true;
         } else {
             nmr.setLieutenant(false);
         }
 
-        //TODO create a request to add a new member here.
     }
 
     private void swapLayouts() {
