@@ -10,6 +10,8 @@ import com.hfad.core.CurrentActivity;
 import com.hfad.report.InterventionActivity;
 import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowManager;
+import com.raizlabs.android.dbflow.sql.language.SQLCondition;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 import android.app.DownloadManager;
 import android.app.FragmentManager;
@@ -34,10 +36,14 @@ import java.util.Map;
 import butterknife.ButterKnife;
 import foi.hr.firewatchapp.helper.MockData;
 import foi.hr.members.MembersActivity;
+import hr.foi.air.database.database.entities.Organization;
+import hr.foi.air.database.database.entities.User;
+import hr.foi.air.webservice.WebServiceCaller;
+import hr.foi.air.webservice.listeners.OrganizationReceivedListener;
 
 public class MainActivity extends AppCompatActivity
         implements SharedPreferences.OnSharedPreferenceChangeListener, NavigationView.OnNavigationItemSelectedListener,
-        FragmentManager.OnBackStackChangedListener {
+        FragmentManager.OnBackStackChangedListener, OrganizationReceivedListener {
 
     // private DrawerLayout mDrawerLayout;
 
@@ -64,6 +70,13 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         CurrentActivity.setActivity(this);
 
+        long org = SQLite.select().from(Organization.class).query().getCount();
+        if(org == 0) {
+            User user = SQLite.select().from(User.class).querySingle();
+            System.out.println(user.getUserOib());
+            WebServiceCaller webServiceCaller = new WebServiceCaller();
+            webServiceCaller.getOrganization(user.getUserOib(), this);
+        }
 
         button= (Button)findViewById(R.id.tokbut);
         button.setOnClickListener(new View.OnClickListener() {
@@ -132,7 +145,7 @@ public class MainActivity extends AppCompatActivity
 
         //nm.showDefaultFragment();
 
-        MockData.writeAll();
+        //MockData.writeAll();
 
     }
 
@@ -148,6 +161,12 @@ public class MainActivity extends AppCompatActivity
         }
     };
 
+    @Override
+    public void onOrganizationFetched(Organization organization) {
+        organization.save();
+        System.out.println(organization.getName());
+
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

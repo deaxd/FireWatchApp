@@ -42,7 +42,7 @@ public class WebServiceCaller {
 
     public void login(String username, String password, final LoginListener listener) {
         Call<LoginResponse> call = webService.login(username, password);
-        System.out.println("1");
+
         call.enqueue(new Callback<LoginResponse>() {
 
             @Override
@@ -53,7 +53,7 @@ public class WebServiceCaller {
 
             @Override
             public void onFailure(Throwable t) {
-                System.out.println("onFailure");
+                t.printStackTrace();
             }
         });
     }
@@ -101,7 +101,7 @@ public class WebServiceCaller {
             }
 
             @Override
-            public void onFailure(Throwable t) {}
+            public void onFailure(Throwable t) {t.printStackTrace();}
         });
     }
 

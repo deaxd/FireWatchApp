@@ -19,15 +19,13 @@ import hr.foi.air.webservice.WebServiceCaller;
 import hr.foi.air.webservice.listeners.LoginListener;
 import hr.foi.air.webservice.listeners.OrganizationReceivedListener;
 
-public class LoginActivity extends AppCompatActivity implements LoginListener, OrganizationReceivedListener {
+public class LoginActivity extends AppCompatActivity implements LoginListener{
 
     private static EditText username;
 
     private static EditText password;
 
     private static Button login_button;
-
-    OrganizationReceivedListener listener;
 
     LoginListener listenerLogin;
 
@@ -51,13 +49,13 @@ public class LoginActivity extends AppCompatActivity implements LoginListener, O
         if (login > 0) {
             startActivity(new Intent(getBaseContext(), MainActivity.class));
         }
-        startActivity(new Intent(getBaseContext(), MainActivity.class));
+        //startActivity(new Intent(getBaseContext(), MainActivity.class));
         username = (EditText) findViewById(R.id.et_username);
         password = (EditText) findViewById(R.id.et_password);
         login_button = (Button) findViewById(R.id.btn_login);
 
         listenerLogin = this;
-        listener = this;
+
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,24 +80,13 @@ public class LoginActivity extends AppCompatActivity implements LoginListener, O
     @Override
     public void onLogin(User user) {
 
-        WebServiceCaller webServiceCaller = new WebServiceCaller();
-        webServiceCaller.getOrganization(user.getUserOib(), listener);
-
-        System.out.println(user.getUserOib() +" "+ user.getUserUsername());
         if(user.getUserUsername() == null)
         {}
         //else if (user.getUserUsername().equals(username.getText().toString())) {
         //treaba izbrisati liniju poslje
         else if (user.getUserUsername().equals("dsafaric")) {
-
-                user.save();
-                startActivity(new Intent(getBaseContext(), MainActivity.class));
-            }
-    }
-
-    @Override
-    public void onOrganizationFetched(Organization organization) {
-        organization.save();
-        System.out.println(organization.getName());
+            user.save();
+            startActivity(new Intent(getBaseContext(), MainActivity.class));
+        }
     }
 }
