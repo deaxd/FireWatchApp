@@ -10,19 +10,19 @@ $DB = new Baza();
 
 if(isset($_POST['oib']) ){
     $fireman = $_POST['oib'];
-
+    
     $query = "select organizationId from fireman where oib = '$fireman'";
-
+    
     $organizationIdInDB = $DB->selectDB($query);
     $organizationId = $organizationIdInDB->fetch_array();
     $org= $organizationId['organizationId'];
-    $query2 = "SELECT intervention.interventionId, intervention.alertNumber,
-        intervention.kindOfIntervention, intervention.address, intervention.initialTime,
-        intervention.duration, intervention.description, intervention.firemanOib, intervention.longitude,
-        intervention.latitude FROM  intervention join fireman on intervention.firemanOib =
+    $query2 = "SELECT intervention.interventionId, intervention.alertNumber, 
+        intervention.kindOfIntervention, intervention.address, intervention.initialTime, 
+        intervention.duration, intervention.description, intervention.firemanOib, intervention.longitude, 
+        intervention.latitude FROM  intervention join fireman on intervention.firemanOib = 
     fireman.oib and fireman.organizationId = '$org'";
     $interventions = $DB->selectDB($query2);
-
+            
     $send = array();
 
 
@@ -45,6 +45,6 @@ if(isset($_POST['oib']) ){
     $res['interventions'] = $send;
     echo json_encode($res);
 }
-
-
+    
+  
 
