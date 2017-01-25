@@ -1,11 +1,9 @@
 package hr.foi.air.webservice;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import com.squareup.okhttp.OkHttpClient;
 
-import hr.foi.air.database.database.entities.User;
+import hr.foi.air.webservice.Responses.AddResponse;
 import hr.foi.air.webservice.Responses.InterventionResponse;
 import hr.foi.air.webservice.Responses.LoginResponse;
 import hr.foi.air.webservice.Responses.MembersResponse;
@@ -100,6 +98,23 @@ public class WebServiceCaller {
 
             @Override
             public void onFailure(Throwable t) {listener.onError(t.getMessage());}
+        });
+    }
+
+    public void updateMember(String oib, String name, String surname, String username, String password, Boolean lieutenant){
+
+        Call<AddResponse> call = webService.updateMember(oib, name, surname, username, password, lieutenant);
+
+        call.enqueue(new Callback<AddResponse>() {
+            @Override
+            public void onResponse(Response<AddResponse> response, Retrofit retrofit) {
+
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
         });
     }
 }

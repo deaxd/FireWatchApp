@@ -118,7 +118,7 @@ public class InterventionSubmitFragment extends Fragment {
                 Intervention intervention1  = new Intervention();
                 intervention1.setKindOfIntervention(specs);
                 intervention1.setAddress(adress);
-                intervention1.setInitialTIme(time);
+                //intervention1.setInitialTIme(time);
                 intervention1.setDuration(fduration);
                 intervention1.setLatitude(latitude);
                 intervention1.setLatitude(longitude);

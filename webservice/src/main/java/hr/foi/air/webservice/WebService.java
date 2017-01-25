@@ -1,5 +1,6 @@
 package hr.foi.air.webservice;
 
+import hr.foi.air.webservice.Responses.AddResponse;
 import hr.foi.air.webservice.Responses.InterventionResponse;
 import hr.foi.air.webservice.Responses.LoginResponse;
 import hr.foi.air.webservice.Responses.MembersResponse;
@@ -30,4 +31,10 @@ public interface WebService {
     @FormUrlEncoded
     @POST("getOrganization.php")
     Call<OrganizationResponse> getOrganization(@Field("oib") String oib);
+
+    @FormUrlEncoded
+    @POST("updateMember.php")
+    Call<AddResponse> updateMember(@Field("oib") String oib, @Field("name") String name, @Field("surname") String surname,
+                                   @Field("username") String username, @Field("password") String password, @Field("lieutenant") Boolean lieutenant);
+
 }

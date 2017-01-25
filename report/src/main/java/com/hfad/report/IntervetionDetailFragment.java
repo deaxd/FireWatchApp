@@ -95,7 +95,7 @@ public class IntervetionDetailFragment extends Fragment {
          private void fillData(){
             txtType.setText(intervention.getKindOfIntervention());
             txtAddress.setText(intervention.getAddress());
-            txtInitialTime.setText(intervention.getInitialTIme());
+            //txtInitialTime.setText(intervention.getInitialTIme());
             txtDuration.setText(intervention.getDuration());
             txtDescription.setText(intervention.getDescription());
             //txtLongitude.setText(intervention.getLongitude());

@@ -43,7 +43,7 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
         if (login > 0) {
             startActivity(new Intent(getBaseContext(), MainActivity.class));
         }
-
+        startActivity(new Intent(getBaseContext(), MainActivity.class));
         username = (EditText) findViewById(R.id.et_username);
         password = (EditText) findViewById(R.id.et_password);
         login_button = (Button) findViewById(R.id.btn_login);
