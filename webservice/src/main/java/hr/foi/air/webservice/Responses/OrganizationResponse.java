@@ -12,7 +12,7 @@ public class OrganizationResponse {
     @SerializedName("valid")
     private boolean isValid;
 
-    @SerializedName("members")
+    @SerializedName("organization")
     private Organization organization;
 
     public boolean isValid() {

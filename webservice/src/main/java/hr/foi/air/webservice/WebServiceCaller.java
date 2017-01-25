@@ -42,14 +42,18 @@ public class WebServiceCaller {
 
     public void login(String username, String password, final LoginListener listener) {
         Call<LoginResponse> call = webService.login(username, password);
+        System.out.println("1");
         call.enqueue(new Callback<LoginResponse>() {
+
             @Override
             public void onResponse(retrofit.Response<LoginResponse> response, Retrofit retrofit) {
                 listener.onLogin(response.body().getUser());
+                System.out.println("2");
             }
 
             @Override
             public void onFailure(Throwable t) {
+                System.out.println("onFailure");
             }
         });
     }
@@ -97,7 +101,7 @@ public class WebServiceCaller {
             }
 
             @Override
-            public void onFailure(Throwable t) {listener.onError(t.getMessage());}
+            public void onFailure(Throwable t) {}
         });
     }
 
