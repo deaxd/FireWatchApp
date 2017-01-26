@@ -64,11 +64,15 @@ public class MainActivity extends AppCompatActivity
     Button button;
     String app_server_url="http://127.0.0.1:8080/fcmtest/fcm_insert.php";
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         CurrentActivity.setActivity(this);
+
+        String recent_token = FirebaseInstanceId.getInstance().getToken();
 
         long org = SQLite.select().from(Organization.class).query().getCount();
         if(org == 0) {
@@ -82,9 +86,11 @@ public class MainActivity extends AppCompatActivity
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences sharedPreferences=getApplicationContext().getSharedPreferences(getString(R.string.FCM_PREF), Context.MODE_PRIVATE);
-                final String token = sharedPreferences.getString(getString(R.string.FCM_TOKEN),"");
 
+                //SharedPreferences sharedPreferences=getApplicationContext().getSharedPreferences(getString(R.string.FCM_PREF), Context.MODE_PRIVATE);
+                //final String token = sharedPreferences.getString(getString(R.string.FCM_TOKEN),"");
+                final String token = android.preference.PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
+                        .getString(getString(R.string.FCM_TOKEN), "");
 
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, app_server_url, new Response.Listener<String>() {
                     @Override
@@ -101,7 +107,7 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public Map<String, String> getParams() throws AuthFailureError {
                         Map<String,String> params = new HashMap<String, String>();
-                        String recent_token = FirebaseInstanceId.getInstance().getToken();
+                       String recent_token = FirebaseInstanceId.getInstance().getToken();
                         params.put("fcm_token",token);
 
                         return params;

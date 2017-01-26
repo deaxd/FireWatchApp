@@ -2,6 +2,7 @@ package com.hfad.report;
 
 
 import com.hfad.report.adapters.InterventionAdapter;
+
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 import android.content.Context;

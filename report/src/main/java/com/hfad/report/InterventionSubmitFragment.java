@@ -5,141 +5,148 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
+import com.raizlabs.android.dbflow.sql.language.SQLite;
+import com.rengwuxian.materialedittext.MaterialEditText;
+
+
+
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import hr.foi.air.database.database.entities.Intervention;
+import hr.foi.air.webservice.Responses.NewInterventionRequest;
+import hr.foi.air.webservice.WebServiceCaller;
+import hr.foi.air.webservice.listeners.InterventionClickListener;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link InterventionSubmitFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link InterventionSubmitFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class InterventionSubmitFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
     protected LocationManager locationManager;
+
+    private MaterialEditText kindOfInt;
+    private MaterialEditText adress;
+    private String initTime =getDateTime();
+    private MaterialEditText duration;
+    private MaterialEditText description;
+    private MaterialEditText members;
     boolean isGPSenabled;
     boolean isNETWORKenabled;
     Location location;
     double latitude;
     double longitude;
 
+    private Button btnSave;
+
+
+
     Context mcontext= getContext();
 
 
-    private OnFragmentInteractionListener mListener;
+    private InterventionClickListener interventionClickListener;
 
     public InterventionSubmitFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment InterventionSubmitFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static InterventionSubmitFragment newInstance(String param1, String param2) {
-        InterventionSubmitFragment fragment = new InterventionSubmitFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-
-
-        }
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        interventionClickListener = (InterventionClickListener) context;
     }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View v = inflater.inflate(R.layout.fragment_intervention_submit, container, false);
+        bindViews(v);
 
-        final EditText desc = (EditText) v.findViewById(R.id.opis_intervencije);
-        final String description = desc.getText().toString();
-
-        final EditText adresa = (EditText) v.findViewById(R.id.adresa_intervencije);
-        final String adress = adresa.getText().toString();
-
-        final EditText timel = (EditText) v.findViewById(R.id.vrijeme);
-        final String time = timel.getText().toString();
-
-        final EditText duratio = (EditText) v.findViewById(R.id.vrijeme);
-        final String duration = duratio.getText().toString();
-        final int fduration = Integer.parseInt(duration);
-
-        final EditText spec = (EditText) v.findViewById(R.id.vrsta_intervencije);
-        final String specs = spec.getText().toString();
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onSaveClicked();
+            }
+        });
 
         geoLoc();
 
+        Intervention intervention = SQLite.select().from(Intervention.class).querySingle();
 
-        final Button button = (Button) v.findViewById(R.id.predaj);
 
-        button.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Intervention intervention1  = new Intervention();
-                intervention1.setKindOfIntervention(specs);
-                intervention1.setAddress(adress);
-                //intervention1.setInitialTIme(time);
-                intervention1.setDuration(fduration);
-                intervention1.setLatitude(latitude);
-                intervention1.setLatitude(longitude);
-                intervention1.setDescription(description);
-                intervention1.save();
-            }
-        });
+        WebServiceCaller webServiceCaller = new WebServiceCaller();
+        webServiceCaller.insertIntervention(getKindOfIntervention().toString()
+                ,.getText().toString(), etName.getText().toString(),
+                etSurname.getText().toString(), etUsername.getText().toString(), etPassword.getText().toString(), checked);
+
+
 
         return v;
 
 
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+    private void bindViews(View v) {
+       kindOfInt = (MaterialEditText) v.findViewById(R.id.mt_kindoint);
+        adress = (MaterialEditText) v.findViewById(R.id.mt_adress);
+        duration = (MaterialEditText) v.findViewById(R.id.mt_duration);
+        description = (MaterialEditText) v.findViewById(R.id.mt_description);
+        members = (MaterialEditText) v.findViewById(R.id.mt_members);
+    }
+
+    private void onSaveClicked() {
+        validateInput();
+        swapLayouts();
+    }
+
+
+
+    private void validateInput(){
+        NewInterventionRequest nir = new NewInterventionRequest();
+
+        if (!TextUtils.isEmpty(kindOfInt.getText())) {
+            nir.setKindOfInt(kindOfInt.getText().toString());
+        }
+
+        if (!TextUtils.isEmpty(adress.getText())) {
+            nir.setAdress(adress.getText().toString());
+        }
+
+        if (!TextUtils.isEmpty(duration.getText())) {
+            nir.setDuration(duration.getText().toString());
+        }
+
+        if (!TextUtils.isEmpty(description.getText())) {
+            nir.setDescription(description.getText().toString());
+        }
+
+        if (!TextUtils.isEmpty(members.getText())) {
+            nir.setMembers(members.getText().toString());
+
+
+
+
+
+            nir.setLatitude(latitude);
+            nir.setLongitude(longitude);
+            nir.setInitTime(initTime);
+
         }
     }
 
-    public void geoLoc(){
+
+    private void geoLoc(){
         isGPSenabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         isNETWORKenabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
@@ -175,41 +182,26 @@ public class InterventionSubmitFragment extends Fragment {
     }
 
 
+         private void swapLayouts(){
+             interventionClickListener.onNewInterventionAdded();
+         }
 
 
 
 
 
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        interventionClickListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+    private String getDateTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        Date date = new Date();
+        return dateFormat.format(date);
     }
+
 }
