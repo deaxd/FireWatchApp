@@ -131,4 +131,19 @@ public class WebServiceCaller {
         });
     }
 
+    public void insertIntervention(String kindofint , String adress, String initTime , String duration, String description, double latitude, double longitude, String members){
+
+        Call<AddResponse> call = webService.insertIntervention(kindofint, adress, initTime, duration, description, latitude, longitude,members);
+
+        call.enqueue(new Callback<AddResponse>() {
+            @Override
+            public void onResponse(Response<AddResponse> response, Retrofit retrofit) {}
+
+            @Override
+            public void onFailure(Throwable t) {}
+        });
+    }
+
+
+    
 }
