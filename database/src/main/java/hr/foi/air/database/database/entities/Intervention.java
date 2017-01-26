@@ -35,16 +35,14 @@ public class Intervention extends BaseModel implements Serializable {
     @Column double latitude;
     @Column @ForeignKey(tableClass = Fireman.class)
     Fireman fireman;
-
-    List<Equipment> equipmentsOnIntervention;
-    List<Vehicle> vehiclesOnIntervention;
-    List<Fireman> firemansOnIntervention;
+    @Column String members;
 
     public Intervention() {
     }
 
     public Intervention(int interventionId, int alertNumber, String kindOfIntervention, String address,
-                        Date initialTIme, int duration, String description, float longitude, float latitude, Fireman fireman) {
+                        Date initialTIme, int duration, String description, double longitude,
+                        double latitude, Fireman fireman, String members) {
         this.interventionId = interventionId;
         this.alertNumber = alertNumber;
         this.kindOfIntervention = kindOfIntervention;
@@ -55,6 +53,15 @@ public class Intervention extends BaseModel implements Serializable {
         this.longitude = longitude;
         this.latitude = latitude;
         this.fireman = fireman;
+        this.members = members;
+    }
+
+    public String getMembers() {
+        return members;
+    }
+
+    public void setMembers(String members) {
+        this.members = members;
     }
 
     public int getInterventionId() {
@@ -145,31 +152,4 @@ public class Intervention extends BaseModel implements Serializable {
         return SQLite.select().from(Intervention.class).where(Intervention_Table.interventionId.eq(id)).querySingle();
     }
 
-    @OneToMany(methods = {OneToMany.Method.ALL}, variableName = "equipmentsOnIntervention")
-    public List<Equipment> getEquipmentsOnIntervention(){
-                equipmentsOnIntervention = SQLite.select().from(Equipment.class).join(EquipmentOnIntervention.class, Join.JoinType.INNER)
-                .on(Equipment_Table.equipmentId.withTable().eq(EquipmentOnIntervention_Table.equipment_equipmentId.withTable()))
-                .join(Intervention.class, Join.JoinType.INNER).on(EquipmentOnIntervention_Table.intervention_interventionId.withTable()
-                .eq(interventionId)).queryList();
-    return equipmentsOnIntervention;
-    }
-
-
-    @OneToMany(methods = {OneToMany.Method.ALL}, variableName = "vehiclesOnIntervention")
-    public List<Vehicle> getVehiclesOnIntervention(){
-            vehiclesOnIntervention = SQLite.select().from(Vehicle.class).join(VehicleOnIntervention.class, Join.JoinType.INNER)
-            .on(Vehicle_Table.vehicleId.withTable().eq(VehicleOnIntervention_Table.vehicle_vehicleId.withTable()))
-            .join(Intervention.class, Join.JoinType.INNER).on(VehicleOnIntervention_Table.intervention_interventionId.withTable()
-            .eq(interventionId)).queryList();
-    return vehiclesOnIntervention;
-    }
-
-    @OneToMany(methods = {OneToMany.Method.ALL}, variableName = "firemansOnIntervention")
-    public List<Fireman> getFiremansOnIntervention(){
-        firemansOnIntervention = SQLite.select().from(Fireman.class).join(FiremanOnIntervention.class, Join.JoinType.INNER)
-        .on(Fireman_Table.oib.withTable().eq(FiremanOnIntervention_Table.fireman_oib.withTable()))
-        .join(Intervention.class, Join.JoinType.INNER).on(FiremanOnIntervention_Table.intervention_interventionId.withTable()
-        .eq(interventionId)).queryList();
-    return firemansOnIntervention;
-    }
 }
