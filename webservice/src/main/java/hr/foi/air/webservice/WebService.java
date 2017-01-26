@@ -43,5 +43,9 @@ public interface WebService {
                                    @Field("username") String username, @Field("password") String password, @Field("lieutenant") Boolean lieutenant);
 
 
-
+    @FormUrlEncoded
+    @POST("insertIntervention.php")
+    Call<Void> insertIntervention(@Field("oib") String oib, @Field("alertNumber") String alertNumber, @Field("kindOfIntervention") String kindOfIntervention ,
+                                  @Field("address") String address, @Field("initialTime") String initialTime , @Field("duration") String duration,
+                                  @Field("description") String description, @Field("latitude") double latitude, @Field("longitude") double longitude, @Field("members") String members);
 }

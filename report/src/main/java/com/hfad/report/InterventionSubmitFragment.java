@@ -25,6 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 import hr.foi.air.database.database.entities.Intervention;
+import hr.foi.air.database.database.entities.User;
 import hr.foi.air.webservice.Responses.NewInterventionRequest;
 import hr.foi.air.webservice.WebServiceCaller;
 import hr.foi.air.webservice.listeners.InterventionClickListener;
@@ -84,16 +85,12 @@ public class InterventionSubmitFragment extends Fragment {
 
         Intervention intervention = SQLite.select().from(Intervention.class).querySingle();
 
+        User user = SQLite.select().from(User.class).querySingle();
 
         WebServiceCaller webServiceCaller = new WebServiceCaller();
-        webServiceCaller.insertIntervention(getKindOfIntervention().toString()
-                ,.getText().toString(), etName.getText().toString(),
-                etSurname.getText().toString(), etUsername.getText().toString(), etPassword.getText().toString(), checked);
-
-
-
+        webServiceCaller.insertIntervention(user.getUserOib(), alertNumber, kindOfInt.getText().toString(), adress.getText().toString(),
+                initTime, duration.getText().toString(),  description.getText().toString(), latitude, longitude, members.getText().toString());
         return v;
-
 
     }
 
