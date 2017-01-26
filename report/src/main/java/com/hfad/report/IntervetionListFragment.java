@@ -69,7 +69,7 @@ public class IntervetionListFragment extends Fragment implements InterventionCli
 
     @Override
     public void onInterventionClicked(Intervention intervention) {
-        interventionClickListener.onInterventionClicked(intervention);
+        //interventionClickListener.onInterventionClicked(intervention);
     }
 
     @Override

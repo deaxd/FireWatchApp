@@ -41,7 +41,7 @@ public class InterventionAdapter extends RecyclerView.Adapter<InterventionAdapte
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.mIntId.setText(interventionList.get(position).getInterventionId());
+        //holder.mIntId.setText(interventionList.get(position).getInterventionId());
         holder.mKindOfIntervention.setText(interventionList.get(position).getKindOfIntervention());
         holder.mAddress.setText(interventionList.get(position).getAddress());
     }
@@ -52,14 +52,14 @@ public class InterventionAdapter extends RecyclerView.Adapter<InterventionAdapte
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView mIntId;
+        //TextView mIntId;
         TextView mKindOfIntervention;
         TextView mAddress;
 
         public ViewHolder(View itemView, final InterventionClickListener interventionClickListener){
             super(itemView);
             //TODO interventionId, kindOfIntervention a wrong, need to pull from layouts :D
-            mIntId = (TextView) itemView.findViewById(R.id.tv_int_id);
+            //mIntId = (TextView) itemView.findViewById(R.id.tv_int_id);
             mKindOfIntervention = (TextView) itemView.findViewById(R.id.tv_int_kindOf);
             mAddress = (TextView) itemView.findViewById(R.id.tv_int_address);
 
