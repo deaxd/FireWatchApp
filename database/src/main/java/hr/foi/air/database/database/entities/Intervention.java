@@ -25,11 +25,11 @@ public class Intervention extends BaseModel implements Serializable {
     @PrimaryKey(autoincrement = true)
     @Column
     int interventionId;
-    @Column @Unique int alertNumber;
+    @Column @Unique String alertNumber;
     @Column String kindOfIntervention;
     @Column String address;
     @Column Date initialTIme;
-    @Column int duration ;
+    @Column String duration ;
     @Column String description;
     @Column double longitude;
     @Column double latitude;
@@ -40,9 +40,7 @@ public class Intervention extends BaseModel implements Serializable {
     public Intervention() {
     }
 
-    public Intervention(int interventionId, int alertNumber, String kindOfIntervention, String address,
-                        Date initialTIme, int duration, String description, double longitude,
-                        double latitude, Fireman fireman, String members) {
+    public Intervention(int interventionId, String alertNumber, String kindOfIntervention, String address, Date initialTIme, String duration, String description, double longitude, double latitude, Fireman fireman, String members) {
         this.interventionId = interventionId;
         this.alertNumber = alertNumber;
         this.kindOfIntervention = kindOfIntervention;
@@ -72,15 +70,7 @@ public class Intervention extends BaseModel implements Serializable {
         this.interventionId = interventionId;
     }
 
-    public int getAlertNumber() {
-        return alertNumber;
-    }
-
-    public void setAlertNumber(int alertNumber) {
-        this.alertNumber = alertNumber;
-    }
-
-    public String getKindOfIntervention() {
+   public String getKindOfIntervention() {
         return kindOfIntervention;
     }
 
@@ -104,15 +94,7 @@ public class Intervention extends BaseModel implements Serializable {
         this.initialTIme = initialTIme;
     }
 
-    public int getDuration() {
-        return duration;
-    }
-
-    public void setDuration(int duration) {
-        this.duration = duration;
-    }
-
-    public String getDescription() {
+   public String getDescription() {
         return description;
     }
 
@@ -142,6 +124,22 @@ public class Intervention extends BaseModel implements Serializable {
 
     public void setFireman(Fireman fireman) {
         this.fireman = fireman;
+    }
+
+    public String getAlertNumber() {
+        return alertNumber;
+    }
+
+    public void setAlertNumber(String alertNumber) {
+        this.alertNumber = alertNumber;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
     }
 
     public static List<Intervention> getAll(){
