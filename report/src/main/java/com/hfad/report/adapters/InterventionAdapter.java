@@ -36,7 +36,7 @@ public class InterventionAdapter extends RecyclerView.Adapter<InterventionAdapte
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.fragment_intervetion_list, parent, false), interventionClickListener);
+        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_intervention, parent, false), interventionClickListener);
     }
 
     @Override
