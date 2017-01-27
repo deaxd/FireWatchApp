@@ -29,7 +29,7 @@ public class IntervetionListFragment extends Fragment implements InterventionCli
 
     private RecyclerView recyclerView;
 
-    private InterventionClickListener interventionClickListener;
+   private InterventionClickListener interventionClickListener;
 
 
     @Override
@@ -70,7 +70,7 @@ public class IntervetionListFragment extends Fragment implements InterventionCli
 
     @Override
     public void onInterventionClicked(Intervention intervention) {
-        //interventionClickListener.onInterventionClicked(intervention);
+        interventionClickListener.onInterventionClicked(intervention);
     }
 
 

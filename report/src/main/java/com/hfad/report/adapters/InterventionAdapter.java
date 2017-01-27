@@ -1,14 +1,19 @@
 package com.hfad.report.adapters;
 
 
+import android.app.FragmentTransaction;
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.hfad.core.CurrentActivity;
 import com.hfad.report.R;
+
+import butterknife.OnClick;
 import hr.foi.air.webservice.listeners.InterventionClickListener;
 
 import java.util.ArrayList;
@@ -52,14 +57,14 @@ public class InterventionAdapter extends RecyclerView.Adapter<InterventionAdapte
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        //TextView mIntId;
+
         TextView mKindOfIntervention;
         TextView mAddress;
 
         public ViewHolder(View itemView, final InterventionClickListener interventionClickListener){
             super(itemView);
-            //TODO interventionId, kindOfIntervention a wrong, need to pull from layouts :D
-            //mIntId = (TextView) itemView.findViewById(R.id.tv_int_id);
+
+
             mKindOfIntervention = (TextView) itemView.findViewById(R.id.tv_int_kindOf);
             mAddress = (TextView) itemView.findViewById(R.id.tv_int_address);
 
@@ -69,11 +74,9 @@ public class InterventionAdapter extends RecyclerView.Adapter<InterventionAdapte
                     interventionClickListener.onInterventionClicked(interventionList.get(getAdapterPosition()));
                 }
             });
-
         }
-
-
-
     }
+
+
 
 }
