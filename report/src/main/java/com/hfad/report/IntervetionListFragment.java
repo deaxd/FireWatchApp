@@ -73,6 +73,7 @@ public class IntervetionListFragment extends Fragment implements InterventionCli
         //interventionClickListener.onInterventionClicked(intervention);
     }
 
+
     @Override
     public void onError(String error) {
 

@@ -5,10 +5,18 @@
     android:layout_height="match_parent"
     tools:context="com.hfad.report.InterventionSubmitFragment">
 
+
+
+    <ScrollView android:id="@+id/ScrollView01"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
+
+
 
     <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/mt_kindoint"
@@ -19,8 +27,6 @@
         app:met_underlineColor="@color/colorPrimary"
         app:met_textColorHint="@color/colorPrimary"
         app:met_baseColor="@color/colorAccent"
-        app:met_maxCharacters="11"
-        app:met_minCharacters="11"
         app:met_floatingLabel="highlight"/>
 
     <com.rengwuxian.materialedittext.MaterialEditText
@@ -39,7 +45,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:hint="Surname"
+        android:hint="Opis"
+        app:met_underlineColor="@color/colorPrimary"
+        app:met_textColorHint="@color/colorPrimary"
+        app:met_baseColor="@color/colorAccent"
+        app:met_floatingLabel="highlight"/>
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/mt_alertNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:hint="Alert Number"
         app:met_underlineColor="@color/colorPrimary"
         app:met_textColorHint="@color/colorPrimary"
         app:met_baseColor="@color/colorAccent"
@@ -67,9 +84,6 @@
         app:met_baseColor="@color/colorAccent"
         app:met_floatingLabel="highlight"/>
 
-   </LinearLayout>
-
-
     <Button
         android:id="@+id/btn_save"
         android:layout_width="match_parent"
@@ -80,4 +94,10 @@
         android:textColor="@android:color/white"
         android:background="@color/colorAccent"/>
 
-    </RelativeLayout>
+</LinearLayout>
+    </ScrollView>
+
+
+</RelativeLayout>
+
+

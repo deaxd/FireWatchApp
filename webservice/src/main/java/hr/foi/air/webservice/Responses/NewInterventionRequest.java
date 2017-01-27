@@ -9,6 +9,7 @@ public class NewInterventionRequest {
     private String kindOfInt;
     private String adress;
     private String initTime;
+    private String alertNumber;
     private String duration;
     private String description;
     private double latitude;
@@ -16,6 +17,13 @@ public class NewInterventionRequest {
     private String members;
 
 
+    public String getAlertNumber() {
+        return alertNumber;
+    }
+
+    public void setAlertNumber(String alertNumber) {
+        this.alertNumber = alertNumber;
+    }
 
     public String getMembers() {
         return members;

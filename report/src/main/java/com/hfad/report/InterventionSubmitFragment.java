@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.hfad.report.listeners.InterventionAddedListener;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
@@ -33,7 +34,7 @@ import hr.foi.air.webservice.listeners.InterventionClickListener;
 
 public class InterventionSubmitFragment extends Fragment {
 
-    protected LocationManager locationManager;
+
 
     private MaterialEditText kindOfInt;
     private MaterialEditText adress;
@@ -41,8 +42,9 @@ public class InterventionSubmitFragment extends Fragment {
     private MaterialEditText duration;
     private MaterialEditText description;
     private MaterialEditText members;
-    boolean isGPSenabled;
-    boolean isNETWORKenabled;
+    private MaterialEditText alertNumber;
+    boolean isGPSenabled=false;
+    boolean isNETWORKenabled=false;
     Location location;
     double latitude;
     double longitude;
@@ -53,8 +55,10 @@ public class InterventionSubmitFragment extends Fragment {
 
     Context mcontext= getContext();
 
+    protected LocationManager locationManager;
 
     private InterventionClickListener interventionClickListener;
+    private InterventionAddedListener interventionAddedListener;
 
     public InterventionSubmitFragment() {
     }
@@ -63,6 +67,9 @@ public class InterventionSubmitFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         interventionClickListener = (InterventionClickListener) context;
+        interventionAddedListener = (InterventionAddedListener) context;
+
+
     }
 
 
@@ -83,13 +90,7 @@ public class InterventionSubmitFragment extends Fragment {
 
         geoLoc();
 
-        Intervention intervention = SQLite.select().from(Intervention.class).querySingle();
 
-        User user = SQLite.select().from(User.class).querySingle();
-
-        WebServiceCaller webServiceCaller = new WebServiceCaller();
-        webServiceCaller.insertIntervention(user.getUserOib(), alertNumber, kindOfInt.getText().toString(), adress.getText().toString(),
-                initTime, duration.getText().toString(),  description.getText().toString(), latitude, longitude, members.getText().toString());
         return v;
 
     }
@@ -100,11 +101,20 @@ public class InterventionSubmitFragment extends Fragment {
         duration = (MaterialEditText) v.findViewById(R.id.mt_duration);
         description = (MaterialEditText) v.findViewById(R.id.mt_description);
         members = (MaterialEditText) v.findViewById(R.id.mt_members);
+        alertNumber= (MaterialEditText) v.findViewById(R.id.mt_alertNumber);
+        btnSave = (Button) v.findViewById(R.id.btn_save);
     }
 
     private void onSaveClicked() {
         validateInput();
         swapLayouts();
+
+        User user = SQLite.select().from(User.class).querySingle();
+
+
+        WebServiceCaller webServiceCaller = new WebServiceCaller();
+        webServiceCaller.insertIntervention(user.getUserOib(), alertNumber.getText().toString(), kindOfInt.getText().toString(), adress.getText().toString(),
+                initTime, duration.getText().toString(),  description.getText().toString(),latitude, longitude, members.getText().toString());
     }
 
 
@@ -130,6 +140,10 @@ public class InterventionSubmitFragment extends Fragment {
 
         if (!TextUtils.isEmpty(members.getText())) {
             nir.setMembers(members.getText().toString());
+        }
+
+        if (!TextUtils.isEmpty(alertNumber.getText())) {
+            nir.setMembers(alertNumber.getText().toString());
 
 
 
@@ -144,11 +158,11 @@ public class InterventionSubmitFragment extends Fragment {
 
 
     private void geoLoc(){
-        isGPSenabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        isNETWORKenabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        //isGPSenabled =locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        //isNETWORKenabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
         if (isGPSenabled || isNETWORKenabled) {
-            if (ActivityCompat.checkSelfPermission(mcontext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(mcontext, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
                 // TODO: Consider calling
                 //    ActivityCompat#requestPermissions
                 // here to request the missing permissions, and then overriding
@@ -180,7 +194,7 @@ public class InterventionSubmitFragment extends Fragment {
 
 
          private void swapLayouts(){
-             interventionClickListener.onNewInterventionAdded();
+            interventionAddedListener.onNewInterventionAdded();
          }
 
 

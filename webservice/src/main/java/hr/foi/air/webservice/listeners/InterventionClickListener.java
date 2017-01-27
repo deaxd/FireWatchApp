@@ -13,7 +13,7 @@ public interface InterventionClickListener {
     void onInterventionsFetched(List<Intervention> interventionList);
 
     void onInterventionClicked(Intervention position);
-    void onNewInterventionAdded();
+
     void onError(String error);
 
 }

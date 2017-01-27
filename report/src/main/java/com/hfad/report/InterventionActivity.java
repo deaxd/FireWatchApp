@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.hfad.report.listeners.InterventionAddedListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +21,7 @@ import hr.foi.air.webservice.listeners.InterventionClickListener;
  * Created by DELL on 18.1.2017..
  */
 
-public class InterventionActivity extends AppCompatActivity implements InterventionClickListener {
+public class InterventionActivity extends AppCompatActivity implements InterventionClickListener, InterventionAddedListener {
 
     private FrameLayout fragmentContainer;
 
@@ -51,7 +53,7 @@ public class InterventionActivity extends AppCompatActivity implements Intervent
         ft.addToBackStack(null);
         ft.commit();
 
-        fabi.setVisibility(View.GONE);
+
     }
 
     private void onFabClicked() {
@@ -84,6 +86,16 @@ public class InterventionActivity extends AppCompatActivity implements Intervent
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(R.id.fragment_container, IntervetionDetailFragment.newInstance(intervention));
         ft.addToBackStack(null);
+        ft.commit();
+
+        fabi.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onNewInterventionAdded() {
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.fragment_container, fragmentList.get(0));
         ft.commit();
 
         fabi.setVisibility(View.VISIBLE);
