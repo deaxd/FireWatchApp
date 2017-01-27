@@ -3,7 +3,6 @@ package hr.foi.air.webservice;
 
 import com.squareup.okhttp.OkHttpClient;
 
-import hr.foi.air.webservice.Responses.AddResponse;
 import hr.foi.air.webservice.Responses.InterventionResponse;
 import hr.foi.air.webservice.Responses.LoginResponse;
 import hr.foi.air.webservice.Responses.MembersResponse;
@@ -107,11 +106,11 @@ public class WebServiceCaller {
 
     public void updateMember(String oib, String name, String surname, String username, String password, Boolean lieutenant){
 
-        Call<AddResponse> call = webService.updateMember(oib, name, surname, username, password, lieutenant);
+        Call<Void> call = webService.updateMember(oib, name, surname, username, password, lieutenant);
 
-        call.enqueue(new Callback<AddResponse>() {
+        call.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Response<AddResponse> response, Retrofit retrofit) {}
+            public void onResponse(Response<Void> response, Retrofit retrofit) {}
 
             @Override
             public void onFailure(Throwable t) {}
@@ -120,11 +119,11 @@ public class WebServiceCaller {
 
     public void insertMember(String userOib , String oib, String name, String surname, String username, String password, Boolean lieutenant){
 
-        Call<AddResponse> call = webService.insertMember(userOib, oib, name, surname, username, password, lieutenant);
+        Call<Void> call = webService.insertMember(userOib, oib, name, surname, username, password, lieutenant);
 
-        call.enqueue(new Callback<AddResponse>() {
+        call.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Response<AddResponse> response, Retrofit retrofit) {}
+            public void onResponse(Response<Void> response, Retrofit retrofit) {}
 
             @Override
             public void onFailure(Throwable t) {}
@@ -143,8 +142,7 @@ public class WebServiceCaller {
 
             @Override
             public void onFailure(Throwable t) {
-
-            }
+}
         });
     }
 
