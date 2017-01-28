@@ -10,4 +10,5 @@ import hr.foi.air.database.database.entities.Equipment;
 
 public interface EquipmentReceivedListener {
     void onEquipmentFetched(List<Equipment> equipmentList);
+    void onError(String error);
 }

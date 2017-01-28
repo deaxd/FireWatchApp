@@ -1,6 +1,7 @@
 package com.hfad.report;
 
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.hfad.report.adapters.InterventionAdapter;
 
 import com.raizlabs.android.dbflow.sql.language.SQLite;
@@ -8,6 +9,7 @@ import com.raizlabs.android.dbflow.sql.language.SQLite;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -28,6 +30,7 @@ import hr.foi.air.webservice.listeners.InterventionClickListener;
 public class IntervetionListFragment extends Fragment implements InterventionClickListener {
 
     private RecyclerView recyclerView;
+    private MaterialDialog progressDialog;
 
    private InterventionClickListener interventionClickListener;
 
@@ -75,14 +78,34 @@ public class IntervetionListFragment extends Fragment implements InterventionCli
 
 
     @Override
-    public void onError(String error) {
+    public void onError(String error) {showMessage(error);}
 
+    private void showMessage(String message) {
+        AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
+                .setTitle(R.string.app_name)
+                .setMessage(message)
+                .create();
+        alertDialog.show();
     }
 
-    //TODO add showProgress, hideProgress, don't know if I need it
+    private void showProgress() {
+        if (progressDialog == null || !progressDialog.isShowing()) {
+            progressDialog = new MaterialDialog.Builder(getActivity())
+                    .title(R.string.app_name)
+                    .content("Please Wait....")
+                    .progress(true, 0)
+                    .build();
+            progressDialog.setCanceledOnTouchOutside(false);
+        }
+        if (!getActivity().isFinishing()) {
+            progressDialog.show();
+        }
+    }
 
-    //TODO 22.01.2017 - Yes you do, my suggestion would be to extract these methods to an abstract class which all our activities
-    //TODO would extend so we dont need to retype every time these methods in every activity.
-    //TODO So, BaseActivity would extend Activity class and have methods showProgress(), hideProgress() and our activities
-    //TODO such as LoginActivity would extend BaseActivity thus having all these methods implemented by default
+    private void hideProgress() {
+        if (progressDialog != null && progressDialog.isShowing() && !getActivity().isFinishing()) {
+            progressDialog.dismiss();
+        }
+    }
+
 }

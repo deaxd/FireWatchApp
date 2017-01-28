@@ -10,4 +10,5 @@ import hr.foi.air.database.database.entities.Vehicle;
 
 public interface VehicleReceivedListener {
     void onVehiclesFetched(List<Vehicle> vehicleList);
+    void onError(String error);
 }
