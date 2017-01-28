@@ -69,6 +69,7 @@ public class WebServiceCaller {
             @Override
             public void onResponse(retrofit.Response<InterventionResponse> response, Retrofit retrofit) {
                 listener.onInterventionsFetched(response.body().getInterventionList());
+                listener.onNumberOfInterventionFetched(response.body().getNumberOfInterventions());
             }
 
             @Override

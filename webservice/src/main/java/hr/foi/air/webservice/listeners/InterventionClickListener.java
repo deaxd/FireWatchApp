@@ -14,6 +14,8 @@ public interface InterventionClickListener {
 
     void onInterventionClicked(Intervention position);
 
+    void onNumberOfInterventionFetched(String number);
+
     void onError(String error);
 
 }

@@ -31,6 +31,7 @@ public class IntervetionListFragment extends Fragment implements InterventionCli
 
    private InterventionClickListener interventionClickListener;
 
+    public String numberOfInterventions;
 
     @Override
     public void onAttach(Context context) {
@@ -77,6 +78,11 @@ public class IntervetionListFragment extends Fragment implements InterventionCli
     @Override
     public void onError(String error) {
 
+    }
+
+    @Override
+    public void onNumberOfInterventionFetched(String number) {
+        numberOfInterventions = number;
     }
 
     //TODO add showProgress, hideProgress, don't know if I need it
