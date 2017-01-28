@@ -11,8 +11,10 @@ import android.widget.Button;
 
 import com.hfad.equipment.R;
 import com.hfad.equipment.listeners.NewVehicleAdded;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
+import hr.foi.air.database.database.entities.Organization;
 import hr.foi.air.webservice.Responses.NewVehicleRequest;
 import hr.foi.air.webservice.WebServiceCaller;
 
@@ -46,7 +48,7 @@ public class VehicleInputFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_equipment_input, container, false);
+        View v = inflater.inflate(R.layout.fragment_vehicle_input, container, false);
         bindViews(v);
 
         btnSave.setOnClickListener(new View.OnClickListener() {
@@ -72,7 +74,16 @@ public class VehicleInputFragment extends Fragment {
         swapLayouts();
 
 
-        WebServiceCaller webServiceCaller = new WebServiceCaller();
+
+
+        WebServiceCaller wsc = new WebServiceCaller();
+
+        Organization org = SQLite.select().from(Organization.class).querySingle();
+
+        if (org != null) {
+            wsc.insertVehicle(vName.getText().toString(),Integer.valueOf(vSeatNum.getText().toString()),Integer.valueOf(vWaterVolume.getText().toString()),vKindOf.getText().toString(),org.getOrganizationId());
+            //showProgress();
+        }
         //TODO webServiceCaller.insertVehicle(vName.getText().toString(),Integer.valueOf(vSeatNum.getText().toString(),Integer.valueOf(vWaterVolume.getText().toString()),vKindOf.getText().toString());
 
     }

@@ -14,8 +14,11 @@
         <item android:title="Članovi"
             android:id="@+id/members_activity"/>
 
-        <item android:title="Equipment"
+        <item android:title="Oprema"
             android:id="@+id/equipment_activity"/>
+
+        <item android:title="Vozila"
+            android:id="@+id/vehicle_activity"/>
 
     </group>
 

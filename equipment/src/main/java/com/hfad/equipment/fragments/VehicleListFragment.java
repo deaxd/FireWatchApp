@@ -10,10 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.hfad.equipment.R;
+import com.hfad.equipment.adapters.VehicleAdapter;
 import com.hfad.equipment.listeners.NewVehicleAdded;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 import java.util.List;
 
+import hr.foi.air.database.database.entities.Organization;
 import hr.foi.air.database.database.entities.Vehicle;
 import hr.foi.air.webservice.WebServiceCaller;
 import hr.foi.air.webservice.listeners.VehicleReceivedListener;
@@ -47,7 +50,12 @@ public class VehicleListFragment extends Fragment implements VehicleReceivedList
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         WebServiceCaller wsc = new WebServiceCaller();
-        // TODO wsc.getVehicle(this);
+        Organization org = SQLite.select().from(Organization.class).querySingle();
+        int id =org.getOrganizationId();
+        if (org != null) {
+            wsc.getVehicles(org.getOrganizationId(),this );
+            //showProgress();
+        }
 
         return view;
     }
@@ -57,7 +65,7 @@ public class VehicleListFragment extends Fragment implements VehicleReceivedList
 
 
     @Override
-    public void onEquipmentFetched(List<Vehicle> vehicleList) {
-
+    public void onVehiclesFetched(List<Vehicle> vehicleList) {
+        recyclerView.setAdapter(new VehicleAdapter(vehicleList,getContext()));
     }
 }

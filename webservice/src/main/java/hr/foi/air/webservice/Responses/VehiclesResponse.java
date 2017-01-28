@@ -14,7 +14,7 @@ public class VehiclesResponse {
     @SerializedName("valid")
     private boolean isValid;
 
-    @SerializedName("members")
+    @SerializedName("vehicles")
     private List<Vehicle> vehicleList;
 
     public boolean isValid() {

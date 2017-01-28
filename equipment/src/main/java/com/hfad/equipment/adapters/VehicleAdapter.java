@@ -32,7 +32,7 @@ public class VehicleAdapter extends RecyclerView.Adapter<VehicleAdapter.ViewHold
 
     @Override
     public VehicleAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_equipment, parent, false));
+        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_vehicle, parent, false));
     }
 
     @Override

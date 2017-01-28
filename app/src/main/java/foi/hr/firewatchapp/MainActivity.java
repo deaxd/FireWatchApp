@@ -8,6 +8,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.hfad.core.CurrentActivity;
 import com.hfad.equipment.EquipmentActivity;
+import com.hfad.equipment.VehicleActivity;
 import com.hfad.report.InterventionActivity;
 import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowManager;
@@ -199,6 +200,8 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(getApplicationContext(), MembersActivity.class));
         } else if (id == R.id.equipment_activity){
             startActivity(new Intent(getApplicationContext(), EquipmentActivity.class));
+        }   else if (id == R.id.vehicle_activity) {
+            startActivity(new Intent(getApplicationContext(), VehicleActivity.class));
         }
 
         mDrawer.closeDrawer(GravityCompat.START);
