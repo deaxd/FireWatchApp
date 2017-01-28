@@ -1,14 +1,18 @@
 package com.hfad.report;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.FrameLayout;
-
+import com.hfad.core.CurrentActivity;
 import com.hfad.report.listeners.InterventionAddedListener;
 
 import java.util.ArrayList;
@@ -25,6 +29,8 @@ public class InterventionActivity extends AppCompatActivity implements Intervent
 
     private FrameLayout fragmentContainer;
 
+    private Toolbar intToolbar;
+
     private FloatingActionButton fabi;
 
     private List<Fragment> fragmentList = new ArrayList<>();
@@ -34,8 +40,15 @@ public class InterventionActivity extends AppCompatActivity implements Intervent
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_interventions);
+        CurrentActivity.setActivity(this);
+
+        intToolbar = (Toolbar) findViewById(R.id.int_toolbar);
+        setSupportActionBar(intToolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         addFragmentToList();
+
 
         fragmentContainer = (FrameLayout) findViewById(R.id.fragment_container);
         fabi = (FloatingActionButton) findViewById(R.id.fabi);
@@ -109,7 +122,7 @@ public class InterventionActivity extends AppCompatActivity implements Intervent
 
     @Override
     public void onBackPressed() {
-        FragmentManager fm = getSupportFragmentManager();
+       FragmentManager fm = getSupportFragmentManager();
         if (fm.getBackStackEntryCount() > 1) {
             fm.popBackStack();
             fabi.setVisibility(View.VISIBLE);

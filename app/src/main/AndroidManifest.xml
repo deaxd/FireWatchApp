@@ -35,6 +35,9 @@
             </intent-filter>
 
         </service>
+
+        <activity android:name="com.hfad.report.InterventionActivity">
+        </activity>
     </application>
 
 </manifest>

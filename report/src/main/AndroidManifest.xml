@@ -6,10 +6,17 @@
         android:theme="@style/AppTheme">
 
         <meta-data
-                   android:name="com.google.android.maps.v2.API_KEY"
-                   android:value="AIzaSyDuTLXdfMptWiI1L09J_iQRmMUx7gmYkSQ" />
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyDuTLXdfMptWiI1L09J_iQRmMUx7gmYkSQ" />
 
-        <activity android:name=".InterventionActivity">
+        <activity android:name=".InterventionActivity"
+            android:label="@string/report_name"
+            android:parentActivityName="foi.hr.firewatchapp.MainActivity" >
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="foi.hr.firewatchapp.MainActivity" />
+
         </activity>
 
     </application>

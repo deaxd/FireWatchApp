@@ -6,8 +6,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+
+
 import android.view.View;
 import android.widget.FrameLayout;
+import android.support.v7.widget.Toolbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +25,8 @@ public class MembersActivity extends AppCompatActivity implements FragmentAction
 
     private FrameLayout fragmentContainer;
 
+    private Toolbar memToolbar;
+
     private FloatingActionButton fab;
 
     private List<Fragment> fragmentList = new ArrayList<>();
@@ -30,6 +35,13 @@ public class MembersActivity extends AppCompatActivity implements FragmentAction
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_members);
+
+
+        memToolbar = (Toolbar) findViewById(R.id.mem_toolbar);
+        setSupportActionBar(memToolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         addFragmentsToList();
 
@@ -113,7 +125,7 @@ public class MembersActivity extends AppCompatActivity implements FragmentAction
     @Override
     public void onBackPressed() {
         FragmentManager fm = getSupportFragmentManager();
-        if (fm.getBackStackEntryCount() > 1) {
+        if (fm.getBackStackEntryCount() != 0) {
             fm.popBackStack();
             fab.setVisibility(View.VISIBLE);
         } else {
