@@ -16,6 +16,7 @@ public class InterventionResponse {
     @SerializedName("interventions")
     private List<Intervention> interventionList;
 
+
     public boolean isValid() {
         return isValid;
     }
@@ -31,4 +32,5 @@ public class InterventionResponse {
     public void setInterventionList(List<Intervention> interventionList) {
         this.interventionList = interventionList;
     }
+
 }

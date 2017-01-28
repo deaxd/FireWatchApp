@@ -104,6 +104,8 @@ public class InterventionActivity extends AppCompatActivity implements Intervent
         fabi.setVisibility(View.VISIBLE);
     }
 
+
+
     @Override
     public void onNewInterventionAdded() {
         FragmentManager fm = getSupportFragmentManager();

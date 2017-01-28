@@ -32,11 +32,6 @@
             android:text="Adresa: "
             />
 
-        <TextView
-            android:id="@+id/initial_time_int"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
 
         <TextView
             android:id="@+id/duration_int"

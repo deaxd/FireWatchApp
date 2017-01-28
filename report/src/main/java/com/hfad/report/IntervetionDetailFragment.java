@@ -24,10 +24,10 @@ public class IntervetionDetailFragment extends Fragment {
     public static final String EXTRA_INTERVENTION = "EXTRA_INTERVENTION";
     private TextView txtType;
     private TextView txtAddress;
-    private TextView txtInitialTime;
+
     private TextView txtDuration;
     private TextView txtDescription;
-    private Date kindoif;
+
 
     private TextView txtLongitude;
     private TextView txtLatitude;
@@ -68,7 +68,7 @@ public class IntervetionDetailFragment extends Fragment {
 
         intervention = (Intervention) getArguments().getSerializable(EXTRA_INTERVENTION);
 
-       kindoif=intervention.getInitialTIme();
+
 
        bindViews(v);
 
@@ -85,7 +85,7 @@ public class IntervetionDetailFragment extends Fragment {
     private void bindViews(View v) {
         txtType = (TextView) v.findViewById(R.id.type_of_int);
         txtAddress = (TextView) v.findViewById(R.id.address_int);
-        txtInitialTime = (TextView) v.findViewById(R.id.initial_time_int);
+
         txtDuration = (TextView) v.findViewById(R.id.duration_int);
         txtDescription = (TextView) v.findViewById(R.id.description_int);
 
@@ -97,7 +97,7 @@ public class IntervetionDetailFragment extends Fragment {
 
              txtType.setText(intervention.getKindOfIntervention());
              txtAddress.setText(intervention.getAddress());
-             txtInitialTime.setText(intervention.getInitialTIme().toString());
+
              txtDuration.setText(intervention.getDuration().toString());
              txtDescription.setText(intervention.getDescription().toString());
 

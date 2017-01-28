@@ -29,7 +29,7 @@ public class Intervention extends BaseModel implements Serializable {
     @Column @Unique String alertNumber;
     @Column String kindOfIntervention;
     @Column String address;
-    @Column Date initialTIme;
+    @Column String initialTIme;
     @Column String duration ;
     @Column String description;
     @Column double longitude;
@@ -41,7 +41,7 @@ public class Intervention extends BaseModel implements Serializable {
     public Intervention() {
     }
 
-    public Intervention(int interventionId, String alertNumber, String kindOfIntervention, String address, Date initialTIme, String duration, String description, double longitude, double latitude, Fireman fireman, String members) {
+    public Intervention(int interventionId, String alertNumber, String kindOfIntervention, String address, String initialTIme, String duration, String description, double longitude, double latitude, Fireman fireman, String members) {
         this.interventionId = interventionId;
         this.alertNumber = alertNumber;
         this.kindOfIntervention = kindOfIntervention;
@@ -87,11 +87,11 @@ public class Intervention extends BaseModel implements Serializable {
         this.address = address;
     }
 
-    public Date getInitialTIme() {
+    public String getInitialTIme() {
         return initialTIme;
     }
 
-    public void setInitialTIme(Date initialTIme) {
+    public void setInitialTIme(String initialTIme) {
         this.initialTIme = initialTIme;
     }
 
