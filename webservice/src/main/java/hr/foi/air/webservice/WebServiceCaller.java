@@ -4,15 +4,18 @@ package hr.foi.air.webservice;
 import com.squareup.okhttp.OkHttpClient;
 
 import hr.foi.air.database.database.entities.Equipment;
+import hr.foi.air.webservice.Responses.EquipmentResponse;
 import hr.foi.air.webservice.Responses.InterventionResponse;
 import hr.foi.air.webservice.Responses.LoginResponse;
 import hr.foi.air.webservice.Responses.MembersResponse;
 import hr.foi.air.webservice.Responses.OrganizationResponse;
+import hr.foi.air.webservice.Responses.VehiclesResponse;
 import hr.foi.air.webservice.listeners.EquipmentReceivedListener;
 import hr.foi.air.webservice.listeners.InterventionClickListener;
 import hr.foi.air.webservice.listeners.LoginListener;
 import hr.foi.air.webservice.listeners.MembersReceivedListener;
 import hr.foi.air.webservice.listeners.OrganizationReceivedListener;
+import hr.foi.air.webservice.listeners.VehicleReceivedListener;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.GsonConverterFactory;
@@ -148,41 +151,75 @@ public class WebServiceCaller {
         });
     }
 
-    /*public void getEquipment(final EquipmentReceivedListener listener) {
+    public void getEquipment(int organizationId, final EquipmentReceivedListener listener) {
 
-        TODO
-        Call<MembersResponse> call = webService.getEquipment();
 
-        call.enqueue(new Callback<Void>() {
+        Call<EquipmentResponse> call = webService.getEquipment(organizationId);
+
+        call.enqueue(new Callback<EquipmentResponse>() {
             @Override
-            public void onResponse(Response<Void> response, Retrofit retrofit) {
+            public void onResponse(Response<EquipmentResponse> response, Retrofit retrofit) {
                 listener.onEquipmentFetched(response.body().getEquipmentList());
             }
 
             @Override
             public void onFailure(Throwable t) {
-                listener.onError(t.getMessage());
+                t.printStackTrace();
             }
         });
-    }*/
+    }
 
-    /*public void getVehicle(final VehicleReceivedListener listener) {
+    public void insertEquipment(String name, int quantity, int organizationId){
 
-        TODO
-        Call<MembersResponse> call = webService.getVehicle();
+        Call<Void> call = webService.insertEquipment(name, quantity, organizationId);
 
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Response<Void> response, Retrofit retrofit) {
-                listener.onVehicleFetched(response.body().getEquipmentList());
+
             }
 
             @Override
             public void onFailure(Throwable t) {
-                listener.onError(t.getMessage());
+
             }
         });
-    }*/
+
+    }
+
+    public void getVehicles(int organizationId, final VehicleReceivedListener listener) {
+
+        Call<VehiclesResponse> call = webService.getVehicles(organizationId);
+
+        call.enqueue(new Callback<VehiclesResponse>() {
+            @Override
+            public void onResponse(Response<VehiclesResponse> response, Retrofit retrofit) {
+                listener.onVehiclesFetched(response.body().getVehicleList());
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+
+    public void insertVehicle(String name, int seatNumber, int waterVolume, String kindOfVehicle, int organizationId){
+
+        Call<Void> call = webService.insertVehicle(name, seatNumber, waterVolume, kindOfVehicle, organizationId);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Response<Void> response, Retrofit retrofit) {
+
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
+        });
+    }
 
 
 

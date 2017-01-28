@@ -1,9 +1,14 @@
 package hr.foi.air.webservice;
 
+import javax.xml.transform.sax.SAXResult;
+
+import hr.foi.air.database.database.entities.Vehicle;
+import hr.foi.air.webservice.Responses.EquipmentResponse;
 import hr.foi.air.webservice.Responses.InterventionResponse;
 import hr.foi.air.webservice.Responses.LoginResponse;
 import hr.foi.air.webservice.Responses.MembersResponse;
 import hr.foi.air.webservice.Responses.OrganizationResponse;
+import hr.foi.air.webservice.Responses.VehiclesResponse;
 import retrofit.Call;
 import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
@@ -47,4 +52,26 @@ public interface WebService {
     Call<Void> insertIntervention(@Field("oib") String oib, @Field("alertNumber") String alertNumber, @Field("kindOfIntervention") String kindOfIntervention ,
                                   @Field("address") String address, @Field("initialTime") String initialTime , @Field("duration") String duration,
                                   @Field("description") String description, @Field("latitude") double latitude, @Field("longitude") double longitude, @Field("members") String members);
+
+    @FormUrlEncoded
+    @POST("getEquipment.php")
+    Call<EquipmentResponse> getEquipment(@Field("organizationId") int organizationId);
+
+    @FormUrlEncoded
+    @POST("insertEquipment.php")
+    Call<Void> insertEquipment (@Field("name") String name, @Field("quantity") int quantity, @Field("organizationId") int organizationId);
+
+    @FormUrlEncoded
+    @POST("getVehicles.php")
+    Call<VehiclesResponse> getVehicles(@Field("organizationId") int organizationId);
+
+    @FormUrlEncoded
+    @POST("insertVehicle.php")
+    Call<Void> insertVehicle(@Field("name") String name, @Field("seatNumber") int seatNumber, @Field("waterVolume") int waterVolume,
+                             @Field("kindOfVehicle") String kindOfVehicle, @Field("organizationId")int organizationId);
+
+
+
+
+
 }

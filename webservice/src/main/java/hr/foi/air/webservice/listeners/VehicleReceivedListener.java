@@ -9,5 +9,5 @@ import hr.foi.air.database.database.entities.Vehicle;
  */
 
 public interface VehicleReceivedListener {
-    void onEquipmentFetched(List<Vehicle> vehicleList);
+    void onVehiclesFetched(List<Vehicle> vehicleList);
 }
