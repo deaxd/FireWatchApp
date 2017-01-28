@@ -14,8 +14,8 @@
         <item android:title="Članovi"
             android:id="@+id/members_activity"/>
 
-        <item android:title="ALERT"
-            android:id="@+id/alert"/>
+        <item android:title="Equipment"
+            android:id="@+id/equipment_activity"/>
 
     </group>
 

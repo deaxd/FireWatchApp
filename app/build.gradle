@@ -43,6 +43,7 @@ dependencies {
     compile project(':report')
     compile project(':webservice')
     compile project(':members')
+    compile project(':equipment')
 }
 
 apply plugin: 'com.google.gms.google-services'

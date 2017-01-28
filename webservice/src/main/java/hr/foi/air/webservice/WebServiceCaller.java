@@ -3,10 +3,12 @@ package hr.foi.air.webservice;
 
 import com.squareup.okhttp.OkHttpClient;
 
+import hr.foi.air.database.database.entities.Equipment;
 import hr.foi.air.webservice.Responses.InterventionResponse;
 import hr.foi.air.webservice.Responses.LoginResponse;
 import hr.foi.air.webservice.Responses.MembersResponse;
 import hr.foi.air.webservice.Responses.OrganizationResponse;
+import hr.foi.air.webservice.listeners.EquipmentReceivedListener;
 import hr.foi.air.webservice.listeners.InterventionClickListener;
 import hr.foi.air.webservice.listeners.LoginListener;
 import hr.foi.air.webservice.listeners.MembersReceivedListener;
@@ -145,6 +147,44 @@ public class WebServiceCaller {
 }
         });
     }
+
+    /*public void getEquipment(final EquipmentReceivedListener listener) {
+
+        TODO
+        Call<MembersResponse> call = webService.getEquipment();
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Response<Void> response, Retrofit retrofit) {
+                listener.onEquipmentFetched(response.body().getEquipmentList());
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                listener.onError(t.getMessage());
+            }
+        });
+    }*/
+
+    /*public void getVehicle(final VehicleReceivedListener listener) {
+
+        TODO
+        Call<MembersResponse> call = webService.getVehicle();
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Response<Void> response, Retrofit retrofit) {
+                listener.onVehicleFetched(response.body().getEquipmentList());
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                listener.onError(t.getMessage());
+            }
+        });
+    }*/
+
+
 
 
     

@@ -87,7 +87,6 @@ public class NewMemberFragment extends Fragment {
         webServiceCaller.insertMember(user.getUserOib() ,etOib.getText().toString(), etName.getText().toString(),
                 etSurname.getText().toString(), etUsername.getText().toString(), etPassword.getText().toString(), checked);
 
-
     }
 
     private void validateInput() {
