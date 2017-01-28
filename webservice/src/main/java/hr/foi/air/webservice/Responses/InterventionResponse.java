@@ -16,6 +16,9 @@ public class InterventionResponse {
     @SerializedName("interventions")
     private List<Intervention> interventionList;
 
+    @SerializedName("numberOfInterventions")
+    private String numberOfInterventions;
+
     public boolean isValid() {
         return isValid;
     }
@@ -30,5 +33,13 @@ public class InterventionResponse {
 
     public void setInterventionList(List<Intervention> interventionList) {
         this.interventionList = interventionList;
+    }
+
+    public String getNumberOfInterventions() {
+        return numberOfInterventions;
+    }
+
+    public void setNumberOfInterventions(String numberOfInterventions) {
+        this.numberOfInterventions = numberOfInterventions;
     }
 }
