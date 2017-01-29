@@ -9,12 +9,14 @@ import hr.foi.air.webservice.Responses.InterventionResponse;
 import hr.foi.air.webservice.Responses.LoginResponse;
 import hr.foi.air.webservice.Responses.MembersResponse;
 import hr.foi.air.webservice.Responses.OrganizationResponse;
+import hr.foi.air.webservice.Responses.StatisticsResponse;
 import hr.foi.air.webservice.Responses.VehiclesResponse;
 import hr.foi.air.webservice.listeners.EquipmentReceivedListener;
 import hr.foi.air.webservice.listeners.InterventionClickListener;
 import hr.foi.air.webservice.listeners.LoginListener;
 import hr.foi.air.webservice.listeners.MembersReceivedListener;
 import hr.foi.air.webservice.listeners.OrganizationReceivedListener;
+import hr.foi.air.webservice.listeners.StatisticReceivedListener;
 import hr.foi.air.webservice.listeners.VehicleReceivedListener;
 import retrofit.Call;
 import retrofit.Callback;
@@ -221,8 +223,22 @@ public class WebServiceCaller {
         });
     }
 
+    public void getStatistics (String oib, final StatisticReceivedListener listener){
+        Call<StatisticsResponse> call = webService.getStatistics(oib);
 
+        call.enqueue(new Callback<StatisticsResponse>() {
+            @Override
+            public void onResponse(Response<StatisticsResponse> response, Retrofit retrofit) {
+                listener.onStatisticReceived(response.body().getNumberMembers(), response.body().getNumberInterventions(), response.body().getNumberIntThisYear(),
+                        response.body().getNumberIntAvg(), response.body().getNumberVehicles());
+            }
 
+            @Override
+            public void onFailure(Throwable t) {
+                t.printStackTrace();
 
+            }
+        });
+    }
     
 }

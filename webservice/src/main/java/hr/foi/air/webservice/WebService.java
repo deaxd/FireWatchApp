@@ -8,6 +8,7 @@ import hr.foi.air.webservice.Responses.InterventionResponse;
 import hr.foi.air.webservice.Responses.LoginResponse;
 import hr.foi.air.webservice.Responses.MembersResponse;
 import hr.foi.air.webservice.Responses.OrganizationResponse;
+import hr.foi.air.webservice.Responses.StatisticsResponse;
 import hr.foi.air.webservice.Responses.VehiclesResponse;
 import retrofit.Call;
 import retrofit.http.Field;
@@ -70,6 +71,9 @@ public interface WebService {
     Call<Void> insertVehicle(@Field("name") String name, @Field("seatNumber") int seatNumber, @Field("waterVolume") int waterVolume,
                              @Field("kindOfVehicle") String kindOfVehicle, @Field("organizationId")int organizationId);
 
+    @FormUrlEncoded
+    @POST("getStatistics.php")
+    Call<StatisticsResponse> getStatistics(@Field("oib") String oib);
 
 
 
