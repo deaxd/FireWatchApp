@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -23,6 +24,8 @@ import java.util.List;
 public class VehicleActivity extends AppCompatActivity implements NewVehicleAdded {
     private FrameLayout fragmentContainer;
 
+    private Toolbar vehicleToolbar;
+
     private FloatingActionButton fab;
 
     private List<Fragment> fragmentList = new ArrayList<>();
@@ -31,6 +34,12 @@ public class VehicleActivity extends AppCompatActivity implements NewVehicleAdde
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vehicle);
+
+        vehicleToolbar = (Toolbar) findViewById(R.id.vehicle_toolbar);
+        setSupportActionBar(vehicleToolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         addFragmentsToList();
 

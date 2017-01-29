@@ -8,8 +8,28 @@
     android:fitsSystemWindows="true"
     tools:context="com.hfad.equipment.VehicleActivity">
 
-    <include
-        layout="@layout/content_new_equipment"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+
+        <android.support.v7.widget.Toolbar
+            android:background="@android:color/holo_red_dark"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/vehicle_toolbar"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark">
+        </android.support.v7.widget.Toolbar>
+
+        <include
+            layout="@layout/content_new_equipment"/>
+
+    </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

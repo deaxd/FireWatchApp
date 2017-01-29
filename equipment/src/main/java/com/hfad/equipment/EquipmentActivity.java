@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -25,6 +26,8 @@ import hr.foi.air.database.database.entities.Equipment;
 public class EquipmentActivity extends AppCompatActivity implements NewEquipmentAdded {
     private FrameLayout fragmentContainer;
 
+    private Toolbar equipToolbar;
+
     private FloatingActionButton fab;
 
     private List<Fragment> fragmentList = new ArrayList<>();
@@ -33,6 +36,13 @@ public class EquipmentActivity extends AppCompatActivity implements NewEquipment
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_equipment);
+
+        equipToolbar = (Toolbar) findViewById(R.id.equip_toolbar);
+        setSupportActionBar(equipToolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
 
         addFragmentsToList();
 
