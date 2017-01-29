@@ -20,6 +20,9 @@
         <item android:title="Vozila"
             android:id="@+id/vehicle_activity"/>
 
+        <item android:title="Statistika"
+            android:id="@+id/statistics_activity"/>
+
     </group>
 
 

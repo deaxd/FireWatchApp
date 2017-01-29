@@ -1,0 +1,76 @@
+package com.hfad.statistics.fragments;
+
+import android.content.Context;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.hfad.statistics.R;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
+
+import hr.foi.air.database.database.entities.User;
+import hr.foi.air.webservice.WebServiceCaller;
+import hr.foi.air.webservice.listeners.StatisticReceivedListener;
+
+/**
+ * Created by Matija on 29/01/2017.
+ */
+
+public class TableFragment extends Fragment implements StatisticReceivedListener {
+
+    private TextView tnumberMembers;
+    private TextView tnumberInterventions;
+    private TextView tnumberIntThisYear;
+    private TextView tnumberIntAvg;
+    private TextView tnumberVehicles;
+
+    public void onAttach(Context context) {
+        super.onAttach(context);
+    }
+
+
+
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_table, container, false);
+
+        tnumberMembers = (TextView) view.findViewById(R.id.stv_number_members);
+        tnumberInterventions = (TextView) view.findViewById(R.id.stv_number_interventions);
+        tnumberIntThisYear = (TextView) view.findViewById(R.id.stv_number_intThisYear);
+        tnumberIntAvg = (TextView) view.findViewById(R.id.stv_int_avg);
+        tnumberVehicles = (TextView) view.findViewById(R.id.stv_number_vehicles);
+
+        WebServiceCaller wsc = new WebServiceCaller();
+        User user = SQLite.select().from(User.class).querySingle();
+        if (user != null) {
+            wsc.getStatistics(user.getUserOib(), this);
+            //showProgress();
+        }
+
+
+
+        return view;
+
+
+
+    }
+
+
+
+
+    @Override
+    public void onStatisticReceived(int numberMembers, int numberInterventions, int numberIntThisYear, double numberIntAvg, int numberVehicles) {
+            tnumberMembers.setText(String.valueOf(numberMembers));
+            tnumberInterventions.setText(String.valueOf(numberInterventions));
+            tnumberIntThisYear.setText(String.valueOf(numberIntThisYear));
+            tnumberIntAvg.setText(String.valueOf(numberIntAvg));
+            tnumberVehicles.setText(String.valueOf(numberVehicles));
+            }
+
+
+}
