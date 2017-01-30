@@ -106,44 +106,90 @@ public class InterventionSubmitFragment extends Fragment {
     }
 
     private void onSaveClicked() {
-        validateInput();
-        swapLayouts();
+        if (validateInput()) {
+            swapLayouts();
 
-        User user = SQLite.select().from(User.class).querySingle();
+            User user = SQLite.select().from(User.class).querySingle();
 
 
-        WebServiceCaller webServiceCaller = new WebServiceCaller();
-        webServiceCaller.insertIntervention(user.getUserOib(), alertNumber.getText().toString(), kindOfInt.getText().toString(), adress.getText().toString(),
-                initTime, duration.getText().toString(),  description.getText().toString(),latitude, longitude, members.getText().toString());
+            WebServiceCaller webServiceCaller = new WebServiceCaller();
+            webServiceCaller.insertIntervention(user.getUserOib(), alertNumber.getText().toString(), kindOfInt.getText().toString(), adress.getText().toString(),
+                    initTime, duration.getText().toString(), description.getText().toString(), latitude, longitude, members.getText().toString());
+        }
     }
 
 
 
-    private void validateInput(){
+    private boolean validateInput(){
         NewInterventionRequest nir = new NewInterventionRequest();
 
-        if (!TextUtils.isEmpty(kindOfInt.getText())) {
+        if (!TextUtils.isEmpty(kindOfInt.getText()) && kindOfInt.getText().length()!=0) {
             nir.setKindOfInt(kindOfInt.getText().toString());
+        } else {
+            Toast toast= Toast.makeText(getContext(),"Niste unijeli vrstu intervencije",Toast.LENGTH_LONG);
+            toast.show();
+            return false;
         }
 
-        if (!TextUtils.isEmpty(adress.getText())) {
+        if (!TextUtils.isEmpty(adress.getText()) && adress.getText().length()!=0) {
             nir.setAdress(adress.getText().toString());
         }
-
-        if (!TextUtils.isEmpty(duration.getText())) {
-            nir.setDuration(duration.getText().toString());
+        else {
+            Toast toast= Toast.makeText(getContext(),"Niste unijeli adresu intervencije",Toast.LENGTH_LONG);
+            toast.show();
+            return false;
         }
 
-        if (!TextUtils.isEmpty(description.getText())) {
+
+        if (!TextUtils.isEmpty(duration.getText()) && duration.getText().length()!=0) {
+
+            try{
+                Integer.parseInt(duration.getText().toString());
+                nir.setDuration(duration.getText().toString());
+            }
+                catch (NumberFormatException e){
+                    Toast toast = Toast.makeText(getContext(), "Niste unijeli ispravno trajanje intervencije", Toast.LENGTH_LONG);
+                    toast.show();
+                    return false;
+                }
+
+        }    else {
+            Toast toast = Toast.makeText(getContext(), "Niste unijeli trajanje intervencije", Toast.LENGTH_LONG);
+            toast.show();
+            return false;
+        }
+
+        if (!TextUtils.isEmpty(description.getText())&& description.getText().length()!=0) {
             nir.setDescription(description.getText().toString());
+        }   else {
+            Toast toast = Toast.makeText(getContext(), "Niste unijeli opis intervencije", Toast.LENGTH_LONG);
+            toast.show();
+            return false;
         }
 
-        if (!TextUtils.isEmpty(members.getText())) {
+        if (!TextUtils.isEmpty(members.getText()) && members.getText().length()!=0) {
             nir.setMembers(members.getText().toString());
+        } else {
+            Toast toast = Toast.makeText(getContext(), "Niste unijeli članove koji su sudjelovali na intervenciji", Toast.LENGTH_LONG);
+            toast.show();
+            return false;
         }
 
-        if (!TextUtils.isEmpty(alertNumber.getText())) {
-            nir.setMembers(alertNumber.getText().toString());
+        if (!TextUtils.isEmpty(alertNumber.getText())&& alertNumber.getText().length()!=0) {
+
+            try{
+                Integer.parseInt(alertNumber.getText().toString());
+                nir.setMembers(alertNumber.getText().toString());
+            } catch (NumberFormatException e) {
+                Toast toast = Toast.makeText(getContext(), "Niste unijeli ispravan broj intervencije", Toast.LENGTH_LONG);
+                toast.show();
+                return false;
+            }
+            } else {
+            Toast toast = Toast.makeText(getContext(), "Niste unijelibroj intervencije", Toast.LENGTH_LONG);
+            toast.show();
+            return false;
+            }
 
 
 
@@ -153,7 +199,7 @@ public class InterventionSubmitFragment extends Fragment {
             nir.setLongitude(longitude);
             nir.setInitTime(initTime);
 
-        }
+        return true;
     }
 
 

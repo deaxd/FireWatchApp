@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import foi.hr.members.R;
 import foi.hr.members.listeners.FragmentActionListener;
@@ -77,38 +78,58 @@ public class NewMemberFragment extends Fragment {
     }
 
     private void onSaveClicked() {
-        validateInput();
-        swapLayouts();
+        if(validateInput()) {
+            swapLayouts();
 
-        User user = SQLite.select().from(User.class).querySingle();
+            User user = SQLite.select().from(User.class).querySingle();
 
 
-        WebServiceCaller webServiceCaller = new WebServiceCaller();
-        webServiceCaller.insertMember(user.getUserOib() ,etOib.getText().toString(), etName.getText().toString(),
-                etSurname.getText().toString(), etUsername.getText().toString(), etPassword.getText().toString(), checked);
-
+            WebServiceCaller webServiceCaller = new WebServiceCaller();
+            webServiceCaller.insertMember(user.getUserOib(), etOib.getText().toString(), etName.getText().toString(),
+                    etSurname.getText().toString(), etUsername.getText().toString(), etPassword.getText().toString(), checked);
+        }
     }
 
-    private void validateInput() {
+    private boolean validateInput() {
         NewMemberRequest nmr = new NewMemberRequest();
         if (!TextUtils.isEmpty(etOib.getText()) && etOib.getText().length() == 11) {
             nmr.setOib(etOib.getText().toString());
+        } else {
+            Toast toast= Toast.makeText(getContext(),"Niste unijeli ispravan OIB",Toast.LENGTH_LONG);
+            toast.show();
+            return false;
         }
 
-        if (!TextUtils.isEmpty(etName.getText())) {
+        if (!TextUtils.isEmpty(etName.getText()) && etName.getText().length()!=0) {
             nmr.setName(etName.getText().toString());
+        } else {
+            Toast toast = Toast.makeText(getContext(), "Niste unijeli ispravno ime", Toast.LENGTH_LONG);
+            toast.show();
+            return false;
         }
 
-        if (!TextUtils.isEmpty(etSurname.getText())) {
+        if (!TextUtils.isEmpty(etSurname.getText()) && etSurname.getText().length()!=0) {
             nmr.setSurname(etSurname.getText().toString());
+        }   else {
+            Toast toast = Toast.makeText(getContext(), "Niste unijeli ispravno prezime", Toast.LENGTH_LONG);
+            toast.show();
+            return false;
         }
 
-        if (!TextUtils.isEmpty(etUsername.getText())) {
+        if (!TextUtils.isEmpty(etUsername.getText())&& etUsername.getText().length()!=0) {
             nmr.setUsername(etUsername.getText().toString());
+        } else {
+            Toast toast = Toast.makeText(getContext(), "Niste unijeli ispravno korisničko ime", Toast.LENGTH_LONG);
+            toast.show();
+            return false;
         }
 
-        if (!TextUtils.isEmpty(etPassword.getText())) {
+        if (!TextUtils.isEmpty(etPassword.getText())&& etPassword.getText().length()!=0) {
             nmr.setPassword(etPassword.getText().toString());
+        }   else {
+            Toast toast = Toast.makeText(getContext(), "Niste unijeli ispravnu lozinku", Toast.LENGTH_LONG);
+            toast.show();
+            return false;
         }
 
         if (swtLieu.isChecked()) {
@@ -117,7 +138,7 @@ public class NewMemberFragment extends Fragment {
         } else {
             nmr.setLieutenant(false);
         }
-
+        return true;
     }
 
     private void swapLayouts() {

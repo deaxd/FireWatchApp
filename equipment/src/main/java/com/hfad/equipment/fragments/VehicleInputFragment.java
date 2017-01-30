@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.hfad.equipment.R;
 import com.hfad.equipment.listeners.NewVehicleAdded;
@@ -70,43 +71,75 @@ public class VehicleInputFragment extends Fragment {
     }
 
     private void onSaveClicked() {
-        validateInput();
-        swapLayouts();
+       if( validateInput()) {
+           swapLayouts();
 
+           WebServiceCaller wsc = new WebServiceCaller();
 
+           Organization org = SQLite.select().from(Organization.class).querySingle();
 
-
-        WebServiceCaller wsc = new WebServiceCaller();
-
-        Organization org = SQLite.select().from(Organization.class).querySingle();
-
-        if (org != null) {
-            wsc.insertVehicle(vName.getText().toString(),Integer.valueOf(vSeatNum.getText().toString()),Integer.valueOf(vWaterVolume.getText().toString()),vKindOf.getText().toString(),org.getOrganizationId());
-            //showProgress();
-        }
-        //TODO webServiceCaller.insertVehicle(vName.getText().toString(),Integer.valueOf(vSeatNum.getText().toString(),Integer.valueOf(vWaterVolume.getText().toString()),vKindOf.getText().toString());
-
+           if (org != null) {
+               wsc.insertVehicle(vName.getText().toString(), Integer.valueOf(vSeatNum.getText().toString()), Integer.valueOf(vWaterVolume.getText().toString()), vKindOf.getText().toString(), org.getOrganizationId());
+               //showProgress();
+           }
+       }
     }
 
-    private void validateInput() {
+    private boolean validateInput() {
         NewVehicleRequest nmr = new NewVehicleRequest();
 
 
-        if (!TextUtils.isEmpty(vName.getText())) {
+        if (!TextUtils.isEmpty(vName.getText()) && vName.getText().length()!=0) {
             nmr.setvName(vName.getText().toString());
+        } else {
+            Toast toast = Toast.makeText(getContext(),"Niste unijeli naziv vozila",Toast.LENGTH_LONG);
+            toast.show();
+            return false;
         }
 
-        if (!TextUtils.isEmpty(vSeatNum.getText())) {
-            nmr.setvSeatNum(Integer.valueOf(vSeatNum.getText().toString()));
+        if (!TextUtils.isEmpty(vSeatNum.getText()) && vSeatNum.getText().length()!=0) {
+
+            try{
+                Integer.parseInt(vSeatNum.getText().toString());
+                nmr.setvSeatNum(Integer.valueOf(vSeatNum.getText().toString()));
+        }   catch (NumberFormatException e) {
+                Toast toast = Toast.makeText(getContext(),"Niste unijeli ispravan broj sjedala",Toast.LENGTH_LONG);
+                toast.show();
+                return false;
+            }
+        } else {
+            Toast toast = Toast.makeText(getContext(),"Niste unijeli broj sjedala",Toast.LENGTH_LONG);
+            toast.show();
+            return false;
         }
 
-        if (!TextUtils.isEmpty(vWaterVolume.getText())) {
-            nmr.setvWaterVolume(Integer.valueOf(vWaterVolume.getText().toString()));
-        }
+        if (!TextUtils.isEmpty(vWaterVolume.getText())  && vWaterVolume.getText().length()!=0) {
 
-        if (!TextUtils.isEmpty(vKindOf.getText())) {
+
+            try{
+                Integer.parseInt(vWaterVolume.getText().toString());
+                nmr.setvWaterVolume(Integer.valueOf(vWaterVolume.getText().toString()));
+            }   catch (NumberFormatException e) {
+                Toast toast = Toast.makeText(getContext(),"Niste unijeli ispravan kapacitet",Toast.LENGTH_LONG);
+                toast.show();
+                return false;
+            }
+        } else {
+            Toast toast = Toast.makeText(getContext(),"Niste unijeli kapacitet",Toast.LENGTH_LONG);
+            toast.show();
+            return false;
+            }
+
+
+        if (!TextUtils.isEmpty(vKindOf.getText()) && vKindOf.getText().length()!=0) {
             nmr.setvKindOf(vKindOf.getText().toString());
+        }  else {
+            Toast toast = Toast.makeText(getContext(),"Niste unijeli ispravnu karakteristiku vozila",Toast.LENGTH_LONG);
+            toast.show();
+            return false;
         }
+
+        return true;
 
     }
 

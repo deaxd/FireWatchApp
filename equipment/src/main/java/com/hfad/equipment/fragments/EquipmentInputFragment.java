@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.hfad.equipment.R;
 import com.hfad.equipment.listeners.NewEquipmentAdded;
@@ -66,34 +67,50 @@ public class EquipmentInputFragment extends Fragment {
     }
 
     private void onSaveClicked() {
-        validateInput();
-        swapLayouts();
+        if(validateInput()) {
+            swapLayouts();
 
 
+            WebServiceCaller wsc = new WebServiceCaller();
 
-        WebServiceCaller wsc = new WebServiceCaller();
+            Organization org = SQLite.select().from(Organization.class).querySingle();
 
-        Organization org = SQLite.select().from(Organization.class).querySingle();
-
-        if (org != null) {
-            wsc.insertEquipment(eqName.getText().toString(),Integer.valueOf(eqQuantity.getText().toString()),org.getOrganizationId());
-            //showProgress();
+            if (org != null) {
+                wsc.insertEquipment(eqName.getText().toString(), Integer.valueOf(eqQuantity.getText().toString()), org.getOrganizationId());
+                //showProgress();
+            }
         }
-
 
     }
 
-    private void validateInput() {
+    private boolean validateInput() {
         NewEquipmentRequest nmr = new NewEquipmentRequest();
 
 
-        if (!TextUtils.isEmpty(eqName.getText())) {
+        if (!TextUtils.isEmpty(eqName.getText()) && eqName.getText().length()!=0) {
             nmr.setName(eqName.getText().toString());
+        } else {
+            Toast toast = Toast.makeText(getContext(),"Niste unijeli naziv opreme",Toast.LENGTH_LONG);
+            toast.show();
+            return false;
         }
 
-        if (!TextUtils.isEmpty(eqQuantity.getText())) {
-            nmr.setQuantity(Integer.valueOf(eqQuantity.getText().toString()));
+        if (!TextUtils.isEmpty(eqQuantity.getText()) && eqQuantity.getText().length()!=0) {
+            try {
+                Integer.parseInt(eqQuantity.getText().toString());
+                nmr.setQuantity(Integer.valueOf(eqQuantity.getText().toString()));
+            } catch (NumberFormatException e) {
+                Toast toast = Toast.makeText(getContext(), "Niste unijeli ispravnu vrijednost količine", Toast.LENGTH_LONG);
+                toast.show();
+                return false;
+            }
+        } else {
+            Toast toast = Toast.makeText(getContext(), "Niste unijeli količinu", Toast.LENGTH_LONG);
+            toast.show();
+            return false;
         }
+
+        return true;
 
     }
 

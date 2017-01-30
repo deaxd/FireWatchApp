@@ -78,14 +78,14 @@ public class MainActivity extends AppCompatActivity
         String recent_token = FirebaseInstanceId.getInstance().getToken();
 
         long org = SQLite.select().from(Organization.class).query().getCount();
-        if(org == 0) {
+        if (org == 0) {
             User user = SQLite.select().from(User.class).querySingle();
             System.out.println(user.getUserOib());
             WebServiceCaller webServiceCaller = new WebServiceCaller();
             webServiceCaller.getOrganization(user.getUserOib(), this);
         }
 
-        button= (Button)findViewById(R.id.tokbut);
+        button = (Button) findViewById(R.id.tokbut);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -105,13 +105,12 @@ public class MainActivity extends AppCompatActivity
                     public void onErrorResponse(VolleyError error) {
 
                     }
-                })
-                {
+                }) {
                     @Override
                     public Map<String, String> getParams() throws AuthFailureError {
-                        Map<String,String> params = new HashMap<String, String>();
-                       String recent_token = FirebaseInstanceId.getInstance().getToken();
-                        params.put("fcm_token",token);
+                        Map<String, String> params = new HashMap<String, String>();
+                        String recent_token = FirebaseInstanceId.getInstance().getToken();
+                        params.put("fcm_token", token);
 
                         return params;
                     }
@@ -120,7 +119,6 @@ public class MainActivity extends AppCompatActivity
                 MySingleton.getmInsatnce(MainActivity.this).addToRequestque(stringRequest);
             }
         });
-
 
 
         ButterKnife.bind(this);
@@ -147,14 +145,6 @@ public class MainActivity extends AppCompatActivity
         mToolbar.setNavigationOnClickListener(navigationClick);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        NavManager nm = NavManager.getInstance();
-        nm.setDependencies(this, mDrawer, mNavigationView, R.id.dynamic_group);
-        //nm.addItem( new InterventionActivity());
-
-        //nm.showDefaultFragment();
-
-        //MockData.writeAll();
 
     }
 
@@ -184,8 +174,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        //NavManager.getInstance().selectNavigationItem(item);
-        //return true;
+
 
         int id = item.getItemId();
 
