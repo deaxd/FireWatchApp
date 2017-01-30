@@ -2,18 +2,12 @@ package hr.foi.air.database.database.entities;
 
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.ForeignKey;
-import com.raizlabs.android.dbflow.annotation.OneToMany;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.annotation.Unique;
-import com.raizlabs.android.dbflow.sql.language.Join;
-import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import java.io.Serializable;
-
-import java.util.Date;
-import java.util.List;
 
 import hr.foi.air.database.database.FireWatchDB;
 
@@ -141,14 +135,6 @@ public class Intervention extends BaseModel implements Serializable {
 
     public void setDuration(String duration) {
         this.duration = duration;
-    }
-
-    public static List<Intervention> getAll(){
-        return SQLite.select().from(Intervention.class).queryList();
-    }
-
-    public static Intervention getInterventionById(int id){
-        return SQLite.select().from(Intervention.class).where(Intervention_Table.interventionId.eq(id)).querySingle();
     }
 
 }

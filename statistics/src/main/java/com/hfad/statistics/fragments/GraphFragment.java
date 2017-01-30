@@ -5,12 +5,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.hfad.statistics.Loader;
 import com.hfad.statistics.R;
-import com.numetriclabz.numandroidcharts.BarChart;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 import hr.foi.air.database.database.entities.User;

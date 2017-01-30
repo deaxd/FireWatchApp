@@ -25,7 +25,6 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
-import hr.foi.air.database.database.entities.Intervention;
 import hr.foi.air.database.database.entities.User;
 import hr.foi.air.webservice.Responses.NewInterventionRequest;
 import hr.foi.air.webservice.WebServiceCaller;

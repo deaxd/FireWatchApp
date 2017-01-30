@@ -17,7 +17,7 @@ import hr.foi.air.database.database.FireWatchDB;
 @Table(database = FireWatchDB.class)
 public class Organization extends BaseModel {
 
-    @PrimaryKey(autoincrement = true)
+    @PrimaryKey(autoincrement = false)
     @Column
     int organizationId;
     @Column String name;

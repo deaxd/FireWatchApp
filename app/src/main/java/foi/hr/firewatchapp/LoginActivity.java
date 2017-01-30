@@ -13,11 +13,9 @@ import android.widget.EditText;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import hr.foi.air.database.database.entities.Organization;
 import hr.foi.air.database.database.entities.User;
 import hr.foi.air.webservice.WebServiceCaller;
 import hr.foi.air.webservice.listeners.LoginListener;
-import hr.foi.air.webservice.listeners.OrganizationReceivedListener;
 
 public class LoginActivity extends AppCompatActivity implements LoginListener{
 
@@ -25,15 +23,10 @@ public class LoginActivity extends AppCompatActivity implements LoginListener{
 
     private static EditText password;
 
-    private static Button login_button;
-
     LoginListener listenerLogin;
 
     @BindView(R.id.btn_login)
     Button btnLogin;
-
-    @BindView(R.id.btn_register)
-    Button btnRegister;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -49,10 +42,9 @@ public class LoginActivity extends AppCompatActivity implements LoginListener{
         if (login > 0) {
             startActivity(new Intent(getBaseContext(), MainActivity.class));
         }
-        //startActivity(new Intent(getBaseContext(), MainActivity.class));
+
         username = (EditText) findViewById(R.id.et_username);
         password = (EditText) findViewById(R.id.et_password);
-        login_button = (Button) findViewById(R.id.btn_login);
 
         listenerLogin = this;
 
@@ -61,19 +53,10 @@ public class LoginActivity extends AppCompatActivity implements LoginListener{
             @Override
             public void onClick(View view) {
                 WebServiceCaller webServiceCaller = new WebServiceCaller();
-                //webServiceCaller.login(username.getText().toString(), password.getText().toString(), listener );
-                webServiceCaller.login("dsafaric", "lozinka1", listenerLogin );
+                webServiceCaller.login(username.getText().toString(), password.getText().toString(), listenerLogin );
 
             }
         });
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getBaseContext(), RegistrationActivity.class));
-            }
-        });
-
-
 
     }
 
@@ -82,9 +65,8 @@ public class LoginActivity extends AppCompatActivity implements LoginListener{
 
         if(user.getUserUsername() == null)
         {}
-        //else if (user.getUserUsername().equals(username.getText().toString())) {
-        //treaba izbrisati liniju poslje
-        else if (user.getUserUsername().equals("dsafaric")) {
+        else if (user.getUserUsername().equals(username.getText().toString())) {
+
             user.save();
             startActivity(new Intent(getBaseContext(), MainActivity.class));
         }

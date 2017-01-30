@@ -1,8 +1,5 @@
 package hr.foi.air.webservice;
 
-import javax.xml.transform.sax.SAXResult;
-
-import hr.foi.air.database.database.entities.Vehicle;
 import hr.foi.air.webservice.Responses.EquipmentResponse;
 import hr.foi.air.webservice.Responses.InterventionResponse;
 import hr.foi.air.webservice.Responses.LoginResponse;

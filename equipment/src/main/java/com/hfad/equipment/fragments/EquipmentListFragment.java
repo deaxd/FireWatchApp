@@ -20,7 +20,6 @@ import java.util.List;
 import com.hfad.equipment.R;
 import hr.foi.air.database.database.entities.Equipment;
 import hr.foi.air.database.database.entities.Organization;
-import hr.foi.air.database.database.entities.User;
 import hr.foi.air.webservice.WebServiceCaller;
 import hr.foi.air.webservice.listeners.EquipmentReceivedListener;
 

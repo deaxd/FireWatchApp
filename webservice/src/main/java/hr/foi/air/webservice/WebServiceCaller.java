@@ -3,7 +3,6 @@ package hr.foi.air.webservice;
 
 import com.squareup.okhttp.OkHttpClient;
 
-import hr.foi.air.database.database.entities.Equipment;
 import hr.foi.air.webservice.Responses.EquipmentResponse;
 import hr.foi.air.webservice.Responses.InterventionResponse;
 import hr.foi.air.webservice.Responses.LoginResponse;
@@ -53,8 +52,9 @@ public class WebServiceCaller {
 
             @Override
             public void onResponse(retrofit.Response<LoginResponse> response, Retrofit retrofit) {
-                listener.onLogin(response.body().getUser());
-                System.out.println("2");
+                if(response.body().isValid()) {
+                    listener.onLogin(response.body().getUser());
+                }
             }
 
             @Override

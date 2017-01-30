@@ -13,12 +13,9 @@ import com.hfad.report.InterventionActivity;
 import com.hfad.statistics.StatisticsActivity;
 import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowManager;
-import com.raizlabs.android.dbflow.sql.language.SQLCondition;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
-import android.app.DownloadManager;
 import android.app.FragmentManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -37,7 +34,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.ButterKnife;
-import foi.hr.firewatchapp.helper.MockData;
 import foi.hr.members.MembersActivity;
 import hr.foi.air.database.database.entities.Organization;
 import hr.foi.air.database.database.entities.User;
@@ -80,7 +76,6 @@ public class MainActivity extends AppCompatActivity
         long org = SQLite.select().from(Organization.class).query().getCount();
         if (org == 0) {
             User user = SQLite.select().from(User.class).querySingle();
-            System.out.println(user.getUserOib());
             WebServiceCaller webServiceCaller = new WebServiceCaller();
             webServiceCaller.getOrganization(user.getUserOib(), this);
         }
@@ -163,7 +158,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onOrganizationFetched(Organization organization) {
         organization.save();
-        System.out.println(organization.getName());
 
     }
 
