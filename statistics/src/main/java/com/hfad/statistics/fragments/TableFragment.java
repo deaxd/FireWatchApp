@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.hfad.statistics.R;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
@@ -28,6 +29,7 @@ public class TableFragment extends Fragment implements StatisticReceivedListener
     private TextView tnumberIntThisYear;
     private TextView tnumberIntAvg;
     private TextView tnumberVehicles;
+    private  MaterialDialog progressDialog;
 
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -49,7 +51,7 @@ public class TableFragment extends Fragment implements StatisticReceivedListener
         User user = SQLite.select().from(User.class).querySingle();
         if (user != null) {
             wsc.getStatistics(user.getUserOib(), this);
-            //showProgress();
+            showProgress();
         }
 
 
@@ -70,7 +72,29 @@ public class TableFragment extends Fragment implements StatisticReceivedListener
             tnumberIntThisYear.setText(String.valueOf(numberIntThisYear));
             tnumberIntAvg.setText(String.valueOf(numberIntAvg));
             tnumberVehicles.setText(String.valueOf(numberVehicles));
+            hideProgress();
             }
+
+
+    private void showProgress() {
+        if (progressDialog == null || !progressDialog.isShowing()) {
+            progressDialog = new MaterialDialog.Builder(getActivity())
+                    .title(R.string.app_name)
+                    .content("Please Wait....")
+                    .progress(true, 0)
+                    .build();
+            progressDialog.setCanceledOnTouchOutside(false);
+        }
+        if (!getActivity().isFinishing()) {
+            progressDialog.show();
+        }
+    }
+
+    private void hideProgress() {
+        if (progressDialog != null && progressDialog.isShowing() && !getActivity().isFinishing()) {
+            progressDialog.dismiss();
+        }
+    }
 
 
 }
