@@ -10,6 +10,7 @@ import com.hfad.core.CurrentActivity;
 import com.hfad.equipment.EquipmentActivity;
 import com.hfad.equipment.VehicleActivity;
 import com.hfad.report.InterventionActivity;
+import com.hfad.statistics.StatisticsActivity;
 import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowManager;
 import com.raizlabs.android.dbflow.sql.language.SQLCondition;
@@ -202,6 +203,8 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(getApplicationContext(), EquipmentActivity.class));
         }   else if (id == R.id.vehicle_activity) {
             startActivity(new Intent(getApplicationContext(), VehicleActivity.class));
+        }   else if (id == R.id.statistics_activity) {
+            startActivity(new Intent(getApplicationContext(), StatisticsActivity.class));
         }
 
         mDrawer.closeDrawer(GravityCompat.START);
