@@ -17,9 +17,10 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:hint="Naziv opreme"
-            app:met_underlineColor="#000000"
-            app:met_textColorHint="#000000"
-            app:met_baseColor="#ed1539"
+            app:met_textColorHint="@color/colorPrimaryDark"
+            android:textColor="@color/colorPrimaryDark"
+            app:met_baseColor="@color/colorPrimaryDark"
+            app:met_underlineColor="@android:color/holo_red_dark"
             app:met_floatingLabel="highlight"/>
 
         <com.rengwuxian.materialedittext.MaterialEditText
@@ -28,9 +29,10 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:hint="Količina"
-            app:met_underlineColor="#000000"
-            app:met_textColorHint="#000000"
-            app:met_baseColor="#ed1539"
+            app:met_textColorHint="@color/colorPrimaryDark"
+            android:textColor="@color/colorPrimaryDark"
+            app:met_baseColor="@color/colorPrimaryDark"
+            app:met_underlineColor="@android:color/holo_red_dark"
             app:met_floatingLabel="highlight"/>
 
         </LinearLayout>
@@ -43,6 +45,6 @@
         android:layout_gravity="center|bottom"
         android:text="Save"
         android:textColor="@android:color/white"
-        android:background="#ed1539"/>
+        android:background="@android:color/holo_red_dark"/>
 
     </RelativeLayout>

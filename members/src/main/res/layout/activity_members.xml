@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
-            app:backgroundTint="@color/colorAccent"
+            app:backgroundTint="@android:color/holo_red_dark"
             android:src="@drawable/ic_action_add"
             android:tint="@android:color/white"/>
 

@@ -6,23 +6,39 @@
         android:orientation="vertical">
 
     <FrameLayout
-            android:id="@+id/fragment_content"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        android:id="@+id/fragment_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
 
         <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/hello_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/hello_text"
             android:paddingTop="5dp"
-            android:paddingBottom="5dp" />
+            android:paddingBottom="5dp"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_marginTop="100dp" />
+
+        <ImageView
+            android:src="@mipmap/ic_logo_fireman"
+            android:layout_height="500dp"
+            android:layout_width="250dp"
+            android:layout_gravity="center"/>
 
         <Button
             android:text="SEND REG TOKEN"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/tokbut"
-            android:layout_marginTop="20dp" />
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="30dp"
+            android:textColor="@color/colorWhite"
+            android:background="@android:color/holo_red_dark"/>
 
     </FrameLayout>
 

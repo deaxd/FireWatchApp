@@ -11,7 +11,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="8dp"
-            android:src="@mipmap/ic_launcher"
+            android:src="@mipmap/ic_fireman"
             />
 
     <LinearLayout
@@ -22,19 +22,20 @@
             android:orientation="vertical">
 
         <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="Marko Marić"
-                android:textStyle="bold"
-                android:id="@+id/tv_member_name"
-                android:layout_marginBottom="4dp"
-                />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Marko Marić"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimaryDark"
+            android:id="@+id/tv_member_name"
+            android:layout_marginBottom="4dp" />
 
         <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/tv_member_username"
-                tools:text="Haxx00rz"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_member_username"
+            tools:text="Haxx00rz"
+            android:textColor="@color/colorPrimaryDark"/>
 
     </LinearLayout>
 

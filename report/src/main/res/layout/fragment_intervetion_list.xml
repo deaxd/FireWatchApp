@@ -8,12 +8,6 @@
     android:orientation="vertical">
 
 
-    <TextView
-        android:paddingTop="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/intervenion_list" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_intervention"

@@ -8,16 +8,22 @@
         android:checkableBehavior="single">
 
 
-    <item android:title="Intervencije"
-        android:id="@+id/int_activity"/>
+    <item
+        android:icon="@drawable/ic_fire"
+        android:title="Intervencije"
+        android:id="@+id/int_activity" />
 
-        <item android:title="Članovi"
+        <item
+            android:icon="@drawable/ic_members"
+            android:title="Članovi"
             android:id="@+id/members_activity"/>
 
         <item android:title="Oprema"
+            android:icon="@drawable/ic_equipment"
             android:id="@+id/equipment_activity"/>
 
         <item android:title="Vozila"
+            android:icon="@drawable/ic_vehicles"
             android:id="@+id/vehicle_activity"/>
 
     </group>

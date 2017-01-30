@@ -24,9 +24,10 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:hint="Vrsta intervencije"
-        app:met_underlineColor="@color/colorPrimary"
-        app:met_textColorHint="@color/colorPrimary"
-        app:met_baseColor="@color/colorAccent"
+        app:met_textColorHint="@color/colorPrimaryDark"
+        android:textColor="@color/colorPrimaryDark"
+        app:met_baseColor="@color/colorPrimaryDark"
+        app:met_underlineColor="@android:color/holo_red_dark"
         app:met_floatingLabel="highlight"/>
 
     <com.rengwuxian.materialedittext.MaterialEditText
@@ -35,9 +36,10 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:hint="Adresa"
-        app:met_underlineColor="@color/colorPrimary"
-        app:met_textColorHint="@color/colorPrimary"
-        app:met_baseColor="@color/colorAccent"
+        app:met_textColorHint="@color/colorPrimaryDark"
+        android:textColor="@color/colorPrimaryDark"
+        app:met_baseColor="@color/colorPrimaryDark"
+        app:met_underlineColor="@android:color/holo_red_dark"
         app:met_floatingLabel="highlight"/>
 
     <com.rengwuxian.materialedittext.MaterialEditText
@@ -46,9 +48,10 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:hint="Opis"
-        app:met_underlineColor="@color/colorPrimary"
-        app:met_textColorHint="@color/colorPrimary"
-        app:met_baseColor="@color/colorAccent"
+        app:met_textColorHint="@color/colorPrimaryDark"
+        android:textColor="@color/colorPrimaryDark"
+        app:met_baseColor="@color/colorPrimaryDark"
+        app:met_underlineColor="@android:color/holo_red_dark"
         app:met_floatingLabel="highlight"/>
 
     <com.rengwuxian.materialedittext.MaterialEditText
@@ -57,9 +60,10 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:hint="Alert Number"
-        app:met_underlineColor="@color/colorPrimary"
-        app:met_textColorHint="@color/colorPrimary"
-        app:met_baseColor="@color/colorAccent"
+        app:met_textColorHint="@color/colorPrimaryDark"
+        android:textColor="@color/colorPrimaryDark"
+        app:met_baseColor="@color/colorPrimaryDark"
+        app:met_underlineColor="@android:color/holo_red_dark"
         app:met_floatingLabel="highlight"/>
 
     <com.rengwuxian.materialedittext.MaterialEditText
@@ -68,9 +72,10 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:hint="Trajanje"
-        app:met_underlineColor="@color/colorPrimary"
-        app:met_textColorHint="@color/colorPrimary"
-        app:met_baseColor="@color/colorAccent"
+        app:met_textColorHint="@color/colorPrimaryDark"
+        android:textColor="@color/colorPrimaryDark"
+        app:met_baseColor="@color/colorPrimaryDark"
+        app:met_underlineColor="@android:color/holo_red_dark"
         app:met_floatingLabel="highlight"/>
 
     <com.rengwuxian.materialedittext.MaterialEditText
@@ -79,9 +84,10 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:hint="Vatrogasci na dužnosti"
-        app:met_underlineColor="@color/colorPrimary"
-        app:met_textColorHint="@color/colorPrimary"
-        app:met_baseColor="@color/colorAccent"
+        app:met_textColorHint="@color/colorPrimaryDark"
+        android:textColor="@color/colorPrimaryDark"
+        app:met_baseColor="@color/colorPrimaryDark"
+        app:met_underlineColor="@android:color/holo_red_dark"
         app:met_floatingLabel="highlight"/>
 
     <Button
@@ -92,7 +98,7 @@
         android:layout_gravity="center|bottom"
         android:text="Save"
         android:textColor="@android:color/white"
-        android:background="@color/colorAccent"/>
+        android:background="@android:color/holo_red_dark"/>
 
 </LinearLayout>
     </ScrollView>

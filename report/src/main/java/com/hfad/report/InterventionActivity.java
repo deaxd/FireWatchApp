@@ -29,7 +29,7 @@ public class InterventionActivity extends AppCompatActivity implements Intervent
 
     private FrameLayout fragmentContainer;
 
-    private Toolbar intToolbar;
+    private Toolbar toolbar;
 
     private FloatingActionButton fabi;
 
@@ -42,8 +42,8 @@ public class InterventionActivity extends AppCompatActivity implements Intervent
         setContentView(R.layout.activity_interventions);
         CurrentActivity.setActivity(this);
 
-        intToolbar = (Toolbar) findViewById(R.id.int_toolbar);
-        setSupportActionBar(intToolbar);
+        toolbar = (Toolbar) findViewById(R.id.int_toolbar);
+        setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -122,15 +122,15 @@ public class InterventionActivity extends AppCompatActivity implements Intervent
     }
 
 
-    @Override
+   @Override
     public void onBackPressed() {
        FragmentManager fm = getSupportFragmentManager();
-        if (fm.getBackStackEntryCount() > 1) {
-            fm.popBackStack();
-            fabi.setVisibility(View.VISIBLE);
-        } else {
-            finish();
-        }
+       if (fm.getBackStackEntryCount() > 0) {
+           fm.popBackStack();
+           fabi.setVisibility(View.VISIBLE);
+       } else {
+           finish();
+       }
 
     }
 

@@ -125,7 +125,7 @@ public class MembersActivity extends AppCompatActivity implements FragmentAction
     @Override
     public void onBackPressed() {
         FragmentManager fm = getSupportFragmentManager();
-        if (fm.getBackStackEntryCount() != 0) {
+        if (fm.getBackStackEntryCount() > 1) {
             fm.popBackStack();
             fab.setVisibility(View.VISIBLE);
         } else {

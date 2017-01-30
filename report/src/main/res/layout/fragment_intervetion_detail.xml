@@ -11,62 +11,167 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingLeft="5dp"
+        android:textAlignment="center">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/intervention_details"
-            android:textAppearance="?android:attr/textAppearanceLarge"/>
+            android:textColor="@color/colorPrimaryDark"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:padding="5dp"
+            android:paddingLeft="10dp" />
+    </LinearLayout>
 
+
+
+
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:paddingTop="25dp"
+        android:paddingLeft="15dp">
+
+
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2"
+        android:gravity="left"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
+        <TextView
+            android:text="Tip intervencije: "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryDark"/>
         <TextView
             android:id="@+id/type_of_int"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tip intervenicje: " />
+            android:textStyle="bold"
+            android:text="Tip intervenicje: "
+            android:textColor="@android:color/holo_red_dark"/>
+    </LinearLayout>
 
+
+
+
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2"
+        android:gravity="left"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp">
+        <TextView
+            android:text="Adresa: "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryDark"/>
         <TextView
             android:id="@+id/address_int"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Adresa: "
-            />
+            android:textStyle="bold"
+            android:textColor="@android:color/holo_red_dark"/>
+    </LinearLayout>
 
 
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2"
+        android:gravity="left"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
+        <TextView
+            android:text="Broj sati trajanja intervenicje: "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryDark"/>
         <TextView
             android:id="@+id/duration_int"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
+            android:textStyle="bold"
+            android:textColor="@android:color/holo_red_dark"/>
+    </LinearLayout>
 
+
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2"
+        android:gravity="left"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
+        <TextView
+            android:text="Opis intervencije: "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryDark"/>
         <TextView
             android:id="@+id/description_int"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
+            android:textColor="@android:color/holo_red_dark"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="10dp" />
+    </LinearLayout>
 
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2"
+        android:gravity="left"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp">
         <TextView
             android:id="@+id/longitude_int"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
-
         <TextView
             android:id="@+id/latitude_int"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
-
+            android:textColor="@android:color/holo_red_dark"/>
         <TextView
             android:id="@+id/fireman_int"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
-
+            android:textColor="@android:color/holo_red_dark"/>
         <TextView
             android:id="@+id/vehicles_int"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
+    </LinearLayout>
+
+
     </LinearLayout>
 </FrameLayout>

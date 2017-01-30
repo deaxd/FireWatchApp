@@ -6,7 +6,7 @@
 
     <application
             android:allowBackup="true"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@mipmap/ic_logo_fireman"
             android:label="@string/app_name"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
@@ -37,6 +37,15 @@
         </service>
 
         <activity android:name="com.hfad.report.InterventionActivity">
+        </activity>
+
+        <activity android:name="foi.hr.members.MembersActivity">
+        </activity>
+
+        <activity android:name="com.hfad.equipment.EquipmentActivity">
+        </activity>
+
+        <activity android:name="com.hfad.equipment.VehicleActivity">
         </activity>
     </application>
 

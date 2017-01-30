@@ -11,95 +11,100 @@
             android:orientation="vertical">
 
         <com.rengwuxian.materialedittext.MaterialEditText
-                android:id="@+id/et_oib"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:hint="OIB"
-                app:met_underlineColor="@color/colorPrimary"
-                app:met_textColorHint="@color/colorPrimary"
-                app:met_baseColor="@color/colorAccent"
-                app:met_maxCharacters="11"
-                app:met_minCharacters="11"
-                app:met_floatingLabel="highlight"/>
+            android:id="@+id/et_oib"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:hint="OIB"
+            app:met_textColorHint="@color/colorPrimaryDark"
+            android:textColor="@color/colorPrimaryDark"
+            app:met_baseColor="@color/colorPrimaryDark"
+            app:met_underlineColor="@android:color/holo_red_dark"
+            app:met_maxCharacters="11"
+            app:met_minCharacters="11"
+            app:met_floatingLabel="highlight"/>
 
         <com.rengwuxian.materialedittext.MaterialEditText
-                android:id="@+id/et_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:hint="Name"
-                app:met_underlineColor="@color/colorPrimary"
-                app:met_textColorHint="@color/colorPrimary"
-                app:met_baseColor="@color/colorAccent"
-                app:met_floatingLabel="highlight"/>
+            android:id="@+id/et_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:hint="Name"
+            app:met_textColorHint="@color/colorPrimaryDark"
+            android:textColor="@color/colorPrimaryDark"
+            app:met_baseColor="@color/colorPrimaryDark"
+            app:met_underlineColor="@android:color/holo_red_dark"
+            app:met_floatingLabel="highlight"/>
 
         <com.rengwuxian.materialedittext.MaterialEditText
-                android:id="@+id/et_surname"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:hint="Surname"
-                app:met_underlineColor="@color/colorPrimary"
-                app:met_textColorHint="@color/colorPrimary"
-                app:met_baseColor="@color/colorAccent"
-                app:met_floatingLabel="highlight"/>
+            android:id="@+id/et_surname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:hint="Surname"
+            app:met_textColorHint="@color/colorPrimaryDark"
+            android:textColor="@color/colorPrimaryDark"
+            app:met_baseColor="@color/colorPrimaryDark"
+            app:met_underlineColor="@android:color/holo_red_dark"
+            app:met_floatingLabel="highlight"/>
 
         <com.rengwuxian.materialedittext.MaterialEditText
-                android:id="@+id/et_username"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:hint="Username"
-                app:met_underlineColor="@color/colorPrimary"
-                app:met_textColorHint="@color/colorPrimary"
-                app:met_baseColor="@color/colorAccent"
-                app:met_floatingLabel="highlight"/>
+            android:id="@+id/et_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:hint="Username"
+            app:met_textColorHint="@color/colorPrimaryDark"
+            android:textColor="@color/colorPrimaryDark"
+            app:met_baseColor="@color/colorPrimaryDark"
+            app:met_underlineColor="@android:color/holo_red_dark"
+            app:met_floatingLabel="highlight"/>
 
         <com.rengwuxian.materialedittext.MaterialEditText
-                android:id="@+id/et_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:hint="Password"
-                app:met_underlineColor="@color/colorPrimary"
-                app:met_textColorHint="@color/colorPrimary"
-                app:met_baseColor="@color/colorAccent"
-                app:met_floatingLabel="highlight"/>
+            android:id="@+id/et_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:hint="Password"
+            app:met_textColorHint="@color/colorPrimaryDark"
+            android:textColor="@color/colorPrimaryDark"
+            app:met_baseColor="@color/colorPrimaryDark"
+            app:met_underlineColor="@android:color/holo_red_dark"
+            app:met_floatingLabel="highlight"/>
 
         <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:gravity="center"
-                android:orientation="horizontal">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Lieutenant"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="16sp"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lieutenant"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp"/>
 
             <Switch
-                    android:id="@+id/swt_lieutenant"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="100dp"/>
+                android:id="@+id/swt_lieutenant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="100dp"/>
 
         </LinearLayout>
     </LinearLayout>
 
     <Button
-            android:id="@+id/btn_save"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_gravity="center|bottom"
-            android:text="Save"
-            android:textColor="@android:color/white"
-            android:background="@color/colorAccent"/>
+        android:id="@+id/btn_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center|bottom"
+        android:text="Save"
+        android:textColor="@android:color/white"
+        android:background="@android:color/holo_red_dark"/>
 
 </RelativeLayout>

@@ -4,7 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingBottom="5dp"
+    android:paddingTop="5dp"
+    android:gravity="center_horizontal">
 
     <ImageView
         android:id="@+id/iv_member_photo"
@@ -12,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
-        android:src="@mipmap/ic_launcher"
+        android:src="@mipmap/ic_intervention"
         />
 
     <LinearLayout
@@ -22,26 +25,19 @@
         android:layout_marginLeft="16dp"
         android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="00001"
-        android:textStyle="bold"
-        android:id="@+id/tv_int_id"
-        android:layout_marginBottom="4dp"
-        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_int_kindOf"
+            android:textColor="@color/colorPrimaryDark"
+            tools:text="Požar krovišta"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_int_kindOf"
-        tools:text="Požar krovišta"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_int_address"
-        tools:text="Čakovečka 3"/>
-        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_int_address"
+            android:textColor="@color/colorPrimaryDark"
+            tools:text="Čakovečka 3"/>
+    </LinearLayout>
 
 </LinearLayout>

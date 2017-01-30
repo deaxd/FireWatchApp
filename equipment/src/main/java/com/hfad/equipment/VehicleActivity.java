@@ -84,12 +84,13 @@ public class VehicleActivity extends AppCompatActivity implements NewVehicleAdde
     @Override
     public void onBackPressed() {
         FragmentManager fm = getSupportFragmentManager();
-        if (fm.getBackStackEntryCount() > 1) {
+        //if (fm.getBackStackEntryCount() > 1) {
+        fm.getBackStackEntryCount();
             fm.popBackStack();
             fab.setVisibility(View.VISIBLE);
-        } else {
+        /*} else {*/
             finish();
-        }
+        //}*/
     }
 
     @Override
