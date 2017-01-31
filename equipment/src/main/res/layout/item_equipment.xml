@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
-        android:src="@mipmap/ic_equipment"
+        android:src="@mipmap/ic_equipment2"
         android:gravity="left"
         />
 

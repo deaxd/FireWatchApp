@@ -2,7 +2,7 @@
     <string name="app_name">FirewatchApp</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="report_name">Interventions</string>
+    <string name="report_name">Intervencije</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="intervention_details">Report </string>
     <string name="predaj">Predaj</string>
