@@ -5,5 +5,5 @@ package com.hfad.equipment.listeners;
  */
 
 public interface NewVehicleAdded {
-    public void onNewVehicleAdded();
+    void onNewVehicleAdded();
 }

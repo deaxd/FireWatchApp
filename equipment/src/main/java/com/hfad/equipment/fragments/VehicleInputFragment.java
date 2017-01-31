@@ -16,7 +16,7 @@ import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import hr.foi.air.database.database.entities.Organization;
-import hr.foi.air.webservice.Responses.NewVehicleRequest;
+import com.hfad.equipment.NewVehicleRequest;
 import hr.foi.air.webservice.WebServiceCaller;
 
 /**

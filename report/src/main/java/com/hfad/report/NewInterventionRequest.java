@@ -1,4 +1,4 @@
-package hr.foi.air.webservice.Responses;
+package com.hfad.report;
 
 /**
  * Created by Matija on 26/01/2017.

@@ -31,9 +31,6 @@ public class GraphFragment extends Fragment implements StatisticReceivedListener
     private int tnumberInterventions;
     private int tnumberIntThisYear;
     private int tnumberVehicles;
-    private View view;
-    private LayoutInflater inflater;
-    private  ViewGroup container;
     HorizontalBarChart barChart;
     MaterialDialog progressDialog;
 

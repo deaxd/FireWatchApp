@@ -18,7 +18,7 @@ import android.widget.Toast;
 import foi.hr.members.R;
 import foi.hr.members.listeners.FragmentActionListener;
 import hr.foi.air.database.database.entities.User;
-import hr.foi.air.webservice.Responses.NewMemberRequest;
+import foi.hr.members.NewMemberRequest;
 import hr.foi.air.webservice.WebServiceCaller;
 
 public class NewMemberFragment extends Fragment {

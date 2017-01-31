@@ -7,6 +7,5 @@ import hr.foi.air.database.database.entities.Organization;
  */
 
 public interface OrganizationReceivedListener {
-
     void onOrganizationFetched(Organization organization);
 }
