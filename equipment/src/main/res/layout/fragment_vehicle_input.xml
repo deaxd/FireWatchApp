@@ -5,10 +5,12 @@
     android:layout_height="match_parent"
     tools:context="com.hfad.equipment.fragments.VehicleInputFragment">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
 
 
         <com.rengwuxian.materialedittext.MaterialEditText
@@ -58,18 +60,20 @@
             app:met_baseColor="@color/colorPrimaryDark"
             app:met_underlineColor="@android:color/holo_red_dark"
             app:met_floatingLabel="highlight"/>
+        </LinearLayout>
+        <Button
+            android:id="@+id/btn_save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center|bottom"
+            android:text="Save"
+            android:textColor="@android:color/white"
+            android:background="@android:color/holo_red_dark"/>
 
 
-    </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_save"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="center|bottom"
-        android:text="Save"
-        android:textColor="@android:color/white"
-        android:background="@android:color/holo_red_dark"/>
+
+
 
 </RelativeLayout>
