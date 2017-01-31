@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity
         implements SharedPreferences.OnSharedPreferenceChangeListener, NavigationView.OnNavigationItemSelectedListener,
         FragmentManager.OnBackStackChangedListener, OrganizationReceivedListener {
 
-    // private DrawerLayout mDrawerLayout;
+
 
 
 
@@ -85,6 +85,10 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
 
+                /**
+                 * Code used for sending firebase registration token to web server
+                 */
+
                 //SharedPreferences sharedPreferences=getApplicationContext().getSharedPreferences(getString(R.string.FCM_PREF), Context.MODE_PRIVATE);
                 //final String token = sharedPreferences.getString(getString(R.string.FCM_TOKEN),"");
                 final String token = android.preference.PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
@@ -104,7 +108,7 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public Map<String, String> getParams() throws AuthFailureError {
                         Map<String, String> params = new HashMap<String, String>();
-                        String recent_token = FirebaseInstanceId.getInstance().getToken();
+                        String token = FirebaseInstanceId.getInstance().getToken();
                         params.put("fcm_token", token);
 
                         return params;
@@ -155,17 +159,31 @@ public class MainActivity extends AppCompatActivity
         }
     };
 
+    /**
+     * Interface method for getting organization data from web server and saving them to local database
+     * @param organization
+     */
     @Override
     public void onOrganizationFetched(Organization organization) {
         organization.save();
 
     }
 
+    /**
+     * Interface method for selecting navigation item
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return mToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Interface method used for handling navigation item selection and starting corresponding activity
+     * @param item
+     * @return
+     */
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
 

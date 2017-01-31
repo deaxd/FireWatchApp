@@ -17,6 +17,9 @@ import hr.foi.air.database.database.entities.User;
 import hr.foi.air.webservice.WebServiceCaller;
 import hr.foi.air.webservice.listeners.LoginListener;
 
+/**
+ * Activity used for initial login to the application
+ */
 public class LoginActivity extends AppCompatActivity implements LoginListener{
 
     private static EditText username;
@@ -36,7 +39,9 @@ public class LoginActivity extends AppCompatActivity implements LoginListener{
         FlowManager.init(new FlowConfig.Builder(this).build());
 
 
-
+        /**
+         *  long login is used to check if user is already registered in local database and grants him access to application if is
+         */
         long login;
         login = SQLite.select().from(User.class).query().getCount();
         if (login > 0) {
@@ -49,6 +54,9 @@ public class LoginActivity extends AppCompatActivity implements LoginListener{
         listenerLogin = this;
 
 
+        /**
+         * Login button listener
+         */
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,6 +68,10 @@ public class LoginActivity extends AppCompatActivity implements LoginListener{
 
     }
 
+    /**
+     * Interface method that receives user data and saves user to the local database
+     * @param user
+     */
     @Override
     public void onLogin(User user) {
 

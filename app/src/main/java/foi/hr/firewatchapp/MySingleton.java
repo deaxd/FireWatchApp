@@ -10,6 +10,10 @@ import com.android.volley.toolbox.Volley;
  * Created by Matija on 24/01/2017.
  */
 
+/**
+ * Singleton class used for handling firebase request
+ */
+
 public class MySingleton {
     private static MySingleton mInstance;
     private static Context mCtx;
@@ -20,6 +24,10 @@ public class MySingleton {
         requestQueue=getRequestQueue();
     }
 
+    /**
+     * Method used for handling volley requests
+     * @return
+     */
     private RequestQueue getRequestQueue(){
 
         if(requestQueue==null){

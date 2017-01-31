@@ -33,17 +33,14 @@ import static junit.framework.Assert.assertTrue;
 public class ClassUnitTest {
     private LoginActivity activity;
 
-    // @Before => JUnit 4 annotation that specifies this method should run before each test is run
-    // Useful to do setup for objects that are needed in the test
+
     @Before
     public void setup() {
-        // Convenience method to run MainActivity through the Activity Lifecycle methods:
-        // onCreate(...) => onStart() => onPostCreate(...) => onResume()
+
         activity = Robolectric.setupActivity(LoginActivity.class);
     }
 
-    // @Test => JUnit 4 annotation specifying this is a test to be run
-    // The test simply checks that our TextView exists and has the text "Hello world!"
+   
     @Test
     public void validateButton() {
 
