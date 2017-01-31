@@ -83,6 +83,10 @@ public class EquipmentInputFragment extends Fragment {
 
     }
 
+    /**
+     * Method used for validating data used to add new equipment. It returns true if validated and false if wrong data is inputed
+     * @return
+     */
     private boolean validateInput() {
         NewEquipmentRequest nmr = new NewEquipmentRequest();
 
@@ -114,6 +118,9 @@ public class EquipmentInputFragment extends Fragment {
 
     }
 
+    /**
+     * Method used for swapping layouts by calling onNewEquipmentAdded() method
+     */
     private void swapLayouts(){
 
         newEquipmentAdded.onNewEquipmentAdded();

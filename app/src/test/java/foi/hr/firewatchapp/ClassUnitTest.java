@@ -40,7 +40,7 @@ public class ClassUnitTest {
         activity = Robolectric.setupActivity(LoginActivity.class);
     }
 
-   
+
     @Test
     public void validateButton() {
 

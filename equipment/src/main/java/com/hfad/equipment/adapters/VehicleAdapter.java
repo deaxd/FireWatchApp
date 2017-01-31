@@ -17,6 +17,10 @@ import hr.foi.air.database.database.entities.Vehicle;
  * Created by Matija on 28/01/2017.
  */
 
+/**
+ * Adapter used for handling vehicle list data and saving them to text view fields
+ */
+
 public class VehicleAdapter extends RecyclerView.Adapter<VehicleAdapter.ViewHolder> {
     private List<Vehicle> vehicleList = new ArrayList<>();
 

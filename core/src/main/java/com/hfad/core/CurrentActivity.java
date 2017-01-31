@@ -6,6 +6,9 @@ import android.app.Activity;
  * Created by Matija on 28/11/2016.
  */
 
+/**
+ * Class used for getting current activity
+ */
 public class CurrentActivity {
     private static Activity mActivity;
 

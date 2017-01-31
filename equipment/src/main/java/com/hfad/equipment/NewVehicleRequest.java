@@ -4,6 +4,10 @@ package com.hfad.equipment;
  * Created by Matija on 28/01/2017.
  */
 
+/**
+ * Class used for handling new wehicle added data
+ */
+
 public class NewVehicleRequest {
 
     private String vName;

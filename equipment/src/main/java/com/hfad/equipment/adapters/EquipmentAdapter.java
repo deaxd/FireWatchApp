@@ -17,6 +17,10 @@ import hr.foi.air.database.database.entities.Equipment;
  * Created by Matija on 28/01/2017.
  */
 
+/**
+ * Adapter used for display of essential equipment data
+ */
+
 public class EquipmentAdapter extends RecyclerView.Adapter<EquipmentAdapter.ViewHolder> {
 
 

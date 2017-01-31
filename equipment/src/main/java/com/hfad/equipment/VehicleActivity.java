@@ -53,6 +53,9 @@ public class VehicleActivity extends AppCompatActivity implements NewVehicleAdde
             }
         });
 
+        /**
+         * Initial fragment loaded is VehicleListFragment
+         */
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(R.id.fragment_container, fragmentList.get(0));
@@ -60,6 +63,9 @@ public class VehicleActivity extends AppCompatActivity implements NewVehicleAdde
         ft.commit();
     }
 
+    /**
+     * Method used for handling actions on floating action button.It changes VehicleListFragment to VehicleInputFragment
+     */
     private void onFabClicked() {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
@@ -70,6 +76,9 @@ public class VehicleActivity extends AppCompatActivity implements NewVehicleAdde
         fab.setVisibility(View.GONE);
     }
 
+    /**
+     * Method used for handling fragment list containing list of all vehicle related fragments
+     */
     private void addFragmentsToList() {
         VehicleListFragment vehicleListFragment = new VehicleListFragment();
         VehicleInputFragment vehicleInputFragment = new VehicleInputFragment();
@@ -93,6 +102,9 @@ public class VehicleActivity extends AppCompatActivity implements NewVehicleAdde
         //}*/
     }
 
+    /**
+     * Interface method used for handling NewVehicleAdded event. On new vehicle added this method replaces VehicleInputFragment with VehicleListFragment
+     */
     @Override
     public void onNewVehicleAdded() {
         FragmentManager fm = getSupportFragmentManager();
