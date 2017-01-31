@@ -27,6 +27,10 @@ import hr.foi.air.webservice.listeners.VehicleReceivedListener;
  * Created by Matija on 28/01/2017.
  */
 
+/**
+ * Fragment used for displaying vehicle lists
+ */
+
 public class VehicleListFragment extends Fragment implements VehicleReceivedListener {
 
 
@@ -57,18 +61,20 @@ public class VehicleListFragment extends Fragment implements VehicleReceivedList
         int id =org.getOrganizationId();
         if (org != null) {
             wsc.getVehicles(org.getOrganizationId(),this );
-            //showProgress();
+            showProgress();
         }
 
         return view;
     }
 
 
-
-
-
+    /**
+     * Interface method used for setting VehicleAdapter on received vehicle data
+     * @param vehicleList
+     */
     @Override
     public void onVehiclesFetched(List<Vehicle> vehicleList) {
+        hideProgress();
         recyclerView.setAdapter(new VehicleAdapter(vehicleList,getContext()));
     }
 

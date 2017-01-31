@@ -62,6 +62,9 @@ public class MembersActivity extends AppCompatActivity implements FragmentAction
         ft.commit();
     }
 
+    /**
+     * Method used for handling actions ove floating action button. When clicked, MemberFragment is replaced with NewMemberFragment
+     */
     private void onFabClicked() {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
@@ -80,7 +83,9 @@ public class MembersActivity extends AppCompatActivity implements FragmentAction
         fragmentList.add(newMemberFragment);
     }
 
-
+    /**
+     * Interface method used for handling new member added event. When adding is finished NewMemberFragment is replaced with MemberFragment
+     */
     @Override
     public void newMemberAddingFinished() {
         FragmentManager fm = getSupportFragmentManager();
@@ -90,6 +95,10 @@ public class MembersActivity extends AppCompatActivity implements FragmentAction
 
         fab.setVisibility(View.VISIBLE);
     }
+
+    /**
+     * Interface method used for handling on member click event. Replaces MemberFragment with MemberDetailsFragment using new instance of fireman data
+     */
 
     @Override
     public void onMemberClicked(Fireman fireman) {
@@ -102,6 +111,9 @@ public class MembersActivity extends AppCompatActivity implements FragmentAction
         fab.setVisibility(View.GONE);
     }
 
+    /**
+     * Interface method used for handling invalid member event
+     */
     @Override
     public void invalidMemberLoaded() {
         FragmentManager fm = getSupportFragmentManager();
@@ -111,6 +123,10 @@ public class MembersActivity extends AppCompatActivity implements FragmentAction
 
         fab.setVisibility(View.VISIBLE);
     }
+
+    /**
+     * Interface method used for handling member update event
+     */
 
     @Override
     public void memberUpdateFinished() {

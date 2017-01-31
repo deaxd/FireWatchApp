@@ -16,7 +16,7 @@ import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import hr.foi.air.database.database.entities.Organization;
-import hr.foi.air.webservice.Responses.NewVehicleRequest;
+import com.hfad.equipment.NewVehicleRequest;
 import hr.foi.air.webservice.WebServiceCaller;
 
 /**
@@ -85,6 +85,11 @@ public class VehicleInputFragment extends Fragment {
        }
     }
 
+    /**
+     * Method used for validating new vehicle data input. It returns true if data is validated and false if not
+     * @return
+     */
+
     private boolean validateInput() {
         NewVehicleRequest nmr = new NewVehicleRequest();
 
@@ -143,6 +148,9 @@ public class VehicleInputFragment extends Fragment {
 
     }
 
+    /**
+     * Method used to swap layouts by calling onNewVehicle added method
+     */
     private void swapLayouts(){
 
         newVehicleAdded.onNewVehicleAdded();

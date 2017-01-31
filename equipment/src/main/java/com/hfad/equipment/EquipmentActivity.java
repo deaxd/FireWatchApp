@@ -17,8 +17,6 @@ import com.hfad.equipment.listeners.NewEquipmentAdded;
 import java.util.ArrayList;
 import java.util.List;
 
-import hr.foi.air.database.database.entities.Equipment;
-
 /**
  * Created by Matija on 28/01/2017.
  */
@@ -45,7 +43,9 @@ public class EquipmentActivity extends AppCompatActivity implements NewEquipment
 
 
         addFragmentsToList();
-
+        /**
+         * Code used for initial fragment (EquipmentListFragment)
+         */
         fragmentContainer = (FrameLayout) findViewById(R.id.fragment_container);
         fab = (FloatingActionButton) findViewById(R.id.fab);
 
@@ -63,6 +63,10 @@ public class EquipmentActivity extends AppCompatActivity implements NewEquipment
         ft.commit();
     }
 
+    /**
+     * Method used for handling floating action button. fab is used for fragment replace to EquipmentInputFragment
+     */
+
     private void onFabClicked() {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
@@ -73,6 +77,9 @@ public class EquipmentActivity extends AppCompatActivity implements NewEquipment
         fab.setVisibility(View.GONE);
     }
 
+    /**
+     * Method used for handling fragment list used for handling fragment replacement
+     */
     private void addFragmentsToList() {
         EquipmentListFragment equipmentListFragment = new EquipmentListFragment();
         EquipmentInputFragment equipmentInputFragment = new EquipmentInputFragment();
@@ -95,6 +102,9 @@ public class EquipmentActivity extends AppCompatActivity implements NewEquipment
         }
     }
 
+    /**
+     * Interface method used for handling onNewEquipmentAdded action. When new equipment is added, it replaces EquipmentInputFragment with EquipmentListFragment
+     */
     @Override
     public void onNewEquipmentAdded() {
         FragmentManager fm = getSupportFragmentManager();

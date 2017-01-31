@@ -5,23 +5,47 @@ package foi.hr.firewatchapp;
  */
 
 
+import android.os.Build;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
 import junit.framework.Assert;
 
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
+import org.junit.runner.RunWith;
 import org.junit.runner.notification.Failure;
+import org.robolectric.Robolectric;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import foi.hr.members.MembersActivity;
 
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertNull;
+import static junit.framework.Assert.assertTrue;
+
+@Config(constants = BuildConfig.class, sdk = Build.VERSION_CODES.LOLLIPOP)
+@RunWith(RobolectricTestRunner.class)
 public class ClassUnitTest {
-    public static void main(String[] args) {
-        Result result = JUnitCore.runClasses(FcmMessagingService.class);
+    private LoginActivity activity;
 
-        for (Failure failure : result.getFailures()) {
-            System.out.println(failure.toString());
-        }
-        Assert.assertNull(MembersActivity.addFragmentsToList());
 
-        System.out.println(result.wasSuccessful());
+    @Before
+    public void setup() {
+
+        activity = Robolectric.setupActivity(LoginActivity.class);
+    }
+
+
+    @Test
+    public void validateButton() {
+
+        Button login = (Button) activity.findViewById(R.id.btn_login);
+
+        assertNotNull("Button could not be found", login);
     }
 }

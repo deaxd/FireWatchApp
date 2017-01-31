@@ -3,8 +3,6 @@ package com.hfad.statistics.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +18,10 @@ import hr.foi.air.webservice.listeners.StatisticReceivedListener;
 
 /**
  * Created by Matija on 29/01/2017.
+ */
+
+/**
+ * Class used for displaying data in table form
  */
 
 public class TableFragment extends Fragment implements StatisticReceivedListener {

@@ -16,7 +16,7 @@ import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import hr.foi.air.database.database.entities.Organization;
-import hr.foi.air.webservice.Responses.NewEquipmentRequest;
+import com.hfad.equipment.NewEquipmentRequest;
 import hr.foi.air.webservice.WebServiceCaller;
 
 /**
@@ -83,6 +83,10 @@ public class EquipmentInputFragment extends Fragment {
 
     }
 
+    /**
+     * Method used for validating data used to add new equipment. It returns true if validated and false if wrong data is inputed
+     * @return
+     */
     private boolean validateInput() {
         NewEquipmentRequest nmr = new NewEquipmentRequest();
 
@@ -114,6 +118,9 @@ public class EquipmentInputFragment extends Fragment {
 
     }
 
+    /**
+     * Method used for swapping layouts by calling onNewEquipmentAdded() method
+     */
     private void swapLayouts(){
 
         newEquipmentAdded.onNewEquipmentAdded();

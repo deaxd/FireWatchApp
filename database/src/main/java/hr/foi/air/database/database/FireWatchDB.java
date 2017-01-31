@@ -6,6 +6,9 @@ import com.raizlabs.android.dbflow.annotation.Database;
  * Created by Denis on 13.11.2016..
  */
 
+/**
+ * Class containing essential database information
+ */
 
 @Database(name = FireWatchDB.NAME, version = FireWatchDB.VERSION)
 public class FireWatchDB {

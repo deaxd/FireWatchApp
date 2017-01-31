@@ -25,9 +25,7 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
-import hr.foi.air.database.database.entities.Intervention;
 import hr.foi.air.database.database.entities.User;
-import hr.foi.air.webservice.Responses.NewInterventionRequest;
 import hr.foi.air.webservice.WebServiceCaller;
 import hr.foi.air.webservice.listeners.InterventionClickListener;
 
@@ -118,7 +116,10 @@ public class InterventionSubmitFragment extends Fragment {
         }
     }
 
-
+    /**
+     * Method used for intervetion data input validation. If valid method returns true, if invalid false
+     * @return
+     */
 
     private boolean validateInput(){
         NewInterventionRequest nir = new NewInterventionRequest();
@@ -203,19 +204,16 @@ public class InterventionSubmitFragment extends Fragment {
     }
 
 
+    /**
+     * Method used for getting geo location data. At the moment inactive because it's not needed for the purposes of this application and its owner
+     */
     private void geoLoc(){
         //isGPSenabled =locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         //isNETWORKenabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
         if (isGPSenabled || isNETWORKenabled) {
             if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
+
                 Toast.makeText(mcontext,"Prvo uključite GPS ili mrežni promet",Toast.LENGTH_LONG).show();
 
             }
@@ -254,6 +252,10 @@ public class InterventionSubmitFragment extends Fragment {
         interventionClickListener = null;
     }
 
+    /**
+     * Method used for getting current time and date
+     * @return
+     */
     private String getDateTime() {
         SimpleDateFormat dateFormat = new SimpleDateFormat(
                 "yyyy-MM-dd HH:mm:ss", Locale.getDefault());

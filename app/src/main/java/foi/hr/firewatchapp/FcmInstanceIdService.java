@@ -1,8 +1,5 @@
 package foi.hr.firewatchapp;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 
@@ -10,8 +7,14 @@ import com.google.firebase.iid.FirebaseInstanceIdService;
  * Created by Matija on 24/01/2017.
  */
 
-public class FcmInstanceIdService extends FirebaseInstanceIdService {
+/**
+ * Class used for getting firebase token
+ */
 
+public class FcmInstanceIdService extends FirebaseInstanceIdService {
+    /**
+     * Method that saves token into shared preferences when token is refreshed
+     */
     @Override
     public void onTokenRefresh() {
 

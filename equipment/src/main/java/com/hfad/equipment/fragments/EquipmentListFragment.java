@@ -20,13 +20,13 @@ import java.util.List;
 import com.hfad.equipment.R;
 import hr.foi.air.database.database.entities.Equipment;
 import hr.foi.air.database.database.entities.Organization;
-import hr.foi.air.database.database.entities.User;
 import hr.foi.air.webservice.WebServiceCaller;
 import hr.foi.air.webservice.listeners.EquipmentReceivedListener;
 
 /**
  * Created by Matija on 28/01/2017.
  */
+
 
 public class EquipmentListFragment extends Fragment implements EquipmentReceivedListener {
 
@@ -61,14 +61,14 @@ public class EquipmentListFragment extends Fragment implements EquipmentReceived
         }
 
 
-
-        // TODO wsc.getEquipment(this);
-
         return view;
     }
 
 
-
+    /**
+     * Method that receives EquipmentList and sets equipment adapter
+     * @param equipmentList
+     */
     @Override
     public void onEquipmentFetched(List<Equipment> equipmentList) {
         hideProgress();

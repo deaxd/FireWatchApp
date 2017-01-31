@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -16,6 +15,10 @@ import hr.foi.air.database.database.entities.Equipment;
 
 /**
  * Created by Matija on 28/01/2017.
+ */
+
+/**
+ * Adapter used for display of essential equipment data
  */
 
 public class EquipmentAdapter extends RecyclerView.Adapter<EquipmentAdapter.ViewHolder> {

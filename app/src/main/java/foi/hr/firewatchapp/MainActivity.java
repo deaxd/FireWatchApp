@@ -13,12 +13,9 @@ import com.hfad.report.InterventionActivity;
 import com.hfad.statistics.StatisticsActivity;
 import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowManager;
-import com.raizlabs.android.dbflow.sql.language.SQLCondition;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
-import android.app.DownloadManager;
 import android.app.FragmentManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -37,7 +34,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.ButterKnife;
-import foi.hr.firewatchapp.helper.MockData;
 import foi.hr.members.MembersActivity;
 import hr.foi.air.database.database.entities.Organization;
 import hr.foi.air.database.database.entities.User;
@@ -48,7 +44,7 @@ public class MainActivity extends AppCompatActivity
         implements SharedPreferences.OnSharedPreferenceChangeListener, NavigationView.OnNavigationItemSelectedListener,
         FragmentManager.OnBackStackChangedListener, OrganizationReceivedListener {
 
-    // private DrawerLayout mDrawerLayout;
+
 
 
 
@@ -80,7 +76,6 @@ public class MainActivity extends AppCompatActivity
         long org = SQLite.select().from(Organization.class).query().getCount();
         if (org == 0) {
             User user = SQLite.select().from(User.class).querySingle();
-            System.out.println(user.getUserOib());
             WebServiceCaller webServiceCaller = new WebServiceCaller();
             webServiceCaller.getOrganization(user.getUserOib(), this);
         }
@@ -89,6 +84,10 @@ public class MainActivity extends AppCompatActivity
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                /**
+                 * Code used for sending firebase registration token to web server
+                 */
 
                 //SharedPreferences sharedPreferences=getApplicationContext().getSharedPreferences(getString(R.string.FCM_PREF), Context.MODE_PRIVATE);
                 //final String token = sharedPreferences.getString(getString(R.string.FCM_TOKEN),"");
@@ -109,7 +108,7 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public Map<String, String> getParams() throws AuthFailureError {
                         Map<String, String> params = new HashMap<String, String>();
-                        String recent_token = FirebaseInstanceId.getInstance().getToken();
+                        String token = FirebaseInstanceId.getInstance().getToken();
                         params.put("fcm_token", token);
 
                         return params;
@@ -160,18 +159,31 @@ public class MainActivity extends AppCompatActivity
         }
     };
 
+    /**
+     * Interface method for getting organization data from web server and saving them to local database
+     * @param organization
+     */
     @Override
     public void onOrganizationFetched(Organization organization) {
         organization.save();
-        System.out.println(organization.getName());
 
     }
 
+    /**
+     * Interface method for selecting navigation item
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return mToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Interface method used for handling navigation item selection and starting corresponding activity
+     * @param item
+     * @return
+     */
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
 

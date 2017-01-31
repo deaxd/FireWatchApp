@@ -18,8 +18,7 @@ import android.widget.Toast;
 import foi.hr.members.R;
 import foi.hr.members.listeners.FragmentActionListener;
 import hr.foi.air.database.database.entities.User;
-import hr.foi.air.webservice.Responses.NewMemberRequest;
-import hr.foi.air.webservice.WebService;
+import foi.hr.members.NewMemberRequest;
 import hr.foi.air.webservice.WebServiceCaller;
 
 public class NewMemberFragment extends Fragment {
@@ -90,6 +89,10 @@ public class NewMemberFragment extends Fragment {
         }
     }
 
+    /**
+     * Method used for validating input data. It returns true if input is valid and false if invalid
+     * @return
+     */
     private boolean validateInput() {
         NewMemberRequest nmr = new NewMemberRequest();
         if (!TextUtils.isEmpty(etOib.getText()) && etOib.getText().length() == 11) {
@@ -141,6 +144,9 @@ public class NewMemberFragment extends Fragment {
         return true;
     }
 
+    /**
+     * Method used for swapping layouts when new  member is addded using newMemberAddingFinished() method
+     */
     private void swapLayouts() {
         //After the request is completed
         fragmentActionListener.newMemberAddingFinished();

@@ -1,7 +1,11 @@
-package hr.foi.air.webservice.Responses;
+package foi.hr.members;
 
 
 import com.google.gson.annotations.SerializedName;
+
+/**
+ * Class used for handling NewMemberRequests
+ */
 
 public class NewMemberRequest {
 

@@ -1,19 +1,15 @@
 package com.hfad.report.adapters;
 
 
-import android.app.FragmentTransaction;
 import android.content.Context;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.hfad.core.CurrentActivity;
 import com.hfad.report.R;
 
-import butterknife.OnClick;
 import hr.foi.air.webservice.listeners.InterventionClickListener;
 
 import java.util.ArrayList;

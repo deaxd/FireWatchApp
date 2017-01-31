@@ -14,7 +14,10 @@ import com.google.firebase.messaging.RemoteMessage;
  */
 
 public class FcmMessagingService extends FirebaseMessagingService {
-
+    /**
+     * Method used for handling received firebase notifications. All parameters used for notification display including icon,content title and remote message content received from firebase console
+     * @param remoteMessage
+     */
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         String title = remoteMessage.getNotification().getTitle();
