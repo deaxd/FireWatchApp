@@ -19,10 +19,13 @@ if(isset($_POST['oib']) ){
     $query2 = "SELECT intervention.interventionId, intervention.alertNumber, 
         intervention.kindOfIntervention, intervention.address, intervention.initialTime, 
         intervention.duration, intervention.description, intervention.firemanOib, intervention.longitude, 
-        intervention.latitude FROM  intervention join fireman on intervention.firemanOib = 
+        intervention.latitude, intervention.members FROM  intervention join fireman on intervention.firemanOib = 
     fireman.oib and fireman.organizationId = '$org'";
     $interventions = $DB->selectDB($query2);
             
+    $query2 = "SELECT count( * ) FROM intervention WHERE firemanOib = '$fireman'";
+    $brojInt = $DB->selectDB($query2);
+    $broj = $brojInt->fetch_assoc();
     $send = array();
 
 
@@ -37,12 +40,16 @@ if(isset($_POST['oib']) ){
         $response['firemanOib'] = $intervention['firemanOib'];
         $response['longitude'] = $intervention['longitude'];
         $response['latitude'] = $intervention['latitude'];
+        $response['members'] = $intervention['members'];
+        
 
         array_push($send, $response);
     }
 
     $res['valid'] = true;
+    $res['numberOfInterventions'] = $broj;
     $res['interventions'] = $send;
+    
     echo json_encode($res);
 }
     
