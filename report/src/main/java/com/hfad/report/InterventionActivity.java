@@ -57,6 +57,10 @@ public class InterventionActivity extends AppCompatActivity implements Intervent
             }
         });
 
+        /**
+         * Initial fragment loaded is InterventionListFragment
+         */
+
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(R.id.fragment_container, fragmentList.get(0));
@@ -66,6 +70,9 @@ public class InterventionActivity extends AppCompatActivity implements Intervent
 
     }
 
+    /**
+     * Method used for handling action over floating action button. When clicked InterventionListFragment is replaced with InterventionSubmitFragment
+     */
     private void onFabClicked() {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
@@ -77,6 +84,9 @@ public class InterventionActivity extends AppCompatActivity implements Intervent
 
     }
 
+    /**
+     * Method used for adding fragments to fragment list, which is used for handling fragment replacement
+     */
     private void addFragmentToList() {
         IntervetionListFragment intervetionListFragment = new IntervetionListFragment();
         InterventionSubmitFragment interventionSubmitFragment = new InterventionSubmitFragment();
@@ -90,6 +100,10 @@ public class InterventionActivity extends AppCompatActivity implements Intervent
 
     }
 
+    /**
+     * Interface method used for handling on intervention clicked event. NEw instance of clicked intervetion is made and InterventionListFragment is replaced with InterventionDetailFragment
+     * @param intervention
+     */
     @Override
     public void onInterventionClicked(Intervention intervention) {
         FragmentManager fm = getSupportFragmentManager();
@@ -102,6 +116,9 @@ public class InterventionActivity extends AppCompatActivity implements Intervent
     }
 
 
+    /**
+     * Interface method for handling new intervention added event. Replaces InterventionSubmitFragment with InterventionListFragment
+     */
 
     @Override
     public void onNewInterventionAdded() {

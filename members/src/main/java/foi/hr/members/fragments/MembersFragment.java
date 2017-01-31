@@ -58,6 +58,10 @@ public class MembersFragment extends Fragment implements MembersReceivedListener
         return view;
     }
 
+    /**
+     * Interface method used for handling received member data. When data is received it sets the MembersAdapter
+     * @param firemanList
+     */
     @Override
     public void onMembersFetched(List<Fireman> firemanList) {
         hideProgress();

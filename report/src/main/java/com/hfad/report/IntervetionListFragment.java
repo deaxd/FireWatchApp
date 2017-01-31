@@ -59,15 +59,19 @@ public class IntervetionListFragment extends Fragment implements InterventionCli
         User user = SQLite.select().from(User.class).querySingle();
         if (user != null) {
             wsc.getInterventions(user.getUserOib(), this);
-            //showProgress();
+            showProgress();
         }
         return view;
 
     }
 
+    /**
+     * Interface method used for setting InterventionAdapter triggered by intervention fetched event
+     * @param interventionList
+     */
     @Override
     public void onInterventionsFetched(List<Intervention> interventionList) {
-        //hideProgress();
+        hideProgress();
         recyclerView.setAdapter(new InterventionAdapter(interventionList, getActivity(), this));
     }
 

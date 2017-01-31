@@ -4,6 +4,10 @@ package com.hfad.report;
  * Created by Matija on 26/01/2017.
  */
 
+/**
+ * Class used for handling new intervetion requests, regarding their submit to web database
+ */
+
 public class NewInterventionRequest {
 
     private String kindOfInt;
