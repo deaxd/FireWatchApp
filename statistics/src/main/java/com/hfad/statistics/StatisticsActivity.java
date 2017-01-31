@@ -61,6 +61,9 @@ public class StatisticsActivity extends AppCompatActivity {
         ft.commit();
     }
 
+    /**
+     * Method for handling floating action button click. When clicked TableFragment is replaced with GraphFragment
+     */
     private void onFabClicked() {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();

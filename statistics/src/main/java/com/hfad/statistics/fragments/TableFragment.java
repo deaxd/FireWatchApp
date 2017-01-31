@@ -20,6 +20,10 @@ import hr.foi.air.webservice.listeners.StatisticReceivedListener;
  * Created by Matija on 29/01/2017.
  */
 
+/**
+ * Class used for displaying data in table form
+ */
+
 public class TableFragment extends Fragment implements StatisticReceivedListener {
 
     private TextView tnumberMembers;

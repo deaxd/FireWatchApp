@@ -24,6 +24,10 @@ import java.util.List;
  * Created by Matija on 29/01/2017.
  */
 
+/**
+ * Fragment for displaying data in form of graph
+ */
+
 public class GraphFragment extends Fragment implements StatisticReceivedListener {
 
 
@@ -40,14 +44,17 @@ public class GraphFragment extends Fragment implements StatisticReceivedListener
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_graph, container, false);
 
-        //Loader loader = new Loader();
-        //tnumberMembers=loader.getNumMembers();
+
         WebServiceCaller wsc = new WebServiceCaller();
         User user = SQLite.select().from(User.class).querySingle();
         if (user != null) {
             wsc.getStatistics(user.getUserOib(), this);
             showProgress();
         }
+
+        /**
+         * Initializing empty data graph
+         */
 
         List<ChartData> value1 = new ArrayList<>();
 
@@ -83,6 +90,10 @@ public class GraphFragment extends Fragment implements StatisticReceivedListener
         tnumberVehicles=numberVehicles;
 
         hideProgress();
+
+        /**
+         * Filling chart data
+         */
 
         List<ChartData> value = new ArrayList<>();
         value.add(new ChartData(Float.valueOf(tnumberMembers),"Broj članova")); //values.add(new ChartData(Y,"Labels"));
