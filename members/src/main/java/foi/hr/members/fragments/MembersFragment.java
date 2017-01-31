@@ -90,7 +90,7 @@ public class MembersFragment extends Fragment implements MembersReceivedListener
         if (progressDialog == null || !progressDialog.isShowing()) {
             progressDialog = new MaterialDialog.Builder(getActivity())
                     .title(R.string.app_name)
-                    .content(R.string.please_wait)
+                    .content("Molimo pričekajte...")
                     .progress(true, 0)
                     .build();
             progressDialog.setCanceledOnTouchOutside(false);

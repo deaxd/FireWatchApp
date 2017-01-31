@@ -5,11 +5,19 @@
     android:layout_height="match_parent"
     tools:context="com.hfad.equipment.fragments.EquipmentInputFragment">
 
+    <ScrollView android:id="@+id/ScrollView01"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/eet_name"
@@ -46,5 +54,8 @@
         android:text="Save"
         android:textColor="@android:color/white"
         android:background="@android:color/holo_red_dark"/>
+        </LinearLayout>
+    </ScrollView>
+
 
     </RelativeLayout>

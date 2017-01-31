@@ -11,7 +11,8 @@
 
         <activity android:name=".MembersActivity"
             android:label="@string/member_name"
-            android:parentActivityName="foi.hr.firewatchapp.MainActivity" >
+            android:parentActivityName="foi.hr.firewatchapp.MainActivity"
+            android:screenOrientation="portrait">
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

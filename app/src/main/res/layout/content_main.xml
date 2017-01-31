@@ -30,16 +30,10 @@
             android:layout_height="200dp"
             android:layout_gravity="center"/>
 
-        <Button
-            android:text="SEND REG TOKEN"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tokbut"
-            android:layout_gravity="bottom"
-            android:layout_marginBottom="30dp"
-            android:textColor="@color/colorWhite"
-            android:background="@android:color/holo_red_dark"/>
+
 
     </FrameLayout>
+
+
 
 </RelativeLayout>

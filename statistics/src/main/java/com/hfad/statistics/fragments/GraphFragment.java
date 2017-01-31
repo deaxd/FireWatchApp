@@ -115,7 +115,7 @@ public class GraphFragment extends Fragment implements StatisticReceivedListener
         if (progressDialog == null || !progressDialog.isShowing()) {
             progressDialog = new MaterialDialog.Builder(getActivity())
                     .title(R.string.app_name)
-                    .content("Please Wait....")
+                    .content("Molimo pričekajte....")
                     .progress(true, 0)
                     .build();
             progressDialog.setCanceledOnTouchOutside(false);

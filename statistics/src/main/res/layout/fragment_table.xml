@@ -100,7 +100,7 @@
             android:paddingBottom="5dp">
 
             <TextView
-                android:text="Prosječan broj intervencija: "
+                android:text="Prosječno trajanje intervencija: "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimaryDark"/>
