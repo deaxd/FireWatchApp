@@ -1,7 +1,29 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.hfad.equipment">
 
     <application android:allowBackup="true" android:label="@string/app_name"
-        android:supportsRtl="true">
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <activity android:name=".EquipmentActivity"
+            android:label="@string/equip_name"
+            android:parentActivityName="foi.hr.firewatchapp.MainActivity"
+            android:screenOrientation="portrait">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="foi.hr.firewatchapp.MainActivity" />
+
+        </activity>>
+
+        <activity android:name=".VehicleActivity"
+            android:label="@string/vehicle_name"
+            android:parentActivityName="foi.hr.firewatchapp.MainActivity"
+            android:screenOrientation="portrait">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="foi.hr.firewatchapp.MainActivity" />
+        </activity>
 
     </application>
 

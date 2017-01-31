@@ -1,39 +1,45 @@
 package com.hfad.report;
 
 
-import com.hfad.core.NavItem;
-import com.hfad.core.ReadyForDataListener;
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.hfad.report.adapters.InterventionAdapter;
 
-import android.app.Fragment;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
+
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import adapters.InterventionRecyclerAdapter;
 import hr.foi.air.database.database.entities.Intervention;
+import hr.foi.air.database.database.entities.User;
+import hr.foi.air.webservice.WebServiceCaller;
+import hr.foi.air.webservice.listeners.InterventionClickListener;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class IntervetionListFragment extends Fragment implements NavItem {
+public class IntervetionListFragment extends Fragment implements InterventionClickListener {
 
-    private InterventionRecyclerAdapter adapter;
+    private RecyclerView recyclerView;
+    private MaterialDialog progressDialog;
 
-    private int position;
+   private InterventionClickListener interventionClickListener;
 
-    private String name = "Intervencije";
 
-    private ReadyForDataListener readyForDataListener;
-
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        interventionClickListener = (InterventionClickListener) context;
+    }
 
     public IntervetionListFragment() {
         // Required empty public constructor
@@ -44,54 +50,66 @@ public class IntervetionListFragment extends Fragment implements NavItem {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_intervetion_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_intervetion_list, container, false);
+
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_intervention);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        WebServiceCaller wsc = new WebServiceCaller();
+        User user = SQLite.select().from(User.class).querySingle();
+        if (user != null) {
+            wsc.getInterventions(user.getUserOib(), this);
+            showProgress();
+        }
+        return view;
+
     }
 
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        readyForDataListener.onReadyForData(this);
+    /**
+     * Interface method used for setting InterventionAdapter triggered by intervention fetched event
+     * @param interventionList
+     */
+    @Override
+    public void onInterventionsFetched(List<Intervention> interventionList) {
+        hideProgress();
+        recyclerView.setAdapter(new InterventionAdapter(interventionList, getActivity(), this));
     }
 
     @Override
-    public String getItemName() {
-        return name;
+    public void onInterventionClicked(Intervention intervention) {
+        interventionClickListener.onInterventionClicked(intervention);
     }
 
+
     @Override
-    public int getPosition() {
-        return position;
+    public void onError(String error) {showMessage(error);}
+
+    private void showMessage(String message) {
+        AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
+                .setTitle(R.string.app_name)
+                .setMessage(message)
+                .create();
+        alertDialog.show();
     }
 
-    @Override
-    public void setPosition(int position) {
-        this.position = position;
-    }
-
-    @Override
-    public Fragment getFragment() {
-        return this;
-    }
-
-    @Override
-    public Drawable getIcon(Context context) {
-        return null;
-    }
-
-    @Override
-    public void setReadyForDataListener(ReadyForDataListener readyForDataListener) {
-        this.readyForDataListener = readyForDataListener;
-    }
-
-    @Override
-    public void loadData(ArrayList<Intervention> interventions) {
-        List<Intervention> interventionItemList = new ArrayList<Intervention>();
-
-        RecyclerView mRecycler = (RecyclerView) getView().findViewById(R.id.recycler_intervention);
-
-        if (mRecycler != null) {
-            adapter = new InterventionRecyclerAdapter(interventionItemList, getActivity());
-            mRecycler.setAdapter(adapter);
-            mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
+    private void showProgress() {
+        if (progressDialog == null || !progressDialog.isShowing()) {
+            progressDialog = new MaterialDialog.Builder(getActivity())
+                    .title(R.string.app_name)
+                    .content("Molimo pričekajte....")
+                    .progress(true, 0)
+                    .build();
+            progressDialog.setCanceledOnTouchOutside(false);
+        }
+        if (!getActivity().isFinishing()) {
+            progressDialog.show();
         }
     }
+
+    private void hideProgress() {
+        if (progressDialog != null && progressDialog.isShowing() && !getActivity().isFinishing()) {
+            progressDialog.dismiss();
+        }
+    }
+
 }

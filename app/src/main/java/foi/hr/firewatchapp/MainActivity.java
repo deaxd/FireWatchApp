@@ -1,10 +1,22 @@
 package foi.hr.firewatchapp;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.hfad.core.CurrentActivity;
+import com.hfad.equipment.EquipmentActivity;
+import com.hfad.equipment.VehicleActivity;
+import com.hfad.report.InterventionActivity;
+import com.hfad.statistics.StatisticsActivity;
 import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowManager;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -16,15 +28,25 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.ButterKnife;
-import foi.hr.firewatchapp.helper.MockData;
+import foi.hr.members.MembersActivity;
+import hr.foi.air.database.database.entities.Organization;
+import hr.foi.air.database.database.entities.User;
+import hr.foi.air.webservice.WebServiceCaller;
+import hr.foi.air.webservice.listeners.OrganizationReceivedListener;
 
 public class MainActivity extends AppCompatActivity
         implements SharedPreferences.OnSharedPreferenceChangeListener, NavigationView.OnNavigationItemSelectedListener,
-        FragmentManager.OnBackStackChangedListener {
+        FragmentManager.OnBackStackChangedListener, OrganizationReceivedListener {
 
-    private DrawerLayout mDrawerLayout;
+
+
+
 
     private ActionBarDrawerToggle mToggle;
 
@@ -38,11 +60,65 @@ public class MainActivity extends AppCompatActivity
 
     private SharedPreferences mSharedPreferences;
 
+    Button button;
+    String app_server_url="http://127.0.0.1:8080/fcmtest/fcm_insert.php";
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         CurrentActivity.setActivity(this);
+
+        String recent_token = FirebaseInstanceId.getInstance().getToken();
+
+        long org = SQLite.select().from(Organization.class).query().getCount();
+        if (org == 0) {
+            User user = SQLite.select().from(User.class).querySingle();
+            WebServiceCaller webServiceCaller = new WebServiceCaller();
+            webServiceCaller.getOrganization(user.getUserOib(), this);
+        }
+
+        button = (Button) findViewById(R.id.tokbut);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                /**
+                 * Code used for sending firebase registration token to web server
+                 */
+
+                //SharedPreferences sharedPreferences=getApplicationContext().getSharedPreferences(getString(R.string.FCM_PREF), Context.MODE_PRIVATE);
+                //final String token = sharedPreferences.getString(getString(R.string.FCM_TOKEN),"");
+                final String token = android.preference.PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
+                        .getString(getString(R.string.FCM_TOKEN), "");
+
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, app_server_url, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }) {
+                    @Override
+                    public Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<String, String>();
+                        String token = FirebaseInstanceId.getInstance().getToken();
+                        params.put("fcm_token", token);
+
+                        return params;
+                    }
+                };
+
+                MySingleton.getmInsatnce(MainActivity.this).addToRequestque(stringRequest);
+            }
+        });
+
 
         ButterKnife.bind(this);
         FlowManager.init(new FlowConfig.Builder(this).build());
@@ -69,13 +145,6 @@ public class MainActivity extends AppCompatActivity
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        NavManager nm = NavManager.getInstance();
-        nm.setDependencies(this, mDrawer, mNavigationView, R.id.dynamic_group);
-        //nm.addItem( new IntervetionListFragment());
-
-        //nm.showDefaultFragment();
-
-        MockData.writeAll();
     }
 
 
@@ -90,19 +159,56 @@ public class MainActivity extends AppCompatActivity
         }
     };
 
-
+    /**
+     * Interface method for getting organization data from web server and saving them to local database
+     * @param organization
+     */
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (mToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
+    public void onOrganizationFetched(Organization organization) {
+        organization.save();
 
-        return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Interface method for selecting navigation item
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return mToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Interface method used for handling navigation item selection and starting corresponding activity
+     * @param item
+     * @return
+     */
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        NavManager.getInstance().selectNavigationItem(item);
+
+
+        int id = item.getItemId();
+
+        //to prevent current item select over and over
+        if (item.isChecked()) {
+            mDrawer.closeDrawer(GravityCompat.START);
+            return false;
+        }
+        if (id == R.id.int_activity) {
+            // Handle the camera action
+            startActivity(new Intent(getApplicationContext(), InterventionActivity.class));
+        } else if (id == R.id.members_activity) {
+            startActivity(new Intent(getApplicationContext(), MembersActivity.class));
+        } else if (id == R.id.equipment_activity){
+            startActivity(new Intent(getApplicationContext(), EquipmentActivity.class));
+        }   else if (id == R.id.vehicle_activity) {
+            startActivity(new Intent(getApplicationContext(), VehicleActivity.class));
+        }   else if (id == R.id.statistics_activity) {
+            startActivity(new Intent(getApplicationContext(), StatisticsActivity.class));
+        }
+
+        mDrawer.closeDrawer(GravityCompat.START);
         return true;
     }
 

@@ -18,6 +18,7 @@ import android.widget.Toast;
 import foi.hr.members.R;
 import foi.hr.members.listeners.FragmentActionListener;
 import hr.foi.air.database.database.entities.Fireman;
+import hr.foi.air.webservice.WebServiceCaller;
 
 
 public class MemberDetailsFragment extends Fragment {
@@ -118,14 +119,20 @@ public class MemberDetailsFragment extends Fragment {
         etUsername.setText(fireman.getUsername());
         etPassword.setText(fireman.getPassword());
         if (fireman.isLieutenant()) {
-            swtLieu.setActivated(true);
+            swtLieu.setChecked(true);
         } else {
-            swtLieu.setActivated(false);
+            swtLieu.setChecked(false);
         }
     }
 
     private void onSaveClicked() {
-        //TODO request call here to update the member
+        boolean checked = false;
+        if (swtLieu.isChecked()) checked = true;
+        WebServiceCaller webServiceCaller = new WebServiceCaller();
+        webServiceCaller.updateMember(etOib.getText().toString(), etName.getText().toString(),
+                etSurname.getText().toString(), etUsername.getText().toString(),
+                etPassword.getText().toString(), checked);
+
         fragmentActionListener.memberUpdateFinished();
     }
 }

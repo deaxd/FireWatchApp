@@ -1,6 +1,7 @@
 package foi.hr.members.fragments;
 
 
+import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import android.content.Context;
@@ -12,10 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import foi.hr.members.R;
 import foi.hr.members.listeners.FragmentActionListener;
-import hr.foi.air.webservice.Responses.NewMemberRequest;
+import hr.foi.air.database.database.entities.User;
+import foi.hr.members.NewMemberRequest;
+import hr.foi.air.webservice.WebServiceCaller;
 
 public class NewMemberFragment extends Fragment {
 
@@ -34,6 +38,8 @@ public class NewMemberFragment extends Fragment {
     private Button btnSave;
 
     private FragmentActionListener fragmentActionListener;
+
+    boolean checked = false;
 
     public NewMemberFragment() {
     }
@@ -71,42 +77,76 @@ public class NewMemberFragment extends Fragment {
     }
 
     private void onSaveClicked() {
-        validateInput();
-        swapLayouts();
+        if(validateInput()) {
+            swapLayouts();
 
+            User user = SQLite.select().from(User.class).querySingle();
+
+
+            WebServiceCaller webServiceCaller = new WebServiceCaller();
+            webServiceCaller.insertMember(user.getUserOib(), etOib.getText().toString(), etName.getText().toString(),
+                    etSurname.getText().toString(), etUsername.getText().toString(), etPassword.getText().toString(), checked);
+        }
     }
 
-    private void validateInput() {
+    /**
+     * Method used for validating input data. It returns true if input is valid and false if invalid
+     * @return
+     */
+    private boolean validateInput() {
         NewMemberRequest nmr = new NewMemberRequest();
         if (!TextUtils.isEmpty(etOib.getText()) && etOib.getText().length() == 11) {
             nmr.setOib(etOib.getText().toString());
+        } else {
+            Toast toast= Toast.makeText(getContext(),"Niste unijeli ispravan OIB",Toast.LENGTH_LONG);
+            toast.show();
+            return false;
         }
 
-        if (!TextUtils.isEmpty(etName.getText())) {
+        if (!TextUtils.isEmpty(etName.getText()) && etName.getText().length()!=0) {
             nmr.setName(etName.getText().toString());
+        } else {
+            Toast toast = Toast.makeText(getContext(), "Niste unijeli ispravno ime", Toast.LENGTH_LONG);
+            toast.show();
+            return false;
         }
 
-        if (!TextUtils.isEmpty(etSurname.getText())) {
+        if (!TextUtils.isEmpty(etSurname.getText()) && etSurname.getText().length()!=0) {
             nmr.setSurname(etSurname.getText().toString());
+        }   else {
+            Toast toast = Toast.makeText(getContext(), "Niste unijeli ispravno prezime", Toast.LENGTH_LONG);
+            toast.show();
+            return false;
         }
 
-        if (!TextUtils.isEmpty(etUsername.getText())) {
+        if (!TextUtils.isEmpty(etUsername.getText())&& etUsername.getText().length()!=0) {
             nmr.setUsername(etUsername.getText().toString());
+        } else {
+            Toast toast = Toast.makeText(getContext(), "Niste unijeli ispravno korisničko ime", Toast.LENGTH_LONG);
+            toast.show();
+            return false;
         }
 
-        if (!TextUtils.isEmpty(etPassword.getText())) {
+        if (!TextUtils.isEmpty(etPassword.getText())&& etPassword.getText().length()!=0) {
             nmr.setPassword(etPassword.getText().toString());
+        }   else {
+            Toast toast = Toast.makeText(getContext(), "Niste unijeli ispravnu lozinku", Toast.LENGTH_LONG);
+            toast.show();
+            return false;
         }
 
-        if (swtLieu.isActivated()) {
+        if (swtLieu.isChecked()) {
             nmr.setLieutenant(true);
+            checked = true;
         } else {
             nmr.setLieutenant(false);
         }
-
-        //TODO create a request to add a new member here.
+        return true;
     }
 
+    /**
+     * Method used for swapping layouts when new  member is addded using newMemberAddingFinished() method
+     */
     private void swapLayouts() {
         //After the request is completed
         fragmentActionListener.newMemberAddingFinished();

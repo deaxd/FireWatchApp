@@ -1,25 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="foi.hr.firewatchapp">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="foi.hr.firewatchapp">
+
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 
     <application
             android:allowBackup="true"
-            android:icon="@mipmap/ic_launcher"
+            tools:replace="android:icon,android:theme"
+            android:icon="@mipmap/ic_logo_firedep0"
             android:label="@string/app_name"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity
                 android:name=".LoginActivity"
-                android:windowSoftInputMode="adjustResize">
+                android:windowSoftInputMode="adjustResize"
+                android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".RegistrationActivity">
+
+        <service android:name=".FcmInstanceIdService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"></action>
+            </intent-filter>
+
+        </service>
+        <service android:name=".FcmMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"></action>
+            </intent-filter>
+
+        </service>
+
+        <activity android:name="com.hfad.report.InterventionActivity">
+        </activity>
+
+        <activity android:name="foi.hr.members.MembersActivity">
+        </activity>
+
+        <activity android:name="com.hfad.equipment.EquipmentActivity">
+        </activity>
+
+        <activity android:name="com.hfad.equipment.VehicleActivity">
         </activity>
     </application>
 

@@ -1,6 +1,7 @@
 package foi.hr.members.fragments;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import foi.hr.members.adapters.MembersAdapter;
 import foi.hr.members.listeners.FragmentActionListener;
 import foi.hr.members.listeners.MemberClickListener;
 import hr.foi.air.database.database.entities.Fireman;
+import hr.foi.air.database.database.entities.User;
 import hr.foi.air.webservice.WebServiceCaller;
 import hr.foi.air.webservice.listeners.MembersReceivedListener;
 
@@ -48,12 +50,18 @@ public class MembersFragment extends Fragment implements MembersReceivedListener
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         WebServiceCaller wsc = new WebServiceCaller();
-        //TODO swap this with a meaningful oib of a valid logged in user
-        wsc.getMembers("35468413516", this);
-        showProgress();
+        User user = SQLite.select().from(User.class).querySingle();
+        if (user != null) {
+            wsc.getMembers(user.getUserOib(), this);
+            showProgress();
+        }
         return view;
     }
 
+    /**
+     * Interface method used for handling received member data. When data is received it sets the MembersAdapter
+     * @param firemanList
+     */
     @Override
     public void onMembersFetched(List<Fireman> firemanList) {
         hideProgress();
@@ -82,7 +90,7 @@ public class MembersFragment extends Fragment implements MembersReceivedListener
         if (progressDialog == null || !progressDialog.isShowing()) {
             progressDialog = new MaterialDialog.Builder(getActivity())
                     .title(R.string.app_name)
-                    .content(R.string.please_wait)
+                    .content("Molimo pričekajte...")
                     .progress(true, 0)
                     .build();
             progressDialog.setCanceledOnTouchOutside(false);

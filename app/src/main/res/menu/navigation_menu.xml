@@ -1,13 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group
         android:id="@+id/dynamic_group"
         android:orderInCategory="0"
         android:checkableBehavior="single">
 
-    </group>
 
+    <item
+        android:icon="@drawable/ic_fire"
+        android:title="Intervencije"
+        android:id="@+id/int_activity" />
+
+        <item
+            android:icon="@drawable/ic_members"
+            android:title="Članovi"
+            android:id="@+id/members_activity"/>
+
+        <item android:title="Oprema"
+            android:icon="@drawable/ic_equipment"
+            android:id="@+id/equipment_activity"/>
+
+        <item android:title="Vozila"
+            android:icon="@drawable/ic_vehicles"
+            android:id="@+id/vehicle_activity"/>
+
+        <item android:title="Statistika"
+            android:icon="@drawable/ic_statistics"
+            android:id="@+id/statistics_activity" />
+
+    </group>
 
 
 </menu>

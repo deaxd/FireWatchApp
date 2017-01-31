@@ -1,5 +1,6 @@
 package com.hfad.report;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,53 +9,94 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import hr.foi.air.webservice.listeners.InterventionClickListener;
+
 import hr.foi.air.database.database.entities.Intervention;
 
 public class IntervetionDetailFragment extends Fragment {
 
+    public static final String EXTRA_INTERVENTION = "EXTRA_INTERVENTION";
+    private TextView txtType;
+    private TextView txtAddress;
 
-    public IntervetionDetailFragment(){
+    private TextView txtDuration;
+    private TextView txtDescription;
 
+
+    private TextView txtLongitude;
+    private TextView txtLatitude;
+    private TextView txtFireman;
+    private TextView txtVehicles;
+
+    private InterventionClickListener interventionClickListener;
+    private Intervention intervention;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        interventionClickListener = (InterventionClickListener) context;
+
+    }
+
+    public static IntervetionDetailFragment newInstance(Intervention intervention){
+
+        IntervetionDetailFragment intervetionDetailFragment = new IntervetionDetailFragment();
+
+        Bundle args = new Bundle();
+        args.putSerializable(EXTRA_INTERVENTION, intervention);
+        intervetionDetailFragment.setArguments(args);
+
+
+        return intervetionDetailFragment;
+    }
+
+    public IntervetionDetailFragment() {
     }
 
    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-       return inflater.inflate(R.layout.fragment_intervetion_detail, container, false);
+
+
+       View v = inflater.inflate(R.layout.fragment_intervetion_detail, container, false);
+
+        intervention = (Intervention) getArguments().getSerializable(EXTRA_INTERVENTION);
+
+
+
+       bindViews(v);
+
+       return v;
+
    }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState){
+    public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        TextView txtType = (TextView) getView().findViewById(R.id.type_of_int);
-        TextView txtAddress = (TextView) getView().findViewById(R.id.address_int);
-        TextView txtInitialTime = (TextView) getView().findViewById(R.id.initial_time_int);
-        TextView txtDuration = (TextView) getView().findViewById(R.id.duration_int);
-        TextView txtDescription = (TextView) getView().findViewById(R.id.description_int);
-        TextView txtLongitude = (TextView) getView().findViewById(R.id.longitude_int);
-        TextView txtLatitude = (TextView) getView().findViewById(R.id.latitude_int);
+        fillData();
+    }
 
-        // TODO check pulling a lists of firemans and vehicles on intervention
-        TextView txtFireman = (TextView) getView().findViewById(R.id.fireman_int);
-        TextView txtVehicles = (TextView) getView().findViewById(R.id.vehicles_int);
+    private void bindViews(View v) {
+        txtType = (TextView) v.findViewById(R.id.type_of_int);
+        txtAddress = (TextView) v.findViewById(R.id.address_int);
 
-        Bundle data = getArguments();
-        int interventionId = data.getInt("id", -1);
+        txtDuration = (TextView) v.findViewById(R.id.duration_int);
+        txtDescription = (TextView) v.findViewById(R.id.description_int);
 
-        if(interventionId != -1){
-            Intervention intervention = Intervention.getInterventionById(interventionId);
-
-            txtType.setText(intervention.getKindOfIntervention());
-            txtAddress.setText(intervention.getAddress());
-            txtInitialTime.setText(intervention.getInitialTIme());
-            txtDuration.setText(intervention.getDuration());
-            txtDescription.setText(intervention.getDescription());
-            //txtLongitude.setText(intervention.getLongitude());
-            //txtLatitude.setText(intervention.getLatitude());
-
-            //txtFireman.setText(intervention.getFiremansOnIntervention());
-            //txtVehicles.setText(intervention.getVehiclesOnIntervention());
-        }
 
     }
-}
+
+
+         private void fillData(){
+
+             txtType.setText(intervention.getKindOfIntervention());
+             txtAddress.setText(intervention.getAddress());
+
+             txtDuration.setText(intervention.getDuration().toString());
+             txtDescription.setText(intervention.getDescription().toString());
+
+
+        }
+
+
+    }

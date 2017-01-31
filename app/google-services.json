@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "67920030472",
+    "firebase_url": "https://firewatchapp.firebaseio.com",
+    "project_id": "firewatchapp",
+    "storage_bucket": "firewatchapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:67920030472:android:bd02219daca348f8",
+        "android_client_info": {
+          "package_name": "foi.hr.firewatchapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "67920030472-t7tc14jpajs0spfl2pvj2egttjhkonfb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "foi.hr.firewatchapp",
+            "certificate_hash": "520B8E90DB930D43491176A4DFE8625D887E9163"
+          }
+        },
+        {
+          "client_id": "67920030472-r4er3iqghvitgkausbod4nb3vdnrihkc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxZZxUM0o6cflhQDqNqflo9SGigWnjcZQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "67920030472-r4er3iqghvitgkausbod4nb3vdnrihkc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

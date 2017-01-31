@@ -16,34 +16,8 @@
         android:layout_alignParentStart="true"
         android:layout_marginLeft="23dp"
         android:layout_marginStart="23dp"
-        android:layout_marginTop="16dp"
-        android:layout_alignBottom="@+id/userName" />
+        android:layout_marginTop="16dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif"
-        android:textSize="18sp"
-        android:textStyle="normal|bold|italic"
-        android:textAlignment="center"
-        android:gravity="center"
-        android:id="@+id/fireDepartmentName"
-        android:layout_centerInParent="true"
-        android:layout_centerVertical="false"
-        android:text="DVD ..."
-        android:textColor="@color/colorWhite"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ime korisnika"
-        android:textColor="@color/colorWhite"
-        android:id="@+id/userName"
-        android:textSize="14sp"
-        android:paddingTop="10dp"
-        android:layout_below="@+id/fireDepartmentName"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:paddingRight="10dp" />
 
 </RelativeLayout>

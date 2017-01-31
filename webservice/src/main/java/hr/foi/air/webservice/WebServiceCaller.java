@@ -1,16 +1,22 @@
 package hr.foi.air.webservice;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import com.squareup.okhttp.OkHttpClient;
 
-import hr.foi.air.database.database.entities.Intervention;
-import hr.foi.air.database.database.entities.User;
+import hr.foi.air.webservice.Responses.EquipmentResponse;
 import hr.foi.air.webservice.Responses.InterventionResponse;
 import hr.foi.air.webservice.Responses.LoginResponse;
 import hr.foi.air.webservice.Responses.MembersResponse;
+import hr.foi.air.webservice.Responses.OrganizationResponse;
+import hr.foi.air.webservice.Responses.StatisticsResponse;
+import hr.foi.air.webservice.Responses.VehiclesResponse;
+import hr.foi.air.webservice.listeners.EquipmentReceivedListener;
+import hr.foi.air.webservice.listeners.InterventionClickListener;
+import hr.foi.air.webservice.listeners.LoginListener;
 import hr.foi.air.webservice.listeners.MembersReceivedListener;
+import hr.foi.air.webservice.listeners.OrganizationReceivedListener;
+import hr.foi.air.webservice.listeners.StatisticReceivedListener;
+import hr.foi.air.webservice.listeners.VehicleReceivedListener;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.GsonConverterFactory;
@@ -24,16 +30,9 @@ import retrofit.Retrofit;
 public class WebServiceCaller {
 
     Retrofit retrofit;
-
-    WebServiceHandler webServiceHandler;
-
     private final String baseUrl = "http://firewatch.esy.es/";
-
     private WebService webService;
 
-    public WebServiceCaller(WebServiceHandler webServiceHandler) {
-        this.webServiceHandler = webServiceHandler;
-    }
 
     public WebServiceCaller() {
 
@@ -46,98 +45,41 @@ public class WebServiceCaller {
         webService = retrofit.create(WebService.class);
     }
 
-    public void login(String username, String password) {
+    public void login(String username, String password, final LoginListener listener) {
         Call<LoginResponse> call = webService.login(username, password);
 
-        if (call != null) {
-            call.enqueue(new Callback<LoginResponse>() {
-                @Override
-                public void onResponse(retrofit.Response<LoginResponse> response, Retrofit retrofit) {
-                    try {
-                        if (response.isSuccess()) {
-                            handleLogin(response);
+        call.enqueue(new Callback<LoginResponse>() {
 
-                        } else {
-                            System.out.println("Wrong operation");
-                        }
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+            @Override
+            public void onResponse(retrofit.Response<LoginResponse> response, Retrofit retrofit) {
+                if(response.body().isValid()) {
+                    listener.onLogin(response.body().getUser());
                 }
-
-                @Override
-                public void onFailure(Throwable t) {
-                    t.printStackTrace();
-
-                }
-            });
-        }
-    }
-
-    private void handleLogin(retrofit.Response<LoginResponse> response) {
-        Gson gson = new GsonBuilder()
-                .setDateFormat("yyyy-MM-dd")
-                .create();
-
-        if (response.body().getValid()) {
-
-            User user = new User();
-
-            user.setUserOib(gson.fromJson(response.body().getUser().getUserOib(), String.class));
-            user.setUserName(gson.fromJson(response.body().getUser().getUserName(), String.class));
-            user.setUserSurname(gson.fromJson(response.body().getUser().getUserSurname(), String.class));
-            user.setUserUsername(gson.fromJson(response.body().getUser().getUserUsername(), String.class));
-            user.setUserPassword(gson.fromJson(response.body().getUser().getUserPassword(), String.class));
-            user.setUserOrganization(gson.fromJson(response.body().getUser().getUserOrganization(), String.class));
-            user.setUserLieutenant(gson.fromJson(response.body().getUser().getUserLieutenant(), String.class));
-            user.save();
-
-            if (webServiceHandler != null) {
-                webServiceHandler.onDataArrived(user, true);
             }
 
-        }
-
+            @Override
+            public void onFailure(Throwable t) {
+                t.printStackTrace();
+            }
+        });
     }
 
-
-    public void getInterventions(String oib) {
+    public void getInterventions(String oib, final InterventionClickListener listener) {
         Call<InterventionResponse> call = webService.getInterventions(oib);
 
-        if (call != null) {
-            call.enqueue(new Callback<InterventionResponse>() {
-                @Override
-                public void onResponse(retrofit.Response<InterventionResponse> response, Retrofit retrofit) {
-                    try {
-                        if (response.isSuccess()) {
-                            handleInterventions(response);
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
+        call.enqueue(new Callback<InterventionResponse>() {
+            @Override
+            public void onResponse(retrofit.Response<InterventionResponse> response, Retrofit retrofit) {
+                listener.onInterventionsFetched(response.body().getInterventionList());
+            }
 
-                @Override
-                public void onFailure(Throwable t) {
-                    t.printStackTrace();
+            @Override
+            public void onFailure(Throwable t) {
+                listener.onError(t.getMessage());
                 }
-            });
-        }
+        });
     }
 
-    public void handleInterventions(retrofit.Response<InterventionResponse> response) {
-        Gson gson = new GsonBuilder()
-                .setDateFormat("yyyy-MM-dd")
-                .create();
-
-        Intervention[] interventionList = gson.fromJson(response.body().getIntervention().toString(), Intervention[].class);
-        System.out.println(response.body().getIntervention());
-
-        if (webServiceHandler != null) {
-            webServiceHandler.onDataArrived(interventionList, true);
-        }
-    }
 
     public void getMembers(String oib, final MembersReceivedListener listener) {
         Call<MembersResponse> call = webService.getMembers(oib);
@@ -154,4 +96,149 @@ public class WebServiceCaller {
             }
         });
     }
+
+    public void getOrganization(String oib, final OrganizationReceivedListener listener){
+        Call<OrganizationResponse> call = webService.getOrganization(oib);
+
+        call.enqueue(new Callback<OrganizationResponse>() {
+            @Override
+            public void onResponse(Response<OrganizationResponse> response, Retrofit retrofit) {
+                listener.onOrganizationFetched(response.body().getOrganization());
+            }
+
+            @Override
+            public void onFailure(Throwable t) {t.printStackTrace();}
+        });
+    }
+
+    public void updateMember(String oib, String name, String surname, String username, String password, Boolean lieutenant){
+
+        Call<Void> call = webService.updateMember(oib, name, surname, username, password, lieutenant);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Response<Void> response, Retrofit retrofit) {}
+
+            @Override
+            public void onFailure(Throwable t) {}
+        });
+    }
+
+    public void insertMember(String userOib , String oib, String name, String surname, String username, String password, Boolean lieutenant){
+
+        Call<Void> call = webService.insertMember(userOib, oib, name, surname, username, password, lieutenant);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Response<Void> response, Retrofit retrofit) {}
+
+            @Override
+            public void onFailure(Throwable t) {}
+        });
+    }
+
+    public void insertIntervention(String oib, String alertNumber, String kindOfIntervention , String address, String initialTime , String duration, String description, double latitude, double longitude, String members){
+
+        Call<Void> call = webService.insertIntervention(oib, alertNumber, kindOfIntervention, address, initialTime, duration, description, latitude, longitude,members);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Response<Void> response, Retrofit retrofit) {
+
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+}
+        });
+    }
+
+    public void getEquipment(int organizationId, final EquipmentReceivedListener listener) {
+
+
+        Call<EquipmentResponse> call = webService.getEquipment(organizationId);
+
+        call.enqueue(new Callback<EquipmentResponse>() {
+            @Override
+            public void onResponse(Response<EquipmentResponse> response, Retrofit retrofit) {
+                listener.onEquipmentFetched(response.body().getEquipmentList());
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+
+    public void insertEquipment(String name, int quantity, int organizationId){
+
+        Call<Void> call = webService.insertEquipment(name, quantity, organizationId);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Response<Void> response, Retrofit retrofit) {
+
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
+        });
+
+    }
+
+    public void getVehicles(int organizationId, final VehicleReceivedListener listener) {
+
+        Call<VehiclesResponse> call = webService.getVehicles(organizationId);
+
+        call.enqueue(new Callback<VehiclesResponse>() {
+            @Override
+            public void onResponse(Response<VehiclesResponse> response, Retrofit retrofit) {
+                listener.onVehiclesFetched(response.body().getVehicleList());
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+
+    public void insertVehicle(String name, int seatNumber, int waterVolume, String kindOfVehicle, int organizationId){
+
+        Call<Void> call = webService.insertVehicle(name, seatNumber, waterVolume, kindOfVehicle, organizationId);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Response<Void> response, Retrofit retrofit) {
+
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
+        });
+    }
+
+    public void getStatistics (String oib, final StatisticReceivedListener listener){
+        Call<StatisticsResponse> call = webService.getStatistics(oib);
+
+        call.enqueue(new Callback<StatisticsResponse>() {
+            @Override
+            public void onResponse(Response<StatisticsResponse> response, Retrofit retrofit) {
+                listener.onStatisticReceived(response.body().getNumberMembers(), response.body().getNumberInterventions(), response.body().getNumberIntThisYear(),
+                        response.body().getNumberIntAvg(), response.body().getNumberVehicles());
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                t.printStackTrace();
+
+            }
+        });
+    }
+    
 }

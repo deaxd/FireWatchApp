@@ -1,154 +1,266 @@
 package com.hfad.report;
 
+import android.Manifest;
 import android.content.Context;
-import android.net.Uri;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.Toast;
 
-import hr.foi.air.database.database.entities.Intervention;
+import com.hfad.report.listeners.InterventionAddedListener;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
+import com.rengwuxian.materialedittext.MaterialEditText;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link InterventionSubmitFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link InterventionSubmitFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
+import hr.foi.air.database.database.entities.User;
+import hr.foi.air.webservice.WebServiceCaller;
+import hr.foi.air.webservice.listeners.InterventionClickListener;
+
+
 public class InterventionSubmitFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
 
 
-    private OnFragmentInteractionListener mListener;
+    private MaterialEditText kindOfInt;
+    private MaterialEditText adress;
+    private String initTime =getDateTime();
+    private MaterialEditText duration;
+    private MaterialEditText description;
+    private MaterialEditText members;
+    private MaterialEditText alertNumber;
+    boolean isGPSenabled=false;
+    boolean isNETWORKenabled=false;
+    Location location;
+    double latitude;
+    double longitude;
+
+    private Button btnSave;
+
+
+
+    Context mcontext= getContext();
+
+    protected LocationManager locationManager;
+
+    private InterventionClickListener interventionClickListener;
+    private InterventionAddedListener interventionAddedListener;
 
     public InterventionSubmitFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment InterventionSubmitFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static InterventionSubmitFragment newInstance(String param1, String param2) {
-        InterventionSubmitFragment fragment = new InterventionSubmitFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-
-
-
-        }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-       View v= inflater.inflate(R.layout.fragment_intervention_submit, container, false);
-
-        final EditText desc = (EditText) v.findViewById(R.id.opis_intervencije);
-        final String description = desc.getText().toString();
-
-        final EditText adresa = (EditText) v.findViewById(R.id.adresa_intervencije);
-        final String adress = adresa.getText().toString();
-
-        final EditText timel = (EditText) v.findViewById(R.id.vrijeme);
-        final String time = timel.getText().toString();
-
-        final EditText duratio = (EditText) v.findViewById(R.id.vrijeme);
-        final String duration = duratio.getText().toString();
-        final int fduration=Integer.parseInt(duration);
-
-        final EditText spec = (EditText) v.findViewById(R.id.vrsta_intervencije);
-        final String specs = spec.getText().toString();
-
-        final Button button = (Button) v.findViewById(R.id.predaj);
-
-        button.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Intervention intervention1  = new Intervention();
-                intervention1.setKindOfIntervention(specs);
-                intervention1.setAddress(adress);
-                intervention1.setInitialTIme(time);
-                intervention1.setDuration(fduration);
-                intervention1.setDescription(description);
-                intervention1.save();
-            }
-        });
-
-        return v;
-
-
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+        interventionClickListener = (InterventionClickListener) context;
+        interventionAddedListener = (InterventionAddedListener) context;
+
+
+    }
+
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        View v = inflater.inflate(R.layout.fragment_intervention_submit, container, false);
+        bindViews(v);
+
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onSaveClicked();
+            }
+        });
+
+        geoLoc();
+
+
+        return v;
+
+    }
+
+    private void bindViews(View v) {
+       kindOfInt = (MaterialEditText) v.findViewById(R.id.mt_kindoint);
+        adress = (MaterialEditText) v.findViewById(R.id.mt_adress);
+        duration = (MaterialEditText) v.findViewById(R.id.mt_duration);
+        description = (MaterialEditText) v.findViewById(R.id.mt_description);
+        members = (MaterialEditText) v.findViewById(R.id.mt_members);
+        alertNumber= (MaterialEditText) v.findViewById(R.id.mt_alertNumber);
+        btnSave = (Button) v.findViewById(R.id.btn_save);
+    }
+
+    private void onSaveClicked() {
+        if (validateInput()) {
+            swapLayouts();
+
+            User user = SQLite.select().from(User.class).querySingle();
+
+
+            WebServiceCaller webServiceCaller = new WebServiceCaller();
+            webServiceCaller.insertIntervention(user.getUserOib(), alertNumber.getText().toString(), kindOfInt.getText().toString(), adress.getText().toString(),
+                    initTime, duration.getText().toString(), description.getText().toString(), latitude, longitude, members.getText().toString());
         }
     }
+
+    /**
+     * Method used for intervetion data input validation. If valid method returns true, if invalid false
+     * @return
+     */
+
+    private boolean validateInput(){
+        NewInterventionRequest nir = new NewInterventionRequest();
+
+        if (!TextUtils.isEmpty(kindOfInt.getText()) && kindOfInt.getText().length()!=0) {
+            nir.setKindOfInt(kindOfInt.getText().toString());
+        } else {
+            Toast toast= Toast.makeText(getContext(),"Niste unijeli vrstu intervencije",Toast.LENGTH_LONG);
+            toast.show();
+            return false;
+        }
+
+        if (!TextUtils.isEmpty(adress.getText()) && adress.getText().length()!=0) {
+            nir.setAdress(adress.getText().toString());
+        }
+        else {
+            Toast toast= Toast.makeText(getContext(),"Niste unijeli adresu intervencije",Toast.LENGTH_LONG);
+            toast.show();
+            return false;
+        }
+
+
+        if (!TextUtils.isEmpty(duration.getText()) && duration.getText().length()!=0) {
+
+            try{
+                Integer.parseInt(duration.getText().toString());
+                nir.setDuration(duration.getText().toString());
+            }
+                catch (NumberFormatException e){
+                    Toast toast = Toast.makeText(getContext(), "Niste unijeli ispravno trajanje intervencije", Toast.LENGTH_LONG);
+                    toast.show();
+                    return false;
+                }
+
+        }    else {
+            Toast toast = Toast.makeText(getContext(), "Niste unijeli trajanje intervencije", Toast.LENGTH_LONG);
+            toast.show();
+            return false;
+        }
+
+        if (!TextUtils.isEmpty(description.getText())&& description.getText().length()!=0) {
+            nir.setDescription(description.getText().toString());
+        }   else {
+            Toast toast = Toast.makeText(getContext(), "Niste unijeli opis intervencije", Toast.LENGTH_LONG);
+            toast.show();
+            return false;
+        }
+
+        if (!TextUtils.isEmpty(members.getText()) && members.getText().length()!=0) {
+            nir.setMembers(members.getText().toString());
+        } else {
+            Toast toast = Toast.makeText(getContext(), "Niste unijeli članove koji su sudjelovali na intervenciji", Toast.LENGTH_LONG);
+            toast.show();
+            return false;
+        }
+
+        if (!TextUtils.isEmpty(alertNumber.getText())&& alertNumber.getText().length()!=0) {
+
+            try{
+                Integer.parseInt(alertNumber.getText().toString());
+                nir.setMembers(alertNumber.getText().toString());
+            } catch (NumberFormatException e) {
+                Toast toast = Toast.makeText(getContext(), "Niste unijeli ispravan broj intervencije", Toast.LENGTH_LONG);
+                toast.show();
+                return false;
+            }
+            } else {
+            Toast toast = Toast.makeText(getContext(), "Niste unijelibroj intervencije", Toast.LENGTH_LONG);
+            toast.show();
+            return false;
+            }
+
+
+
+
+
+            nir.setLatitude(latitude);
+            nir.setLongitude(longitude);
+            nir.setInitTime(initTime);
+
+        return true;
+    }
+
+
+    /**
+     * Method used for getting geo location data. At the moment inactive because it's not needed for the purposes of this application and its owner
+     */
+    private void geoLoc(){
+        //isGPSenabled =locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        //isNETWORKenabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+        if (isGPSenabled || isNETWORKenabled) {
+            if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
+
+                Toast.makeText(mcontext,"Prvo uključite GPS ili mrežni promet",Toast.LENGTH_LONG).show();
+
+            }
+            if(isGPSenabled){
+                location = locationManager
+                        .getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                latitude = location.getLatitude();
+                longitude = location.getLongitude();
+            }
+            else if (isNETWORKenabled){
+                location = locationManager
+                        .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                latitude = location.getLatitude();
+                longitude = location.getLongitude();
+            }
+        }
+        else {
+            latitude=0.0;
+            longitude=0.0;
+        }
+    }
+
+
+         private void swapLayouts(){
+            interventionAddedListener.onNewInterventionAdded();
+         }
+
+
+
+
+
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        interventionClickListener = null;
     }
 
     /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
+     * Method used for getting current time and date
+     * @return
      */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+    private String getDateTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        Date date = new Date();
+        return dateFormat.format(date);
     }
+
 }

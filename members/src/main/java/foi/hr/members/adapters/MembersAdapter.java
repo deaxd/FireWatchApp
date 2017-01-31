@@ -39,14 +39,6 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.ViewHold
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.memberName.setText(memberList.get(position).getName());
         holder.memberUsername.setText(memberList.get(position).getUsername());
-
-        //TODO if image is ever supported in members list
-        /*
-        Glide.with(context)
-                .load(memberList.get(position).getImageUrl())
-                .into(holder.memberPhoto);
-                */
-
     }
 
     @Override
