@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.hfad.statistics.R;
+import com.hfad.statistics.StasticsInterface;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 import hr.foi.air.database.database.entities.User;
@@ -28,7 +29,7 @@ import java.util.List;
  * Fragment for displaying data in form of graph
  */
 
-public class GraphFragment extends Fragment implements StatisticReceivedListener {
+public class GraphFragment extends Fragment implements StasticsInterface {
 
 
     private int tnumberMembers;
@@ -45,12 +46,6 @@ public class GraphFragment extends Fragment implements StatisticReceivedListener
         View view = inflater.inflate(R.layout.fragment_graph, container, false);
 
 
-        WebServiceCaller wsc = new WebServiceCaller();
-        User user = SQLite.select().from(User.class).querySingle();
-        if (user != null) {
-            wsc.getStatistics(user.getUserOib(), this);
-            showProgress();
-        }
 
         /**
          * Initializing empty data graph
@@ -81,7 +76,7 @@ public class GraphFragment extends Fragment implements StatisticReceivedListener
 
 
     @Override
-    public void onStatisticReceived(int numberMembers, int numberInterventions, int numberIntThisYear, double numberIntAvg, int numberVehicles) {
+    public void Statisticshow(int numberMembers, int numberInterventions, int numberIntThisYear, double numberIntAvg, int numberVehicles) {
 
 
         tnumberMembers=numberMembers;

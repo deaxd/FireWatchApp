@@ -10,9 +10,11 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.hfad.statistics.R;
+import com.hfad.statistics.StasticsInterface;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 import hr.foi.air.database.database.entities.User;
+import hr.foi.air.webservice.Responses.StatisticsResponse;
 import hr.foi.air.webservice.WebServiceCaller;
 import hr.foi.air.webservice.listeners.StatisticReceivedListener;
 
@@ -24,7 +26,7 @@ import hr.foi.air.webservice.listeners.StatisticReceivedListener;
  * Class used for displaying data in table form
  */
 
-public class TableFragment extends Fragment implements StatisticReceivedListener {
+public class TableFragment extends Fragment implements StasticsInterface {
 
     private TextView tnumberMembers;
     private TextView tnumberInterventions;
@@ -49,13 +51,6 @@ public class TableFragment extends Fragment implements StatisticReceivedListener
         tnumberIntAvg = (TextView) view.findViewById(R.id.stv_int_avg);
         tnumberVehicles = (TextView) view.findViewById(R.id.stv_number_vehicles);
 
-        WebServiceCaller wsc = new WebServiceCaller();
-        User user = SQLite.select().from(User.class).querySingle();
-        if (user != null) {
-            wsc.getStatistics(user.getUserOib(), this);
-            showProgress();
-        }
-
 
 
         return view;
@@ -63,19 +58,15 @@ public class TableFragment extends Fragment implements StatisticReceivedListener
 
 
     }
-
-
-
-
-    @Override
-    public void onStatisticReceived(int numberMembers, int numberInterventions, int numberIntThisYear, double numberIntAvg, int numberVehicles) {
-            tnumberMembers.setText(String.valueOf(numberMembers));
-            tnumberInterventions.setText(String.valueOf(numberInterventions));
-            tnumberIntThisYear.setText(String.valueOf(numberIntThisYear));
-            tnumberIntAvg.setText(String.valueOf(numberIntAvg));
-            tnumberVehicles.setText(String.valueOf(numberVehicles));
-            hideProgress();
-            }
+@Override
+public void Statisticshow(int numberMembers, int numberInterventions, int numberIntThisYear, double numberIntAvg, int numberVehicles)
+    {
+    tnumberMembers.setText(String.valueOf(numberMembers));
+    tnumberInterventions.setText(String.valueOf(numberInterventions));
+    tnumberIntThisYear.setText(String.valueOf(numberIntThisYear));
+    tnumberIntAvg.setText(String.valueOf(numberIntAvg));
+    tnumberVehicles.setText(String.valueOf(numberVehicles));
+}
 
 
     private void showProgress() {
@@ -97,6 +88,10 @@ public class TableFragment extends Fragment implements StatisticReceivedListener
             progressDialog.dismiss();
         }
     }
+
+
+
+
 
 
 }

@@ -12,15 +12,22 @@ import android.widget.FrameLayout;
 import java.util.ArrayList;
 import java.util.List;
 import android.support.design.widget.FloatingActionButton;
+import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.hfad.statistics.fragments.GraphFragment;
 import com.hfad.statistics.fragments.TableFragment;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
+
+import hr.foi.air.database.database.entities.User;
+import hr.foi.air.webservice.WebServiceCaller;
+import hr.foi.air.webservice.listeners.StatisticReceivedListener;
 
 /**
  * Created by Matija on 29/01/2017.
  */
 
-public class StatisticsActivity extends AppCompatActivity {
+public class StatisticsActivity extends AppCompatActivity implements StatisticReceivedListener{
 
     private FrameLayout fragmentContainer;
 
@@ -30,11 +37,28 @@ public class StatisticsActivity extends AppCompatActivity {
 
     private List<Fragment> fragmentList = new ArrayList<>();
 
+    private int tnumberMembers;
+    private int tnumberInterventions;
+    private int tnumberIntThisYear;
+    private double tnumberIntAvg;
+    private int tnumberVehicles;
+
+    StasticsInterface listener;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics);
 
+
+        WebServiceCaller wsc = new WebServiceCaller();
+        User user = SQLite.select().from(User.class).querySingle();
+        if (user != null) {
+            wsc.getStatistics(user.getUserOib(), this);
+
+        }
 
         memToolbar = (Toolbar) findViewById(R.id.mem_toolbar);
         setSupportActionBar(memToolbar);
@@ -42,7 +66,7 @@ public class StatisticsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        addFragmentsToList();
+            addFragmentsToList();
 
         fragmentContainer = (FrameLayout) findViewById(R.id.fragment_container);
         fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -64,6 +88,24 @@ public class StatisticsActivity extends AppCompatActivity {
     /**
      * Method for handling floating action button click. When clicked TableFragment is replaced with GraphFragment
      */
+    @Override
+    public void onStatisticReceived(int numberMembers, int numberInterventions, int numberIntThisYear, double numberIntAvg, int numberVehicles) {
+        tnumberMembers = numberMembers;
+        tnumberInterventions = numberInterventions;
+        tnumberIntThisYear = numberIntThisYear;
+        tnumberIntAvg = numberIntAvg;
+        tnumberVehicles = numberVehicles;
+        sendData(listener);
+    }
+
+
+    private void sendData(StasticsInterface listener){
+
+        listener.Statisticshow(tnumberMembers, tnumberInterventions, tnumberIntThisYear,tnumberIntAvg, tnumberVehicles);
+
+
+
+    }
     private void onFabClicked() {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
@@ -94,5 +136,6 @@ public class StatisticsActivity extends AppCompatActivity {
             finish();
         }
     }
+
 
 }
