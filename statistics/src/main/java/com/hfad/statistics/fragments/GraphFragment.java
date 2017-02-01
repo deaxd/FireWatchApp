@@ -67,23 +67,6 @@ public class GraphFragment extends Fragment implements StasticsInterface {
 
         barChart.setDescription("Statistika");
 
-
-
-
-        return view;
-
-    }
-
-
-    @Override
-    public void Statisticshow(int numberMembers, int numberInterventions, int numberIntThisYear, double numberIntAvg, int numberVehicles) {
-
-
-        tnumberMembers=numberMembers;
-        tnumberInterventions=numberInterventions;
-        tnumberIntThisYear=numberIntThisYear;
-        tnumberVehicles=numberVehicles;
-
         hideProgress();
 
         /**
@@ -99,11 +82,28 @@ public class GraphFragment extends Fragment implements StasticsInterface {
         barChart.setData(value);
 
         barChart.setGesture(true);
-        
+
         barChart.setLeft(1);
 
 
         barChart.setDescription("Statistika");
+
+
+        return view;
+
+    }
+
+
+    @Override
+    public Fragment Statisticshow(int numberMembers, int numberInterventions, int numberIntThisYear, double numberIntAvg, int numberVehicles) {
+
+
+        tnumberMembers=numberMembers;
+        tnumberInterventions=numberInterventions;
+        tnumberIntThisYear=numberIntThisYear;
+        tnumberVehicles=numberVehicles;
+
+        return this;
     }
 
     private void showProgress() {

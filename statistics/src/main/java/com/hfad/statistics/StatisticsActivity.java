@@ -78,11 +78,7 @@ public class StatisticsActivity extends AppCompatActivity implements StatisticRe
             }
         });
 
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.fragment_container, fragmentList.get(0));
-        ft.addToBackStack(null);
-        ft.commit();
+
     }
 
     /**
@@ -91,25 +87,31 @@ public class StatisticsActivity extends AppCompatActivity implements StatisticRe
     @Override
     public void onStatisticReceived(int numberMembers, int numberInterventions, int numberIntThisYear, double numberIntAvg, int numberVehicles) {
 
+        tnumberMembers=numberMembers;
+        tnumberInterventions=numberInterventions;
+        tnumberIntThisYear=numberIntThisYear;
+        tnumberIntAvg= numberIntAvg;
+        tnumberVehicles=numberVehicles;
 
-        listener.Statisticshow(numberMembers
-                , numberInterventions, numberIntThisYear, numberIntAvg, numberVehicles);
+        listener = new TableFragment();
 
-    }
-
-
-    private void sendData(StasticsInterface listener){
-
-
-
-
-    }
-    private void onFabClicked() {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.fragment_container, fragmentList.get(1));
+        ft.replace(R.id.fragment_container, listener.Statisticshow(tnumberMembers,tnumberInterventions,tnumberIntThisYear,tnumberIntAvg,tnumberVehicles));
         ft.addToBackStack(null);
         ft.commit();
+
+    }
+
+
+    private void onFabClicked() {
+        listener = new GraphFragment();
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.fragment_container, listener.Statisticshow(tnumberMembers,tnumberInterventions,tnumberIntThisYear,tnumberIntAvg,tnumberVehicles));
+        ft.addToBackStack(null);
+        ft.commit();
+
 
         fab.setVisibility(View.GONE);
     }

@@ -34,6 +34,11 @@ public class TableFragment extends Fragment implements StasticsInterface {
     private TextView tnumberIntAvg;
     private TextView tnumberVehicles;
     private  MaterialDialog progressDialog;
+    private int numberMembers;
+    private int numberInterventions;
+    private int numberIntThisYear;
+    private double numberIntAvg;
+    private int numberVehicles;
 
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -52,6 +57,11 @@ public class TableFragment extends Fragment implements StasticsInterface {
         tnumberVehicles = (TextView) view.findViewById(R.id.stv_number_vehicles);
 
 
+        tnumberMembers.setText(String.valueOf(numberMembers));
+        tnumberInterventions.setText(String.valueOf(numberInterventions));
+        tnumberIntThisYear.setText(String.valueOf(numberIntThisYear));
+        tnumberIntAvg.setText(String.valueOf(numberIntAvg));
+        tnumberVehicles.setText(String.valueOf(numberVehicles));
 
         return view;
 
@@ -59,13 +69,14 @@ public class TableFragment extends Fragment implements StasticsInterface {
 
     }
 @Override
-public void Statisticshow(int numberMembers, int numberInterventions, int numberIntThisYear, double numberIntAvg, int numberVehicles)
+public Fragment Statisticshow(int numberMembers, int numberInterventions, int numberIntThisYear, double numberIntAvg, int numberVehicles)
     {
-    tnumberMembers.setText(String.valueOf(numberMembers));
-    tnumberInterventions.setText(String.valueOf(numberInterventions));
-    tnumberIntThisYear.setText(String.valueOf(numberIntThisYear));
-    tnumberIntAvg.setText(String.valueOf(numberIntAvg));
-    tnumberVehicles.setText(String.valueOf(numberVehicles));
+        this.numberMembers = numberMembers;
+        this.numberInterventions = numberInterventions;
+        this.numberIntThisYear = numberIntThisYear;
+        this.numberIntAvg = numberIntAvg;
+        this.numberVehicles = numberVehicles;
+        return this;
 }
 
 
