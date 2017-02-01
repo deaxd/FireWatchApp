@@ -90,18 +90,16 @@ public class StatisticsActivity extends AppCompatActivity implements StatisticRe
      */
     @Override
     public void onStatisticReceived(int numberMembers, int numberInterventions, int numberIntThisYear, double numberIntAvg, int numberVehicles) {
-        tnumberMembers = numberMembers;
-        tnumberInterventions = numberInterventions;
-        tnumberIntThisYear = numberIntThisYear;
-        tnumberIntAvg = numberIntAvg;
-        tnumberVehicles = numberVehicles;
-        sendData(listener);
+
+
+        listener.Statisticshow(numberMembers
+                , numberInterventions, numberIntThisYear, numberIntAvg, numberVehicles);
+
     }
 
 
     private void sendData(StasticsInterface listener){
 
-        listener.Statisticshow(tnumberMembers, tnumberInterventions, tnumberIntThisYear,tnumberIntAvg, tnumberVehicles);
 
 
 
